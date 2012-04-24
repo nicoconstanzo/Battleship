@@ -1,12 +1,8 @@
-@(username: String)(content: Html)
-
 <!doctype html>
-<html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -19,10 +15,9 @@
 
     <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Press+Start+2P" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/style.css")">
+    <link rel="stylesheet" href="../../public/stylesheets/style.css">
 
-    <!--<script type="text/javascript" src="@routes.Assets.at("javascripts/libs/modernizr-2.5.3.min.js")"></script>-->
-
+    <script src="../../public/javascripts/libs/modernizr-2.5.3.min.js"></script>
 </head>
 <body class="index pinstripe">
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
@@ -36,27 +31,24 @@
                 <!--inner layout starts here-->
 
                 <div id="wraparound">
-                    <!--Wraparound effect for CSS-->
                     <div id="header">
                         <!--Header starts here-->
                         <div class="wrapper">
                             <div id="logo">
                                 <h1>
-                                    <a href="@routes.Application.index()">BOOM BOOM Splash!</a>
+                                    <!--TODO agregar el href-->
+                                    <a href="">BOOM BOOM Splash!</a>
                                 </h1>
                             </div>
                             <nav id="nav">
-
                                 <!--Navigation bar starts here-->
                                 <ul>
                                     <li>
-                                        <a href="#">About the game</a>
-                                    </li>
-
-                                    <li>
                                         <a href="#">Play!</a>
                                     </li>
-
+                                    <li>
+                                        <a href="#">About the game</a>
+                                    </li>
                                     <li>
                                         <a href="#">My Stats</a>
                                     </li>
@@ -66,23 +58,31 @@
                                     <li>
                                         <a href="#">Sign Out</a>
                                     </li>
-
-
                                 </ul>
                             </nav>
                             <!--Navigation bar ends here-->
-
                         </div>
                     </div>
                     <!--Header ends here-->
                 </div>
-                <!--End of wraparound-->
 
 
 
-                <div>
-                    @content
-                </div>
+
+
+
+                <section id="login" class="layout">
+                    <form id="loginForm">
+                        <fieldset>
+                            <legend>Enter your credentials soldier</legend>
+                            <label for="username">Username</label>
+                            <input type="text" name="username"> </br>
+                            <label for="password">Password</label>
+                            <input type="password" name="password"> </br>
+                            <button type="submit">Log In</button>
+                        </fieldset>
+                    </form>
+                </section>
 
                 <section class="layout">
                     <!--footer starts here-->

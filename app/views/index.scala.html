@@ -1,7 +1,25 @@
-@(message: String)
 
-@main("Welcome to Play 2.0") {
-    
-    @play20.welcome(message, style = "Java")
-    
+@main(null) {
+    @if(flash.containsKey("error")) {
+        <div>
+            <p>
+            <strong>Oops!</strong> @flash.get("error")
+            </p>
+        </div>
+        }
+
+
+
+    <section id="login" class="layout">
+                    <form id="loginForm" action="@routes.Application.waitingRoom()">
+                        <fieldset>
+                            <legend>Enter your credentials soldier</legend>
+                            <label for="login_username">Username</label>
+                            <input type="text" id="login_username"> </br>
+                            <!--<label for="login_password">Password</label>-->
+                            <!--<input type="password" id="login_password"> </br>-->
+                            <button type="submit">Log In</button>
+                        </fieldset>
+                    </form>
+                </section>
 }
