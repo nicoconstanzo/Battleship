@@ -1,5 +1,7 @@
 package controllers;
 
+import models.ConnectionHandler;
+import org.codehaus.jackson.JsonNode;
 import play.*;
 import play.mvc.*;
 
@@ -14,6 +16,10 @@ public class Application extends Controller {
     return ok(index.render());
   }
 
+
+/*
+*  Display the waiting room page.
+*/
   public static Result waitingRoom(String username) {
       if (username == null || username.trim().equals("")) {
           flash("error", "Invalid username.");
@@ -21,5 +27,21 @@ public class Application extends Controller {
       }
       return ok(waitingRoom.render(username));
   }
-  
+
+   /*Web Socket handling*/
+
+   public static WebSocket<JsonNode> game(final String username) {
+           return new WebSocket<JsonNode>() {
+
+               // Called when the WebSocket Handshake is done.
+               public void onReady(WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out) {
+                   // Join the user to the Game.
+                   try {
+                       ConnectionHandler.join(username, in, out);
+                   } catch (Exception ex) {
+                       ex.printStackTrace();
+                   }
+               }
+           };
+       }
 }
