@@ -45,13 +45,13 @@ public class Game {
     }
 
     private void notifyStart() {
-        message(getCurrentPlayer(), "start", "Let's play WHO IS WHO, you are playing against " + getAlternative().getUsername());
-        message(getAlternative(), "start", "Let's play WHO IS WHO, you are playing against " + getCurrentPlayer().getUsername());
+        message(getCurrentPlayer(), "start", "Let's play Boom Boom Splash, you are playing against " + getAlternative().getUsername());
+        message(getAlternative(), "start", "Let's play Boom Boom Splash, you are playing against " + getCurrentPlayer().getUsername());
     }
 
     private void notifyTurn() {
         if (currentState == TurnState.ASKING) {
-            message(getCurrentPlayer(), "ask", "It's your turn, Ask a question.");
+            message(getCurrentPlayer(), "Fire", "It's your turn, Fire.");
             message(getAlternative(), "wait", "Other player's turn!");
         } else {
             message(getAlternative(), "answer", "Answer the question.");

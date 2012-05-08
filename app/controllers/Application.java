@@ -25,11 +25,18 @@ public class Application extends Controller {
           flash("error", "Invalid username.");
           return redirect(routes.Application.index());
       }
-      return ok(waitingRoom.render(username));
+      return ok(waitingRoom.render());
+  }
+
+  public static Result battleshipRoom() {
+//      if (username == null || username.trim().equals("")) {
+//          flash("error", "Invalid username.");
+//          return redirect(routes.Application.index());
+//      }
+      return ok(battleshipRoom.render());
   }
 
    /*Web Socket handling*/
-
    public static WebSocket<JsonNode> game(final String username) {
            return new WebSocket<JsonNode>() {
 
