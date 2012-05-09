@@ -1,7 +1,4 @@
-/**
- * User: Mart0
- * Date: 4/30/12
- */
+
 var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
 var WSPath = $("#WSocketPath").val();
 var chatSocket = new WS(WSPath);
@@ -12,11 +9,7 @@ function sendMessage(type) {
     chatSocket.send(JSON.stringify(
         {
             type:type,
-            text:$("#talk").val(),
-            questionAbout:qAbout,
-            questionValue:qValue,
-            questionString:qString,
-            answer:qAnswer
+            text:$("#talk").val()
         }
     ))
     ;
@@ -76,27 +69,6 @@ function handleReturnKey(e) {
         e.preventDefault();
         sendMessage("chat");
     }
-}
-
-function getServerInfo() {
-    sendMessage("serverInfo");
-}
-
-var qAbout;
-var qValue;
-var qString;
-function askQuestion() {
-    var question = $("#askQuestions").val().split(",");
-    qAbout = $("#questionAbout").val();
-    qValue = question[0];
-    qString = question[1];
-    sendMessage("question");
-}
-
-var qAnswer;
-function answerQuestion(answer) {
-    qAnswer = answer;
-    sendMessage("answer");
 }
 
 

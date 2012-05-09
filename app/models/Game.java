@@ -28,6 +28,29 @@ public class Game {
         notifyTurn();
     }
 
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setPlayerOne(Player playerOne) {
+        this.playerOne = playerOne;
+        message(playerOne, "wait", "Waiting for other player to join.....");
+    }
+
+    public void setPlayerTwo(Player playerTwo) {
+        this.playerTwo = playerTwo;
+    }
+
+    public boolean isPlayerOneDefined() {
+        return playerOne != null;
+    }
+
+
+    public boolean isPlayerTwoDefined() {
+        return playerTwo != null;
+    }
+
+
     private void setRandomTurn() {
         Random turnRoller = new Random();
         int roll = turnRoller.nextInt(2) + 1;
@@ -36,13 +59,10 @@ public class Game {
     }
 
     private void generateDefaultStrategies() {
-//        todo Implement player card picking...
+//        TODO implement strategy of ships
     }
 
-    public void setPlayerA(Player playerOne) {
-        this.playerOne = playerOne;
-        message(playerOne, "wait", "Waiting for other player to join.....");
-    }
+
 
     private void notifyStart() {
         message(getCurrentPlayer(), "start", "Let's play Boom Boom Splash, you are playing against " + getAlternative().getUsername());
@@ -58,25 +78,6 @@ public class Game {
         }
     }
 
-    private void AskCalculation(Player player, String questionAbout, String questionValue, String questionString) {
-        if (questionAbout.equals("") || questionValue.equals("") || questionString.equals("")) {
-            message(player, "mistake", "Please, Choose valid question and then Press ASK button");
-        } else {
-            message(getCurrentPlayer(), "my-ask", questionString);
-            message(getAlternative(), "op-ask", questionString);
-            changeTurn();
-        }
-    }
-
-    private void answerCalculation(Player player, String answer) {
-        if (answer.equals("")) {
-            message(player, "mistake", "Please, Choose a valid answer");
-        } else {
-            message(getCurrentPlayer(), "op-answer", answer);
-            message(getAlternative(), "my-answer", answer);
-            changeTurn();
-        }
-    }
 
     public void leave(Player player) {
         leavers++;
@@ -88,29 +89,6 @@ public class Game {
         if (start) {
             chatMessage(getCurrentPlayer(), "chat", player.getUsername(), talk);
             chatMessage(getAlternative(), "chat", player.getUsername(), talk);
-        } else {
-            message(player, "wait", "Still Waiting for oponent....");
-        }
-    }
-
-    public void answer(Player player, String answer) {
-        if (getAlternative() == player) {
-            answerCalculation(player, answer);
-            notifyTurn();
-        } else {
-            message(player, "wait", "Not your move!");
-        }
-    }
-
-
-    public void ask(Player player, String questionAbout, String questionValue, String questionString) {
-        if (start) {
-            if (getCurrentPlayer() == player) {
-                AskCalculation(player, questionAbout, questionValue, questionString);
-                notifyTurn();
-            } else {
-                message(player, "wait", "Not your move!");
-            }
         } else {
             message(player, "wait", "Still Waiting for oponent....");
         }
@@ -135,19 +113,6 @@ public class Game {
         return player == getCurrentPlayer();
     }
 
-    private void changeTurn() {
-        if (currentState == TurnState.ASKING) {
-            currentState = TurnState.ANSWERING;
-        } else {
-            currentPlayer = currentPlayer == playerOne ? playerTwo : playerOne;
-            currentState = TurnState.ASKING;
-        }
-    }
-
-    public boolean isPlayerOneDefined() {
-        return playerOne != null;
-    }
-
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -156,17 +121,8 @@ public class Game {
         return currentPlayer == playerOne ? playerTwo : playerOne;
     }
 
-    public boolean isPlayerTwoDefined() {
-        return playerTwo != null;
-    }
 
-    public void setPlayerB(Player playerB) {
-        this.playerTwo = playerB;
-    }
 
-    public String getGameId() {
-        return gameId;
-    }
 
     public boolean isStart() {
         return start;

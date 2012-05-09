@@ -6,7 +6,7 @@
 GET     /battleship                           controllers.Application.index()
 GET     /battleship/waitingroom                controllers.Application.waitingRoom(username: String ?=null)
 GET     /battleship/waitingroom/game           controllers.Application.game(username)
-GET     /battleshipRoom             controllers.Application.battleshipRoom()
+
 
 
 # Map static resources from the /public folder to the /assets URL path

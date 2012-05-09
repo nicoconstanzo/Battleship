@@ -1,22 +1,117 @@
+@(username: String)
 
 @main(username) {
-<input id="WSocketPath" value="@routes.Application.game(username).webSocketURL(request)" type="hidden">
-<div id="onError" class="alert-message error">
-    <p>
-        <strong>Oops!</strong> <span></span>
-    </p>
-</div>
-<div id="onChat">
-    <div id="main">
-        <div id="messages">
-        </div>
-        <input id="talk">
-    </div>
-</div>
 
-<div>
-    <button id="infoBt" onclick="getServerInfo()">Server Info</button>
-</div>
+
+<input id="WSocketPath" value="@routes.Application.game(username).webSocketURL(request)" type="hidden">
+
+<section id="game" class="layout">
+    <div class="battleshipBoard">
+        <h2>BattleShip Board</h2>
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+                <th>E</th>
+                <th>F</th>
+                <th>G</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <th class="tableHeader">1</th>
+                <th>cell 1 - A</th>
+                <th>cell 1 - B</th>
+                <th>cell 1 - C</th>
+                <th>cell 1 - D</th>
+                <th>cell 1 - E</th>
+                <th>cell 1 - F</th>
+                <th>cell 1 - G</th>
+            </tr>
+            <tr>
+                <th class="tableHeader">2</th>
+                <th>cell 2 - A</th>
+                <th>cell 2 - B</th>
+                <th>cell 2 - C</th>
+                <th>cell 2 - D</th>
+                <th>cell 2 - E</th>
+                <th>cell 2 - F</th>
+                <th>cell 2 - G</th>
+            </tr>
+            <tr>
+                <th class="tableHeader">3</th>
+                <th>cell 3 - A</th>
+                <th>cell 3 - B</th>
+                <th>cell 3 - C</th>
+                <th>cell 3 - D</th>
+                <th>cell 3 - E</th>
+                <th>cell 3 - F</th>
+                <th>cell 3 - G</th>
+            </tr>
+            <tr>
+                <th class="tableHeader">4</th>
+                <th>cell 4 - A</th>
+                <th>cell 4 - B</th>
+                <th>cell 4 - C</th>
+                <th>cell 4 - D</th>
+                <th>cell 4 - E</th>
+                <th>cell 4 - F</th>
+                <th>cell 4 - G</th>
+            </tr>
+            <tr>
+                <th class="tableHeader">5</th>
+                <th>cell 5 - A</th>
+                <th>cell 5 - B</th>
+                <th>cell 5 - C</th>
+                <th>cell 5 - D</th>
+                <th>cell 5 - E</th>
+                <th>cell 5 - F</th>
+                <th>cell 5 - G</th>
+            </tr>
+            <tr>
+                <th class="tableHeader">6</th>
+                <th>cell 6 - A</th>
+                <th>cell 6 - B</th>
+                <th>cell 6 - C</th>
+                <th>cell 6 - D</th>
+                <th>cell 6 - E</th>
+                <th>cell 6 - F</th>
+                <th>cell 6 - G</th>
+            </tr>
+            <tr>
+                <th class="tableHeader">7</th>
+                <th>cell 7 - A</th>
+                <th>cell 7 - B</th>
+                <th>cell 7 - C</th>
+                <th>cell 7 - D</th>
+                <th>cell 7 - E</th>
+                <th>cell 7 - F</th>
+                <th>cell 7 - G</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="shipsBoard"> ACA VAN LOS BARCOS
+    </div>
+
+    <div class="battleshipChat">
+    <div id="onChat">
+        <div id="main">
+            <div id="messages">
+            </div>
+            <input id="talk">
+        </div>
+    </div>
+    </div>
+</section>
+
+
 
 <script src="@routes.Assets.at("javascripts/jquery-1.7.2.min.js")"></script>
 <script src="@routes.Assets.at("javascripts/WSocketServer.js")"></script>

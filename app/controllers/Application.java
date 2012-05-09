@@ -1,8 +1,7 @@
 package controllers;
 
-import models.ConnectionHandler;
+import models.GameManager;
 import org.codehaus.jackson.JsonNode;
-import play.*;
 import play.mvc.*;
 
 import views.html.*;
@@ -25,15 +24,7 @@ public class Application extends Controller {
           flash("error", "Invalid username.");
           return redirect(routes.Application.index());
       }
-      return ok(waitingRoom.render());
-  }
-
-  public static Result battleshipRoom() {
-//      if (username == null || username.trim().equals("")) {
-//          flash("error", "Invalid username.");
-//          return redirect(routes.Application.index());
-//      }
-      return ok(battleshipRoom.render());
+      return ok(waitingRoom.render(username));
   }
 
    /*Web Socket handling*/
@@ -44,7 +35,7 @@ public class Application extends Controller {
                public void onReady(WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out) {
                    // Join the user to the Game.
                    try {
-                       ConnectionHandler.join(username, in, out);
+                       GameManager.join(username, in, out);
                    } catch (Exception ex) {
                        ex.printStackTrace();
                    }
