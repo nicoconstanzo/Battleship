@@ -1,18 +1,19 @@
 package models;
 
-import org.codehaus.jackson.node.ObjectNode;
-import play.libs.Json;
-
 import java.util.Random;
 import java.util.UUID;
 
+import static models.Message.sendMessage;
+
 public class Game {
     private String gameId;
+
+
     private Player playerOne;
     private Player playerTwo;
     private Player currentPlayer;
     private TurnState currentState;
-    private boolean start;
+    private int playerNumber;
     private int leavers;
 
     public Game() {
@@ -20,11 +21,11 @@ public class Game {
     }
 
     void startGame() {
-        start = true;
         leavers = 0;
-        setRandomTurn();
-        notifyStart();
-        generateDefaultStrategies();
+        playerNumber = 2;
+        setTurn();
+        notifyOponent();
+        //generateStrategy();
         notifyTurn();
     }
 
@@ -32,9 +33,17 @@ public class Game {
         return gameId;
     }
 
+    public Player getPlayerOne() {
+        return playerOne;
+    }
+
+    public Player getPlayerTwo() {
+        return playerTwo;
+    }
+
+
     public void setPlayerOne(Player playerOne) {
         this.playerOne = playerOne;
-        message(playerOne, "wait", "Waiting for other player to join.....");
     }
 
     public void setPlayerTwo(Player playerTwo) {
@@ -51,85 +60,74 @@ public class Game {
     }
 
 
-    private void setRandomTurn() {
-        Random turnRoller = new Random();
-        int roll = turnRoller.nextInt(2) + 1;
-        currentPlayer = roll == 1 ? playerOne : playerTwo;
-        currentState = TurnState.ASKING;
+    private void setTurn() {
+        playerOne.setTurn(turn());
+        playerOne.setTurn(!playerTwo.isTurn());
     }
 
-    private void generateDefaultStrategies() {
-//        TODO implement strategy of ships
+    public boolean turn(){
+        Random random = new Random();
+        boolean turn = random.nextBoolean();
+        return turn;
     }
 
 
+    private void notifyOponent() {
+        sendMessage(getPlayerOne(), "start", "Let's play Boom Boom Splash, you are playing against " + getPlayerTwo().getUsername());
+        sendMessage(getPlayerTwo(), "start", "Let's play Boom Boom Splash, you are playing against " + getPlayerOne().getUsername());
+    }
 
-    private void notifyStart() {
-        message(getCurrentPlayer(), "start", "Let's play Boom Boom Splash, you are playing against " + getAlternative().getUsername());
-        message(getAlternative(), "start", "Let's play Boom Boom Splash, you are playing against " + getCurrentPlayer().getUsername());
+    public void play(Player player){
+        if (getCurrentPlayer() == player) {
+            //Todo ver lo que toco
+            changeTurn();
+            notifyTurn();
+        } else {
+            sendMessage(getCurrentPlayer(), "wait", "Wait, is not your turn!");
+        }
+
+    }
+
+    private void changeTurn(){
+        if(playerOne.isTurn()){
+            playerOne.setTurn(false);
+            playerTwo.setTurn(true);
+        }
+        else{
+            playerTwo.setTurn(false);
+            playerOne.setTurn(true);
+        }
     }
 
     private void notifyTurn() {
-        if (currentState == TurnState.ASKING) {
-            message(getCurrentPlayer(), "Fire", "It's your turn, Fire.");
-            message(getAlternative(), "wait", "Other player's turn!");
-        } else {
-            message(getAlternative(), "answer", "Answer the question.");
-        }
+           sendMessage(getCurrentPlayer(), "Fire", "It's your turn, Fire.");
+           sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() +  "turn!");
+
     }
 
-
-    public void leave(Player player) {
-        leavers++;
-        Player quitter = isCurrent(player) ? getAlternative() : getCurrentPlayer();
-        message(quitter, "leave", "Other played left the game!");
+    public Player getOpponent(Player player){
+        Player opponent = isPlayerOne(player) ? getPlayerTwo() : getPlayerOne();
+        return opponent;
     }
 
-    public void chat(Player player, String talk) {
-        if (start) {
-            chatMessage(getCurrentPlayer(), "chat", player.getUsername(), talk);
-            chatMessage(getAlternative(), "chat", player.getUsername(), talk);
-        } else {
-            message(player, "wait", "Still Waiting for oponent....");
-        }
+    private boolean isPlayerOne(Player player) {
+        return player == getPlayerOne();
     }
 
-    private void chatMessage(Player playerTo, String type, String playerFrom, String talk) {
-        final ObjectNode json = Json.newObject();
-        json.put("name", playerFrom);
-        json.put("type", type);
-        json.put("message", talk);
-        playerTo.getChannel().write(json);
+    public void leave(){
+        playerNumber--;
     }
-
-    public static void message(Player player, String type, String message) {
-        final ObjectNode json = Json.newObject();
-        json.put("type", type);
-        json.put("message", message);
-        player.getChannel().write(json);
-    }
-
-    private boolean isCurrent(Player player) {
-        return player == getCurrentPlayer();
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public Player getAlternative() {
-        return currentPlayer == playerOne ? playerTwo : playerOne;
-    }
-
-
-
 
     public boolean isStart() {
-        return start;
+       return isPlayerOneDefined() && isPlayerTwoDefined();
     }
 
-    public boolean isEmpty() {
-        return leavers == 2;
+    public boolean isFinish() {
+        return playerNumber == 0;
+    }
+    
+    private Player getCurrentPlayer(){
+        return currentPlayer = playerOne.isTurn() ? playerOne : playerTwo;
     }
 
     @Override
@@ -137,8 +135,7 @@ public class Game {
         return "Game{" +
                 "playerOne=" + playerOne +
                 ", playerTwo=" + playerTwo +
-                ", start=" + start +
-                ", leavers=" + leavers +
+                ", playerNumber=" + playerNumber +
                 '}';
     }
 

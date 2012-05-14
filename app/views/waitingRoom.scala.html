@@ -6,7 +6,7 @@
 <input id="WSocketPath" value="@routes.Application.game(username).webSocketURL(request)" type="hidden">
 
 <section id="game" class="layout">
-    <div class="battleshipBoard">
+    <div id="battleshipBoard">
         <h2>BattleShip Board</h2>
 
             <div>
@@ -24,144 +24,144 @@
             </div>
 
 
-        <div>
+        <div id="board">
 
             <span class="boardHeader">1</span>
-            <span class="boardBody">B</span>
-            <span class="boardBody">C</span>
-            <span class="boardBody">D</span>
-            <span class="boardBody">E</span>
-            <span class="boardBody">F</span>
-            <span class="boardBody">G</span>
-            <span class="boardBody">H</span>
-            <span class="boardBody">I</span>
-            <span class="boardBody">J</span>
-            <span class="boardBody">J</span>
+            <span id="1.A" class="boardBody">1.A</span>
+            <span id="1.B" class="boardBody">1.B</span>
+            <span id="1.C" class="boardBody">1.C</span>
+            <span id="1.D" class="boardBody">1.D</span>
+            <span id="1.E" class="boardBody">1.E</span>
+            <span id="1.F" class="boardBody">1.F</span>
+            <span id="1.G" class="boardBody">1.G</span>
+            <span id="1.H" class="boardBody">1.H</span>
+            <span id="1.I" class="boardBody">1.I</span>
+            <span id="1.J" class="boardBody">1.J</span>
         </div>
 
         <div>
 
             <span class="boardHeader">2</span>
-            <span class="boardBody">B</span>
-            <span class="boardBody">C</span>
-            <span class="boardBody">D</span>
-            <span class="boardBody">E</span>
-            <span class="boardBody">F</span>
-            <span class="boardBody">G</span>
-            <span class="boardBody">H</span>
-            <span class="boardBody">I</span>
-            <span class="boardBody">J</span>
-            <span class="boardBody">J</span>
+            <span id="2.A" class="boardBody">2.A</span>
+            <span id="2.B" class="boardBody">2.B</span>
+            <span id="2.C" class="boardBody">2.C</span>
+            <span id="2.D" class="boardBody">2.D</span>
+            <span id="2.E" class="boardBody">2.E</span>
+            <span id="2.F" class="boardBody">2.F</span>
+            <span id="2.G" class="boardBody">2.G</span>
+            <span id="2.H" class="boardBody">2.H</span>
+            <span id="2.I" class="boardBody">2.I</span>
+            <span id="2.J" class="boardBody">2.J</span>
         </div>
         <div>
 
             <span class="boardHeader">3</span>
-            <span class="boardBody">B</span>
-            <span class="boardBody">C</span>
-            <span class="boardBody">D</span>
-            <span class="boardBody">E</span>
-            <span class="boardBody">F</span>
-            <span class="boardBody">G</span>
-            <span class="boardBody">H</span>
-            <span class="boardBody">I</span>
-            <span class="boardBody">J</span>
-            <span class="boardBody">J</span>
+            <span id="3.A" class="boardBody">3.A</span>
+            <span id="3.B" class="boardBody">3.B</span>
+            <span id="3.C" class="boardBody">3.C</span>
+            <span id="3.D" class="boardBody">3.D</span>
+            <span id="3.E" class="boardBody">3.E</span>
+            <span id="3.F" class="boardBody">3.F</span>
+            <span id="3.G" class="boardBody">3.G</span>
+            <span id="3.H" class="boardBody">3.H</span>
+            <span id="3.I" class="boardBody">3.I</span>
+            <span id="3.J" class="boardBody">3.J</span>
         </div>
         <div>
 
             <span class="boardHeader">4</span>
-            <span class="boardBody">B</span>
-            <span class="boardBody">C</span>
-            <span class="boardBody">D</span>
-            <span class="boardBody">E</span>
-            <span class="boardBody">F</span>
-            <span class="boardBody">G</span>
-            <span class="boardBody">H</span>
-            <span class="boardBody">I</span>
-            <span class="boardBody">J</span>
-            <span class="boardBody">J</span>
+            <span id="4.A" class="boardBody">4.A</span>
+            <span id="4.B" class="boardBody">4.B</span>
+            <span id="4.C" class="boardBody">4.C</span>
+            <span id="4.D" class="boardBody">4.D</span>
+            <span id="4.E" class="boardBody">4.E</span>
+            <span id="4.F" class="boardBody">4.F</span>
+            <span id="4.G" class="boardBody">4.G</span>
+            <span id="4.H" class="boardBody">4.H</span>
+            <span id="4.I" class="boardBody">4.I</span>
+            <span id="4.J" class="boardBody">4.J</span>
         </div>
         <div>
 
             <span class="boardHeader">5</span>
-            <span class="boardBody">B</span>
-            <span class="boardBody">C</span>
-            <span class="boardBody">D</span>
-            <span class="boardBody">E</span>
-            <span class="boardBody">F</span>
-            <span class="boardBody">G</span>
-            <span class="boardBody">H</span>
-            <span class="boardBody">I</span>
-            <span class="boardBody">J</span>
-            <span class="boardBody">J</span>
+            <span id="5.A" class="boardBody">5.A</span>
+            <span id="5.B" class="boardBody">5.B</span>
+            <span id="5.C" class="boardBody">5.C</span>
+            <span id="5.D" class="boardBody">5.D</span>
+            <span id="5.E" class="boardBody">5.E</span>
+            <span id="5.F" class="boardBody">5.F</span>
+            <span id="5.G" class="boardBody">5.G</span>
+            <span id="5.H" class="boardBody">5.H</span>
+            <span id="5.I" class="boardBody">5.I</span>
+            <span id="5.J" class="boardBody">5.J</span>
         </div>
         <div>
 
             <span class="boardHeader">6</span>
-            <span class="boardBody">B</span>
-            <span class="boardBody">C</span>
-            <span class="boardBody">D</span>
-            <span class="boardBody">E</span>
-            <span class="boardBody">F</span>
-            <span class="boardBody">G</span>
-            <span class="boardBody">H</span>
-            <span class="boardBody">I</span>
-            <span class="boardBody">J</span>
-            <span class="boardBody">J</span>
+            <span id="6.A" class="boardBody">6.A</span>
+            <span id="6.B" class="boardBody">6.B</span>
+            <span id="6.C" class="boardBody">6.C</span>
+            <span id="6.D" class="boardBody">6.D</span>
+            <span id="6.E" class="boardBody">6.E</span>
+            <span id="6.F" class="boardBody">6.F</span>
+            <span id="6.G" class="boardBody">6.G</span>
+            <span id="6.H" class="boardBody">6.H</span>
+            <span id="6.I" class="boardBody">6.I</span>
+            <span id="6.J" class="boardBody">6.J</span>
         </div>
         <div>
             <span class="boardHeader">7</span>
-            <span class="boardBody">B</span>
-            <span class="boardBody">C</span>
-            <span class="boardBody">D</span>
-            <span class="boardBody">E</span>
-            <span class="boardBody">F</span>
-            <span class="boardBody">G</span>
-            <span class="boardBody">H</span>
-            <span class="boardBody">I</span>
-            <span class="boardBody">J</span>
-            <span class="boardBody">J</span>
+            <span id="7.A" class="boardBody">7.A</span>
+            <span id="7.B" class="boardBody">7.B</span>
+            <span id="7.C" class="boardBody">7.C</span>
+            <span id="7.D" class="boardBody">7.D</span>
+            <span id="7.E" class="boardBody">7.E</span>
+            <span id="7.F class="boardBody">7.F</span>
+            <span id="7.G" class="boardBody">7.G</span>
+            <span id="7.H" class="boardBody">7.H</span>
+            <span id="7.I" class="boardBody">7.I</span>
+            <span id="7.J" class="boardBody">7.J</span>
         </div>
         <div>
 
             <span class="boardHeader">8</span>
-            <span class="boardBody">B</span>
-            <span class="boardBody">C</span>
-            <span class="boardBody">D</span>
-            <span class="boardBody">E</span>
-            <span class="boardBody">F</span>
-            <span class="boardBody">G</span>
-            <span class="boardBody">H</span>
-            <span class="boardBody">I</span>
-            <span class="boardBody">J</span>
-            <span class="boardBody">J</span>
+            <span id="8.A" class="boardBody">8.A</span>
+            <span id="8.B" class="boardBody">8.B</span>
+            <span id="8.C" class="boardBody">8.C</span>
+            <span id="8.D" class="boardBody">8.D</span>
+            <span id="8.E" class="boardBody">8.E</span>
+            <span id="8.F" class="boardBody">8.F</span>
+            <span id="8.G" class="boardBody">8.G</span>
+            <span id="8.H" class="boardBody">8.H</span>
+            <span id="8.I" class="boardBody">8.I</span>
+            <span id="8.J" class="boardBody">8.J</span>
         </div>
         <div>
 
             <span class="boardHeader">9</span>
-            <span class="boardBody">B</span>
-            <span class="boardBody">C</span>
-            <span class="boardBody">D</span>
-            <span class="boardBody">E</span>
-            <span class="boardBody">F</span>
-            <span class="boardBody">G</span>
-            <span class="boardBody">H</span>
-            <span class="boardBody">I</span>
-            <span class="boardBody">J</span>
-            <span class="boardBody">J</span>
+            <span id="9.A" class="boardBody">9.A</span>
+            <span id="9.B" class="boardBody">9.B</span>
+            <span id="9.C" class="boardBody">9.C</span>
+            <span id="9.D" class="boardBody">9.D</span>
+            <span id="9.E" class="boardBody">9.E</span>
+            <span id="9.F" class="boardBody">9.F</span>
+            <span id="9.G" class="boardBody">9.G</span>
+            <span id="9.H" class="boardBody">9.H</span>
+            <span id="9.I" class="boardBody">9.I</span>
+            <span id="9.J" class="boardBody">9.J</span>
         </div>
         <div>
             <span class="boardHeader">10</span>
-            <span class="boardBody">B</span>
-            <span class="boardBody">C</span>
-            <span class="boardBody">D</span>
-            <span class="boardBody">E</span>
-            <span class="boardBody">F</span>
-            <span class="boardBody">G</span>
-            <span class="boardBody">H</span>
-            <span class="boardBody">I</span>
-            <span class="boardBody">J</span>
-            <span class="boardBody">J</span>
+            <span id="10.A" class="boardBody">10.A</span>
+            <span id="10.B" class="boardBody">10.B</span>
+            <span id="10.C" class="boardBody">10.C</span>
+            <span id="10.D" class="boardBody">10.D</span>
+            <span id="10.E" class="boardBody">10.E</span>
+            <span id="10.F" class="boardBody">10.F</span>
+            <span id="10.G" class="boardBody">10.G</span>
+            <span id="10.H" class="boardBody">10.H</span>
+            <span id="10.I" class="boardBody">10.I</span>
+            <span id="10.J" class="boardBody">10.J</span>
         </div>
 
 

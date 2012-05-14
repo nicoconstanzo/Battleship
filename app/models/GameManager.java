@@ -6,6 +6,10 @@ import play.mvc.WebSocket;
 
 import java.util.ArrayList;
 
+import static models.Message.sendChat;
+import static models.Message.sendMessage;
+import static models.Message.usernameAlreadyChoosen;
+
 public class GameManager {
     private static ArrayList<Game> games = new ArrayList<Game>();
 
@@ -14,60 +18,57 @@ public class GameManager {
         Game game = getGame();
         if (!game.isPlayerOneDefined()) {
             Player playerOne = new Player(username, out, game.getGameId());
+            sendMessage(playerOne, "wait", "Waiting for other player to join.....");
             game.setPlayerOne(playerOne);
+            openWebSocket(in,playerOne);
 
-            bingInWebSocket(in, playerOne);
         } else if (!game.isPlayerTwoDefined()) {
-            Player player = new Player(username, out, game.getGameId());
-            game.setPlayerTwo(player);
-            bingInWebSocket(in, player);
+            //TODO verify username playerTwo is not = playerOne
+            if(game.getPlayerOne().getUsername().equals(username)){
+                usernameAlreadyChoosen(out);
+                //TODO we have to redirect to the index;
+            }
+            Player playerTwo = new Player(username, out, game.getGameId());
+            game.setPlayerTwo(playerTwo);
+            openWebSocket(in,playerTwo);
             game.startGame();
 
         } else {
-            game = new Game();
-            games.add(game);
+           createGame();
             join(username, in, out);
         }
     }
-    
-    private static Game getGame(){
-        Game game;
-        if(games.isEmpty()){
-            game = new Game();
-            games.add(game);
-        }
-        else{
-            game = games.get(games.size()-1);
-            
-        }
-        return game;
-    }
 
-    private static void bingInWebSocket(WebSocket.In<JsonNode> in, final Player player) {
+       private static void openWebSocket(WebSocket.In<JsonNode> in, final Player player) {
 
         in.onMessage(new F.Callback<JsonNode>() {
             public void invoke(JsonNode jsonNode) throws Throwable {
                 Game game = getGameById(player.getGameId());
-                String messageType = jsonNode.get("type").asText();
-                if (game.isStart()) {
+                String messageType = jsonNode.get("kind").asText();
+                String messageText = jsonNode.get("messageText").asText();
+                if (!game.isStart()){
                     if (messageType.equals("chat")) {
-//                        Chat behavior
-                        final String talk = jsonNode.get("text").asText();
-                        game.chat(player, talk);
+                        //TODO Habilitamos el chat, pero no pueden tocar el tablero! --> Falta
+                        sendMessage(player, "chat", "Still waitting for opponent.\n" + messageText);
                     }
-                } else {
-//                    Waiting for another player
-                    game.chat(player, "");
+                }else{
+                    if (messageType.equals("chat")) {
+                        sendChat(player, game.getOpponent(player), messageText);
+                    }
+                    if (messageType.equals("play")){
+                        game.play(player);
+                    }
                 }
-
             }
         });
 
         in.onClose(new F.Callback0() {
             public void invoke() throws Throwable {
                 Game game = getGameById(player.getGameId());
-                game.leave(player);
-                if (game.isEmpty()) {
+                Player opponent = game.getOpponent(player);
+                sendMessage(opponent,"leave", opponent.getUsername() + " has left the game");
+                game.leave();
+                if (game.isFinish()) {
                     games.remove(games.indexOf(game));
                 }
             }
@@ -81,6 +82,24 @@ public class GameManager {
             }
         }
         return null;
+    }
+
+    private static Game createGame(){
+        Game game = new Game();
+        games.add(game);
+        return game;
+    }
+
+    private static Game getGame(){
+        Game game;
+        if(games.isEmpty()){
+            game = createGame();
+        }
+        else{
+            game = games.get(games.size()-1);
+
+        }
+        return game;
     }
 
 
