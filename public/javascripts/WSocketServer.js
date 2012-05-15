@@ -35,7 +35,7 @@ function receiveEvent(event) {
     var chatLine = $('<div class="message"><span></span><user></user><p></p></div>');
     if (data.kind == 'chat') {
         $(chatLine).addClass('chat');
-        $("userFrom", chatLine).text(data.userFrom + ": ");
+        $("user", chatLine).text(data.userFrom + ": ");
     }
 
 
@@ -61,7 +61,7 @@ function handleClick(e){
 
         var element = document.getElementById(position);
         element.style.background = "url('/assets/images/AGUA.jpg')";
-        sendMessage("play", position);
+        sendMessage("game", position);
         alert('hiciste click en la posición '+ position);
 
 }

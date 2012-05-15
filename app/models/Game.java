@@ -25,7 +25,7 @@ public class Game {
         nPlayer = 2;
         setTurn();
         notifyOponent();
-        //setStrategy();
+        setStrategy();
         notifyTurn();
     }
 
@@ -84,9 +84,9 @@ public class Game {
 
     public void play(Player player, String messageText){
         if (getCurrentPlayer() == player) {
-            sendMessage(getCurrentPlayer(),"play","You have fire to " + messageText);
-            sendMessage(getOpponent(getCurrentPlayer()),"play", getCurrentPlayer().getUsername() + "have fire to " + messageText);
-            //checkFire(player, messageText);
+            sendMessage(getCurrentPlayer(),"game","You have fire to " + messageText);
+            sendMessage(getOpponent(getCurrentPlayer()),"game", getCurrentPlayer().getUsername() + "have fire to " + messageText);
+            checkFire(player, messageText);
             changeTurn();
             notifyTurn();
         } else {
@@ -102,8 +102,8 @@ public class Game {
     }
 
     private void notifyTurn() {
-           sendMessage(getCurrentPlayer(), "play", "It's your turn, Fire.");
-           sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() +  "turn!");
+           sendMessage(getCurrentPlayer(), "game", "It's your turn, Fire.");
+           sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() +  " turn!");
 
     }
 
@@ -133,6 +133,14 @@ public class Game {
     }
     
     private void checkFire(Player player, String shot){
+        FireResult fireResult = getFireResult(player,shot);
+        sendMessage(player,"game",fireResult.getCurrentPlayerMessage());
+        sendMessage(getOpponent(player),"game",fireResult.getOpponentMessage());
+    }
+    
+    
+    
+    private FireResult getFireResult (Player player, String shot){
     
         //TODO falta verificar si ya le dio a esa position
         
@@ -140,15 +148,20 @@ public class Game {
         for(Ship ship: ships){
             for(int i = 0; i<ship.getPosition().length; i++){
                 if(shot.equals(ship.getPosition()[i])){
-                    //TODO verificar si le dio o si lo hundio
+                    ship.setHit(ship.getHit()+1);
+                    if(ship.isSunk()){
+                        return FireResult.SINK;
+                    }
+                    return FireResult.HIT;
                 }
                 //TODO Si estan todos los barcos hundidos --> GANO
-                //TODO devolver agua!
             }
-
         }
-
-        
+        //TODO Nunca llega hasta aca
+        if(ships.get(1).isSunk() && ships.get(2).isSunk() && ships.get(3).isSunk() && ships.get(4).isSunk() && ships.get(5).isSunk()){
+            return FireResult.WIN;
+        }
+        return FireResult.WATER;
     }
 
     private List<Ship> getDefaultStrategyA(){
@@ -262,9 +275,6 @@ public class Game {
                 ", nPlayer=" + nPlayer +
                 '}';
     }
-
-    private enum TurnState {ASKING, ANSWERING}
-
 
 
 }

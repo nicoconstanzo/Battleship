@@ -9,13 +9,10 @@ package models.Ship;
  */
 public class Cruiser extends Ship{
 
-    @Override
-    public String getName() {
-        return "Cruiser";
-    }
+    public Cruiser(){
+        setName("Cruiser");
+        setSize(2);
+        setHit(0);
 
-    @Override
-    public int getSize() {
-        return 3;
     }
 }

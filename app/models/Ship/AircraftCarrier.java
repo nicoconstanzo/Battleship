@@ -9,14 +9,10 @@ package models.Ship;
  */
 public class AircraftCarrier extends Ship {
 
+    public AircraftCarrier(){
+        setName("Aircraft Carrier");
+        setSize(5);
+        setHit(0);
 
-    @Override
-    public String getName() {
-        return "Aircraft Carrier";
-    }
-
-    @Override
-    public int getSize() {
-        return 5;
     }
 }

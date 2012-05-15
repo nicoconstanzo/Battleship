@@ -8,13 +8,11 @@ package models.Ship;
  * To change this template use File | Settings | File Templates.
  */
 public class Destroyer extends Ship{
-    @Override
-    public String getName() {
-        return "Destroyer";
-    }
 
-    @Override
-    public int getSize() {
-        return 2;
+    public Destroyer(){
+        setName("Destroyer");
+        setSize(2);
+        setHit(0);
+
     }
 }
