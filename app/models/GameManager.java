@@ -56,7 +56,7 @@ public class GameManager {
                         sendChat(player, game.getOpponent(player), messageText);
                     }
                     if (messageType.equals("play")){
-                        game.play(player);
+                        game.play(player, messageText);
                     }
                 }
             }
