@@ -1,6 +1,9 @@
 package models;
 
 import models.Ship.*;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ObjectNode;
+import play.libs.Json;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,8 +87,8 @@ public class Game {
 
     public void play(Player player, String position){
         if (getCurrentPlayer() == player) {
-            sendMessage(getOpponent(getCurrentPlayer()),"game", getCurrentPlayer().getUsername() + " have fire to " + position);
-            sendMessage(getCurrentPlayer(),"hit",position);
+//            sendMessage(getOpponent(getCurrentPlayer()),"game", getCurrentPlayer().getUsername() + " have fire to " + position);
+//            sendMessage(getCurrentPlayer(),"hit",position);
             checkFire(player, position);
             changeTurn();
             notifyTurn();
@@ -134,12 +137,30 @@ public class Game {
     
     private void checkFire(Player player, String shot){
         FireResult fireResult = getFireResult(player, shot);
-        sendMessage(player,"game",fireResult.getCurrentPlayerMessage());
-        sendMessage(getOpponent(player),"game",fireResult.getOpponentMessage());
+        sendMessage(player,"game", createCurrentShotMessage(fireResult, shot));
+        sendMessage(getOpponent(player),"game", createOpponentShotMessage(fireResult, shot));
     }
-    
-    
-    
+
+    private ObjectNode createOpponentShotMessage(FireResult fireResult, String shot)
+    {
+        ObjectNode result = Json.newObject();
+        result.put("opponent", true);
+        result.put("subtype", fireResult.name());
+        result.put("shot", shot);
+        result.put("message", fireResult.getOpponentMessage());
+        return result;
+    }
+
+    private ObjectNode createCurrentShotMessage(FireResult fireResult, String shot) {
+        ObjectNode result = Json.newObject();
+        result.put("opponent", false);
+        result.put("subtype", fireResult.name());
+        result.put("shot", shot);
+        result.put("message", fireResult.getCurrentPlayerMessage());
+        return result;
+    }
+
+
     private FireResult getFireResult (Player player, String shot){
     
         //TODO falta verificar si ya le dio a esa position
@@ -175,34 +196,34 @@ public class Game {
         Destroyer destroyer = new Destroyer();
 
         String[] aircraftPosition = new String[5];
-        aircraftPosition[0] = "4.C";
-        aircraftPosition[1] = "4.D";
-        aircraftPosition[2] = "4.E";
-        aircraftPosition[3] = "4.F";
-        aircraftPosition[4] = "4.G";
+        aircraftPosition[0] = "4C";
+        aircraftPosition[1] = "4D";
+        aircraftPosition[2] = "4E";
+        aircraftPosition[3] = "4F";
+        aircraftPosition[4] = "4G";
         aircraftCarrier.setPosition(aircraftPosition);
 
         String[] battleshipPosition = new String[4];
-        battleshipPosition[0] = "6.G";
-        battleshipPosition[1] = "7.G";
-        battleshipPosition[2] = "8.G";
-        battleshipPosition[3] = "9.G";
+        battleshipPosition[0] = "6G";
+        battleshipPosition[1] = "7G";
+        battleshipPosition[2] = "8G";
+        battleshipPosition[3] = "9G";
         battleship.setPosition(battleshipPosition);
 
         String[] submarinePosition = new String[3];
-        submarinePosition[0] = "1.I";
-        submarinePosition[1] = "2.I";
-        submarinePosition[2] = "3.I";
+        submarinePosition[0] = "1I";
+        submarinePosition[1] = "2I";
+        submarinePosition[2] = "3I";
         submarine.setPosition(submarinePosition);
 
         String[] cruiserPosition = new String[2];
-        cruiserPosition[0] = "1.B";
-        cruiserPosition[1] = "1.C";
+        cruiserPosition[0] = "1B";
+        cruiserPosition[1] = "1C";
         cruiser.setPosition(cruiserPosition);
 
         String[] destroyerPosition = new String[2];
-        battleshipPosition[0] = "8.B";
-        battleshipPosition[1] = "8.C";
+        battleshipPosition[0] = "8B";
+        battleshipPosition[1] = "8C";
         destroyer.setPosition(destroyerPosition);
 
         strategy.add(aircraftCarrier);
@@ -226,34 +247,34 @@ public class Game {
         Destroyer destroyer = new Destroyer();
 
         String[] aircraftPosition = new String[5];
-        aircraftPosition[0] = "2.B";
-        aircraftPosition[1] = "2.C";
-        aircraftPosition[2] = "2.D";
-        aircraftPosition[3] = "2.E";
-        aircraftPosition[4] = "2.F";
+        aircraftPosition[0] = "2B";
+        aircraftPosition[1] = "2C";
+        aircraftPosition[2] = "2D";
+        aircraftPosition[3] = "2E";
+        aircraftPosition[4] = "2F";
         aircraftCarrier.setPosition(aircraftPosition);
 
         String[] battleshipPosition = new String[4];
-        battleshipPosition[0] = "10.F";
-        battleshipPosition[1] = "10.G";
-        battleshipPosition[2] = "10.H";
-        battleshipPosition[3] = "10.I";
+        battleshipPosition[0] = "10F";
+        battleshipPosition[1] = "10G";
+        battleshipPosition[2] = "10H";
+        battleshipPosition[3] = "10I";
         battleship.setPosition(battleshipPosition);
 
         String[] submarinePosition = new String[3];
-        submarinePosition[0] = "5.D";
-        submarinePosition[1] = "5.E";
-        submarinePosition[2] = "5.F";
+        submarinePosition[0] = "5D";
+        submarinePosition[1] = "5E";
+        submarinePosition[2] = "5F";
         submarine.setPosition(submarinePosition);
 
         String[] cruiserPosition = new String[2];
-        cruiserPosition[0] = "6.J";
-        cruiserPosition[1] = "7.J";
+        cruiserPosition[0] = "6J";
+        cruiserPosition[1] = "7J";
         cruiser.setPosition(cruiserPosition);
 
         String[] destroyerPosition = new String[2];
-        battleshipPosition[0] = "9.B";
-        battleshipPosition[1] = "9.C";
+        battleshipPosition[0] = "9B";
+        battleshipPosition[1] = "9C";
         destroyer.setPosition(destroyerPosition);
 
         strategy.add(aircraftCarrier);

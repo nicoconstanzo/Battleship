@@ -5,7 +5,7 @@ var chatSocket = new WS(WSPath);
 
 chatSocket.onmessage = receiveEvent;
 $("#talk").keypress(handleReturnKey);
-$("#myBoard .boardBody").click(handleClick);
+$("#opponentBoard .boardBody").click(handleClick);
 
 function sendMessage(kind, messageText) {
     chatSocket.send(JSON.stringify(
@@ -32,20 +32,40 @@ function receiveEvent(event) {
     }
 
     // Create the message element
-    var chatLine = $('<div class="message"><span></span><user></user><p></p></div>');
+    var chatLine = $('<div class="message"><span></span><span id="user"></span><p></p></div>');
     if (data.kind == 'chat') {
         $(chatLine).addClass('chat');
-        $("user", chatLine).text(data.userFrom + ": ");
+        $("#user", chatLine).text(data.userFrom + ": ");
+        $('#messages').append(chatLine)
     }
 
-    if(data.kind == 'hit'){
-        var position = data.messageText;
-        var element = document.getElementById(position);
-        element.style.background = "url('/assets/images/AGUA.jpg')";
-         $("span", chatLine).text(data.kind);
-         $("p", chatLine).text("You hit: " + data.messageText);
-         $('#messages').append(chatLine)
+//    if(data.kind == 'hit'){
+//        console.log("HIT: " + data)
+//        var position = data.messageText;
+//        var element = document.getElementById(position);
+//        element.style.background = "url('/assets/images/WATER.jpg')";
+//         $("span", chatLine).text(data.kind);
+//         $("p", chatLine).text("You hit: " + data.messageText);
+//         $('#messages').append(chatLine)
+//
+//    }
 
+    if(data.kind == 'game'){
+
+        console.log("Data Arriving")
+        console.log(data)
+
+        // Seteamos el mensaje de texto, lo que aparece en el chat
+        $("span", chatLine).text(data.kind);
+        $("p", chatLine).text(data.message.message);
+        $('#messages').append(chatLine)
+
+
+        var position = data.message.shot;
+        console.log("Shot at: " + position)
+        var board = data.message.opponent ? $("#myBoard") : $("#opponentBoard")
+        var element = $("."+position, board);
+        element.css("background", "url('/assets/images/"+ data.message.subtype +".jpg')");
     }
 
 
@@ -62,11 +82,9 @@ function handleReturnKey(e) {
     }
 }
 function handleClick(e){
-        var position = event.target.id;
-
-        var element = document.getElementById(position);
+        var position = event.target.className.substring(0,event.target.className.indexOf(" "));
         sendMessage("hit", position);
-        alert('hiciste click en la posición '+ position);
+        console.log('Hiciste click en la posición '+ position);
 
 }
 

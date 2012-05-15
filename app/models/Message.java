@@ -7,6 +7,13 @@ import play.mvc.WebSocket;
 
 public class Message {
 
+    public static void sendMessage(Player player, String kind, ObjectNode message) {
+        ObjectNode jsonNode = Json.newObject();
+        jsonNode.put("kind", kind);
+        jsonNode.put("message", message);
+        player.getChannel().write(jsonNode);
+    }
+
     public static void sendMessage(Player player, String kind, String message) {
         ObjectNode jsonNode = Json.newObject();
         jsonNode.put("kind", kind);
