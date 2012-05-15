@@ -82,11 +82,11 @@ public class Game {
         sendMessage(getPlayerTwo(), "start", "Let's play Boom Boom Splash, you are playing against " + getPlayerOne().getUsername());
     }
 
-    public void play(Player player, String messageText){
+    public void play(Player player, String position){
         if (getCurrentPlayer() == player) {
-            sendMessage(getCurrentPlayer(),"game","You have fire to " + messageText);
-            sendMessage(getOpponent(getCurrentPlayer()),"game", getCurrentPlayer().getUsername() + "have fire to " + messageText);
-            checkFire(player, messageText);
+            sendMessage(getOpponent(getCurrentPlayer()),"game", getCurrentPlayer().getUsername() + " have fire to " + position);
+            sendMessage(getCurrentPlayer(),"hit",position);
+            checkFire(player, position);
             changeTurn();
             notifyTurn();
         } else {
@@ -133,7 +133,7 @@ public class Game {
     }
     
     private void checkFire(Player player, String shot){
-        FireResult fireResult = getFireResult(player,shot);
+        FireResult fireResult = getFireResult(player, shot);
         sendMessage(player,"game",fireResult.getCurrentPlayerMessage());
         sendMessage(getOpponent(player),"game",fireResult.getOpponentMessage());
     }

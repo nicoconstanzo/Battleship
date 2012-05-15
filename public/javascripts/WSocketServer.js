@@ -38,11 +38,16 @@ function receiveEvent(event) {
         $("user", chatLine).text(data.userFrom + ": ");
     }
 
+    if(data.kind == 'hit'){
+        var position = data.messageText;
+        var element = document.getElementById(position);
+        element.style.background = "url('/assets/images/AGUA.jpg')";
+         $("span", chatLine).text(data.kind);
+         $("p", chatLine).text("You hit: " + data.messageText);
+         $('#messages').append(chatLine)
 
-    if (data.kind == 'wait') {
-        $("#questionPanel").hide();
-        $("#answerPanel").hide();
     }
+
 
     $("span", chatLine).text(data.kind);
     $("p", chatLine).text(data.messageText);
@@ -60,8 +65,7 @@ function handleClick(e){
         var position = event.target.id;
 
         var element = document.getElementById(position);
-        element.style.background = "url('/assets/images/AGUA.jpg')";
-        sendMessage("game", position);
+        sendMessage("hit", position);
         alert('hiciste click en la posición '+ position);
 
 }

@@ -55,7 +55,7 @@ public class GameManager {
                     if (messageType.equals("chat")) {
                         sendChat(player, game.getOpponent(player), messageText);
                     }
-                    if (messageType.equals("game")){
+                    if (messageType.equals("hit")){
                         game.play(player, messageText);
                     }
                 }
