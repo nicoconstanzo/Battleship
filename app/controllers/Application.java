@@ -1,8 +1,7 @@
 package controllers;
 
-import models.ConnectionHandler;
+import models.GameManager;
 import org.codehaus.jackson.JsonNode;
-import play.*;
 import play.mvc.*;
 
 import views.html.*;
@@ -29,7 +28,6 @@ public class Application extends Controller {
   }
 
    /*Web Socket handling*/
-
    public static WebSocket<JsonNode> game(final String username) {
            return new WebSocket<JsonNode>() {
 
@@ -37,7 +35,7 @@ public class Application extends Controller {
                public void onReady(WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out) {
                    // Join the user to the Game.
                    try {
-                       ConnectionHandler.join(username, in, out);
+                       GameManager.join(username, in, out);
                    } catch (Exception ex) {
                        ex.printStackTrace();
                    }

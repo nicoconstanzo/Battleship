@@ -7,6 +7,8 @@ public class Player {
     private WebSocket.Out<JsonNode> channel;
     private String gameId;
 
+    private boolean turn;
+
     public Player(String name, WebSocket.Out<JsonNode> out, String id) {
         username = name;
         channel = out;
@@ -23,6 +25,15 @@ public class Player {
 
     public String getGameId() {
         return gameId;
+    }
+
+    public void setTurn(boolean turn){
+        this.turn =turn;
+
+    }
+
+    public boolean isTurn() {
+        return turn;
     }
 
     @Override
