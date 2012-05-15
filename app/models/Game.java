@@ -77,30 +77,27 @@ public class Game {
         sendMessage(getPlayerTwo(), "start", "Let's play Boom Boom Splash, you are playing against " + getPlayerOne().getUsername());
     }
 
-    public void play(Player player){
+    public void play(Player player, String messageText){
         if (getCurrentPlayer() == player) {
             //Todo ver lo que toco
+            sendMessage(getCurrentPlayer(),"play","You have fire to " + messageText);
+            sendMessage(getOpponent(getCurrentPlayer()),"play", getCurrentPlayer().getUsername() + "have fire to " + messageText);
             changeTurn();
             notifyTurn();
         } else {
-            sendMessage(getCurrentPlayer(), "wait", "Wait, is not your turn!");
+            sendMessage(getOpponent(getCurrentPlayer()), "wait", "Wait, is not your turn!");
         }
 
     }
 
     private void changeTurn(){
-        if(playerOne.isTurn()){
-            playerOne.setTurn(false);
-            playerTwo.setTurn(true);
-        }
-        else{
-            playerTwo.setTurn(false);
-            playerOne.setTurn(true);
-        }
+        Player previousCurrentPlayer = getCurrentPlayer();
+        getCurrentPlayer().setTurn(false);
+        (getOpponent(previousCurrentPlayer)).setTurn(true);
     }
 
     private void notifyTurn() {
-           sendMessage(getCurrentPlayer(), "Fire", "It's your turn, Fire.");
+           sendMessage(getCurrentPlayer(), "play", "It's your turn, Fire.");
            sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() +  "turn!");
 
     }

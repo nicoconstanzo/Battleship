@@ -35,7 +35,7 @@ function receiveEvent(event) {
     var chatLine = $('<div class="message"><span></span><user></user><p></p></div>');
     if (data.kind == 'chat') {
         $(chatLine).addClass('chat');
-        $("from", chatLine).text(data.userFrom + ": ");
+        $("userFrom", chatLine).text(data.userFrom + ": ");
     }
 
 
@@ -43,6 +43,7 @@ function receiveEvent(event) {
         $("#questionPanel").hide();
         $("#answerPanel").hide();
     }
+
     $("span", chatLine).text(data.kind);
     $("p", chatLine).text(data.messageText);
     $('#messages').append(chatLine)
