@@ -6,180 +6,328 @@
 <input id="WSocketPath" value="@routes.Application.game(username).webSocketURL(request)" type="hidden">
 
 <section id="game" class="layout">
-    <div id="battleshipBoard">
-        <h2>BattleShip Board</h2>
+
+    <div id="myBoard" class="board">
+            <h2>Your Board</h2>
 
             <div>
-                <span class="boardHeader"></span>
-                <span class="boardHeader">A</span>
-                <span class="boardHeader">B</span>
-                <span class="boardHeader">C</span>
-                <span class="boardHeader">D</span>
-                <span class="boardHeader">E</span>
-                <span class="boardHeader">F</span>
-                <span class="boardHeader">G</span>
-                <span class="boardHeader">H</span>
-                <span class="boardHeader">I</span>
-                <span class="boardHeader">J</span>
-            </div>
 
-
-        <div id="board">
-            <div>
-                <span class="boardHeader">1</span>
-                <span id="1.A" class="boardBody">1.A</span>
-                <span id="1.B" class="boardBody">1.B</span>
-                <span id="1.C" class="boardBody">1.C</span>
-                <span id="1.D" class="boardBody">1.D</span>
-                <span id="1.E" class="boardBody">1.E</span>
-                <span id="1.F" class="boardBody">1.F</span>
-                <span id="1.G" class="boardBody">1.G</span>
-                <span id="1.H" class="boardBody">1.H</span>
-                <span id="1.I" class="boardBody">1.I</span>
-                <span id="1.J" class="boardBody">1.J</span>
+                <div class="boardHeader"></div>
+                <div class="boardHeader">A</div>
+                <div class="boardHeader">B</div>
+                <div class="boardHeader">C</div>
+                <div class="boardHeader">D</div>
+                <div class="boardHeader">E</div>
+                <div class="boardHeader">F</div>
+                <div class="boardHeader">G</div>
+                <div class="boardHeader">H</div>
+                <div class="boardHeader">I</div>
+                <div class="boardHeader">J</div>
             </div>
 
             <div>
 
-                <span class="boardHeader">2</span>
-                <span id="2.A" class="boardBody">2.A</span>
-                <span id="2.B" class="boardBody">2.B</span>
-                <span id="2.C" class="boardBody">2.C</span>
-                <span id="2.D" class="boardBody">2.D</span>
-                <span id="2.E" class="boardBody">2.E</span>
-                <span id="2.F" class="boardBody">2.F</span>
-                <span id="2.G" class="boardBody">2.G</span>
-                <span id="2.H" class="boardBody">2.H</span>
-                <span id="2.I" class="boardBody">2.I</span>
-                <span id="2.J" class="boardBody">2.J</span>
+            <div>
+                <div class="sideHeader">1</div>
+                <div id="1.A" class="boardBody"></div>
+                <div id="1.B" class="boardBody"></div>
+                <div id="1.C" class="boardBody"></div>
+                <div id="1.D" class="boardBody"></div>
+                <div id="1.E" class="boardBody"></div>
+                <div id="1.F" class="boardBody"></div>
+                <div id="1.G" class="boardBody"></div>
+                <div id="1.H" class="boardBody"></div>
+                <div id="1.I" class="boardBody"></div>
+                <div id="1.J" class="boardBody"></div>
+            </div>
+            <div>
+                <div class="sideHeader">2</div>
+                <div id="2.A" class="boardBody"></div>
+                <div id="2.B" class="boardBody"></div>
+                <div id="2.C" class="boardBody"></div>
+                <div id="2.D" class="boardBody"></div>
+                <div id="2.E" class="boardBody"></div>
+                <div id="2.F" class="boardBody"></div>
+                <div id="2.G" class="boardBody"></div>
+                <div id="2.H" class="boardBody"></div>
+                <div id="2.I" class="boardBody"></div>
+                <div id="2.J" class="boardBody"></div>
+            </div>
+            <div>
+                <div class="sideHeader">3</div>
+                <div id="3.A" class="boardBody"></div>
+                <div id="3.B" class="boardBody"></div>
+                <div id="3.C" class="boardBody"></div>
+                <div id="3.D" class="boardBody"></div>
+                <div id="3.E" class="boardBody"></div>
+                <div id="3.F" class="boardBody"></div>
+                <div id="3.G" class="boardBody"></div>
+                <div id="3.H" class="boardBody"></div>
+                <div id="3.I" class="boardBody"></div>
+                <div id="3.J" class="boardBody"></div>
+            </div>
+            <div>
+                <div class="sideHeader">4</div>
+                <div id="4.A" class="boardBody"></div>
+                <div id="4.B" class="boardBody"></div>
+                <div id="4.C" class="boardBody"></div>
+                <div id="4.D" class="boardBody"></div>
+                <div id="4.E" class="boardBody"></div>
+                <div id="4.F" class="boardBody"></div>
+                <div id="4.G" class="boardBody"></div>
+                <div id="4.H" class="boardBody"></div>
+                <div id="4.I" class="boardBody"></div>
+                <div id="4.J" class="boardBody"></div>
+            </div>
+            <div>
+                <div class="sideHeader">5</div>
+                <div id="5.A" class="boardBody"></div>
+                <div id="5.B" class="boardBody"></div>
+                <div id="5.C" class="boardBody"></div>
+                <div id="5.D" class="boardBody"></div>
+                <div id="5.E" class="boardBody"></div>
+                <div id="5.F" class="boardBody"></div>
+                <div id="5.G" class="boardBody"></div>
+                <div id="5.H" class="boardBody"></div>
+                <div id="5.I" class="boardBody"></div>
+                <div id="5.J" class="boardBody"></div>
+            </div>
+            <div>
+                <div class="sideHeader">6</div>
+                <div id="6.A" class="boardBody"></div>
+                <div id="6.B" class="boardBody"></div>
+                <div id="6.C" class="boardBody"></div>
+                <div id="6.D" class="boardBody"></div>
+                <div id="6.E" class="boardBody"></div>
+                <div id="6.F" class="boardBody"></div>
+                <div id="6.G" class="boardBody"></div>
+                <div id="6.H" class="boardBody"></div>
+                <div id="6.I" class="boardBody"></div>
+                <div id="6.J" class="boardBody"></div>
+            </div>
+            <div>
+                <div class="sideHeader">7</div>
+                <div id="7.A" class="boardBody"></div>
+                <div id="7.B" class="boardBody"></div>
+                <div id="7.C" class="boardBody"></div>
+                <div id="7.D" class="boardBody"></div>
+                <div id="7.E" class="boardBody"></div>
+                <div id="7.F" class="boardBody"></div>
+                <div id="7.G" class="boardBody"></div>
+                <div id="7.H" class="boardBody"></div>
+                <div id="7.I" class="boardBody"></div>
+                <div id="7.J" class="boardBody"></div>
             </div>
             <div>
 
-                <span class="boardHeader">3</span>
-                <span id="3.A" class="boardBody">3.A</span>
-                <span id="3.B" class="boardBody">3.B</span>
-                <span id="3.C" class="boardBody">3.C</span>
-                <span id="3.D" class="boardBody">3.D</span>
-                <span id="3.E" class="boardBody">3.E</span>
-                <span id="3.F" class="boardBody">3.F</span>
-                <span id="3.G" class="boardBody">3.G</span>
-                <span id="3.H" class="boardBody">3.H</span>
-                <span id="3.I" class="boardBody">3.I</span>
-                <span id="3.J" class="boardBody">3.J</span>
+                <div class="sideHeader">8</div>
+                <div id="8.A" class="boardBody"></div>
+                <div id="8.B" class="boardBody"></div>
+                <div id="8.C" class="boardBody"></div>
+                <div id="8.D" class="boardBody"></div>
+                <div id="8.E" class="boardBody"></div>
+                <div id="8.F" class="boardBody"></div>
+                <div id="8.G" class="boardBody"></div>
+                <div id="8.H" class="boardBody"></div>
+                <div id="8.I" class="boardBody"></div>
+                <div id="8.J" class="boardBody"></div>
             </div>
             <div>
-
-                <span class="boardHeader">4</span>
-                <span id="4.A" class="boardBody">4.A</span>
-                <span id="4.B" class="boardBody">4.B</span>
-                <span id="4.C" class="boardBody">4.C</span>
-                <span id="4.D" class="boardBody">4.D</span>
-                <span id="4.E" class="boardBody">4.E</span>
-                <span id="4.F" class="boardBody">4.F</span>
-                <span id="4.G" class="boardBody">4.G</span>
-                <span id="4.H" class="boardBody">4.H</span>
-                <span id="4.I" class="boardBody">4.I</span>
-                <span id="4.J" class="boardBody">4.J</span>
+                <div class="sideHeader">9</div>
+                <div id="9.A" class="boardBody"></div>
+                <div id="9.B" class="boardBody"></div>
+                <div id="9.C" class="boardBody"></div>
+                <div id="9.D" class="boardBody"></div>
+                <div id="9.E" class="boardBody"></div>
+                <div id="9.F" class="boardBody"></div>
+                <div id="9.G" class="boardBody"></div>
+                <div id="9.H" class="boardBody"></div>
+                <div id="9.I" class="boardBody"></div>
+                <div id="9.J" class="boardBody"></div>
             </div>
             <div>
-
-                <span class="boardHeader">5</span>
-                <span id="5.A" class="boardBody">5.A</span>
-                <span id="5.B" class="boardBody">5.B</span>
-                <span id="5.C" class="boardBody">5.C</span>
-                <span id="5.D" class="boardBody">5.D</span>
-                <span id="5.E" class="boardBody">5.E</span>
-                <span id="5.F" class="boardBody">5.F</span>
-                <span id="5.G" class="boardBody">5.G</span>
-                <span id="5.H" class="boardBody">5.H</span>
-                <span id="5.I" class="boardBody">5.I</span>
-                <span id="5.J" class="boardBody">5.J</span>
-            </div>
-            <div>
-
-                <span class="boardHeader">6</span>
-                <span id="6.A" class="boardBody">6.A</span>
-                <span id="6.B" class="boardBody">6.B</span>
-                <span id="6.C" class="boardBody">6.C</span>
-                <span id="6.D" class="boardBody">6.D</span>
-                <span id="6.E" class="boardBody">6.E</span>
-                <span id="6.F" class="boardBody">6.F</span>
-                <span id="6.G" class="boardBody">6.G</span>
-                <span id="6.H" class="boardBody">6.H</span>
-                <span id="6.I" class="boardBody">6.I</span>
-                <span id="6.J" class="boardBody">6.J</span>
-            </div>
-            <div>
-                <span class="boardHeader">7</span>
-                <span id="7.A" class="boardBody">7.A</span>
-                <span id="7.B" class="boardBody">7.B</span>
-                <span id="7.C" class="boardBody">7.C</span>
-                <span id="7.D" class="boardBody">7.D</span>
-                <span id="7.E" class="boardBody">7.E</span>
-                <span id="7.F class="boardBody">7.F</span>
-                <span id="7.G" class="boardBody">7.G</span>
-                <span id="7.H" class="boardBody">7.H</span>
-                <span id="7.I" class="boardBody">7.I</span>
-                <span id="7.J" class="boardBody">7.J</span>
-            </div>
-            <div>
-
-                <span class="boardHeader">8</span>
-                <span id="8.A" class="boardBody">8.A</span>
-                <span id="8.B" class="boardBody">8.B</span>
-                <span id="8.C" class="boardBody">8.C</span>
-                <span id="8.D" class="boardBody">8.D</span>
-                <span id="8.E" class="boardBody">8.E</span>
-                <span id="8.F" class="boardBody">8.F</span>
-                <span id="8.G" class="boardBody">8.G</span>
-                <span id="8.H" class="boardBody">8.H</span>
-                <span id="8.I" class="boardBody">8.I</span>
-                <span id="8.J" class="boardBody">8.J</span>
-            </div>
-            <div>
-
-                <span class="boardHeader">9</span>
-                <span id="9.A" class="boardBody">9.A</span>
-                <span id="9.B" class="boardBody">9.B</span>
-                <span id="9.C" class="boardBody">9.C</span>
-                <span id="9.D" class="boardBody">9.D</span>
-                <span id="9.E" class="boardBody">9.E</span>
-                <span id="9.F" class="boardBody">9.F</span>
-                <span id="9.G" class="boardBody">9.G</span>
-                <span id="9.H" class="boardBody">9.H</span>
-                <span id="9.I" class="boardBody">9.I</span>
-                <span id="9.J" class="boardBody">9.J</span>
-            </div>
-            <div>
-                <span class="boardHeader">10</span>
-                <span id="10.A" class="boardBody">10.A</span>
-                <span id="10.B" class="boardBody">10.B</span>
-                <span id="10.C" class="boardBody">10.C</span>
-                <span id="10.D" class="boardBody">10.D</span>
-                <span id="10.E" class="boardBody">10.E</span>
-                <span id="10.F" class="boardBody">10.F</span>
-                <span id="10.G" class="boardBody">10.G</span>
-                <span id="10.H" class="boardBody">10.H</span>
-                <span id="10.I" class="boardBody">10.I</span>
-                <span id="10.J" class="boardBody">10.J</span>
+                <div class="sideHeader">10</div>
+                <div id="10.A" class="boardBody"></div>
+                <div id="10.B" class="boardBody"></div>
+                <div id="10.C" class="boardBody"></div>
+                <div id="10.D" class="boardBody"></div>
+                <div id="10.E" class="boardBody"></div>
+                <div id="10.F" class="boardBody"></div>
+                <div id="10.G" class="boardBody"></div>
+                <div id="10.H" class="boardBody"></div>
+                <div id="10.I" class="boardBody"></div>
+                <div id="10.J" class="boardBody"></div>
             </div>
         </div>
+        </div>
+
+    <div id="opponentBoard" class="board">
+                <h2>Opponent's Board</h2>
+
+                <div>
+
+                    <div class="boardHeader"></div>
+                    <div class="boardHeader">A</div>
+                    <div class="boardHeader">B</div>
+                    <div class="boardHeader">C</div>
+                    <div class="boardHeader">D</div>
+                    <div class="boardHeader">E</div>
+                    <div class="boardHeader">F</div>
+                    <div class="boardHeader">G</div>
+                    <div class="boardHeader">H</div>
+                    <div class="boardHeader">I</div>
+                    <div class="boardHeader">J</div>
+                </div>
+
+                <div>
+
+                <div>
+                    <div class="sideHeader">1</div>
+                    <div id="1A" class="boardBody"></div>
+                    <div id="1B" class="boardBody"></div>
+                    <div id="1C" class="boardBody"></div>
+                    <div id="1D" class="boardBody"></div>
+                    <div id="1E" class="boardBody"></div>
+                    <div id="1F" class="boardBody"></div>
+                    <div id="1G" class="boardBody"></div>
+                    <div id="1H" class="boardBody"></div>
+                    <div id="1I" class="boardBody"></div>
+                    <div id="1J" class="boardBody"></div>
+                </div>
+                <div>
+                    <div class="sideHeader">2</div>
+                    <div id="2A" class="boardBody"></div>
+                    <div id="2B" class="boardBody"></div>
+                    <div id="2C" class="boardBody"></div>
+                    <div id="2D" class="boardBody"></div>
+                    <div id="2E" class="boardBody"></div>
+                    <div id="2F" class="boardBody"></div>
+                    <div id="2G" class="boardBody"></div>
+                    <div id="2H" class="boardBody"></div>
+                    <div id="2I" class="boardBody"></div>
+                    <div id="2J" class="boardBody"></div>
+                </div>
+                <div>
+                    <div class="sideHeader">3</div>
+                    <div id="3A" class="boardBody"></div>
+                    <div id="3B" class="boardBody"></div>
+                    <div id="3C" class="boardBody"></div>
+                    <div id="3D" class="boardBody"></div>
+                    <div id="3E" class="boardBody"></div>
+                    <div id="3F" class="boardBody"></div>
+                    <div id="3G" class="boardBody"></div>
+                    <div id="3H" class="boardBody"></div>
+                    <div id="3I" class="boardBody"></div>
+                    <div id="3J" class="boardBody"></div>
+                </div>
+                <div>
+                    <div class="sideHeader">4</div>
+                    <div id="4A" class="boardBody"></div>
+                    <div id="4B" class="boardBody"></div>
+                    <div id="4C" class="boardBody"></div>
+                    <div id="4D" class="boardBody"></div>
+                    <div id="4E" class="boardBody"></div>
+                    <div id="4F" class="boardBody"></div>
+                    <div id="4G" class="boardBody"></div>
+                    <div id="4H" class="boardBody"></div>
+                    <div id="4I" class="boardBody"></div>
+                    <div id="4J" class="boardBody"></div>
+                </div>
+                <div>
+                    <div class="sideHeader">5</div>
+                    <div id="5A" class="boardBody"></div>
+                    <div id="5B" class="boardBody"></div>
+                    <div id="5C" class="boardBody"></div>
+                    <div id="5D" class="boardBody"></div>
+                    <div id="5E" class="boardBody"></div>
+                    <div id="5F" class="boardBody"></div>
+                    <div id="5G" class="boardBody"></div>
+                    <div id="5H" class="boardBody"></div>
+                    <div id="5I" class="boardBody"></div>
+                    <div id="5J" class="boardBody"></div>
+                </div>
+                <div>
+                    <div class="sideHeader">6</div>
+                    <div id="6A" class="boardBody"></div>
+                    <div id="6B" class="boardBody"></div>
+                    <div id="6C" class="boardBody"></div>
+                    <div id="6D" class="boardBody"></div>
+                    <div id="6E" class="boardBody"></div>
+                    <div id="6F" class="boardBody"></div>
+                    <div id="6G" class="boardBody"></div>
+                    <div id="6H" class="boardBody"></div>
+                    <div id="6I" class="boardBody"></div>
+                    <div id="6J" class="boardBody"></div>
+                </div>
+                <div>
+                    <div class="sideHeader">7</div>
+                    <div id="7A" class="boardBody"></div>
+                    <div id="7B" class="boardBody"></div>
+                    <div id="7C" class="boardBody"></div>
+                    <div id="7D" class="boardBody"></div>
+                    <div id="7E" class="boardBody"></div>
+                    <div id="7F" class="boardBody"></div>
+                    <div id="7G" class="boardBody"></div>
+                    <div id="7H" class="boardBody"></div>
+                    <div id="7I" class="boardBody"></div>
+                    <div id="7J" class="boardBody"></div>
+                </div>
+                <div>
+
+                    <div class="sideHeader">8</div>
+                    <div id="8A" class="boardBody"></div>
+                    <div id="8B" class="boardBody"></div>
+                    <div id="8C" class="boardBody"></div>
+                    <div id="8D" class="boardBody"></div>
+                    <div id="8E" class="boardBody"></div>
+                    <div id="8F" class="boardBody"></div>
+                    <div id="8G" class="boardBody"></div>
+                    <div id="8H" class="boardBody"></div>
+                    <div id="8I" class="boardBody"></div>
+                    <div id="8J" class="boardBody"></div>
+                </div>
+                <div>
+                    <div class="sideHeader">9</div>
+                    <div id="9A" class="boardBody"></div>
+                    <div id="9B" class="boardBody"></div>
+                    <div id="9C" class="boardBody"></div>
+                    <div id="9D" class="boardBody"></div>
+                    <div id="9E" class="boardBody"></div>
+                    <div id="9F" class="boardBody"></div>
+                    <div id="9G" class="boardBody"></div>
+                    <div id="9H" class="boardBody"></div>
+                    <div id="9I" class="boardBody"></div>
+                    <div id="9J" class="boardBody"></div>
+                </div>
+                <div>
+                    <div class="sideHeader">10</div>
+                    <div id="10A" class="boardBody"></div>
+                    <div id="10B" class="boardBody"></div>
+                    <div id="10C" class="boardBody"></div>
+                    <div id="10D" class="boardBody"></div>
+                    <div id="10E" class="boardBody"></div>
+                    <div id="10F" class="boardBody"></div>
+                    <div id="10G" class="boardBody"></div>
+                    <div id="10H" class="boardBody"></div>
+                    <div id="10I" class="boardBody"></div>
+                    <div id="10J" class="boardBody"></div>
+                </div>
+            </div>
     </div>
 
     <div class="shipsBoard"> ACA VAN LOS BARCOS
     </div>
 
     <div class="battleshipChat">
-    <div id="onChat">
-        <div id="main">
-            <div id="messages">
+        <div id="onChat">
+            <div id="main">
+                <div id="messages">
+                </div>
+                <input id="talk">
             </div>
-            <input id="talk">
         </div>
     </div>
-    </div>
 </section>
-
 
 
 <script src="@routes.Assets.at("javascripts/jquery-1.7.2.min.js")"></script>

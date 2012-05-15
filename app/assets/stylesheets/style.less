@@ -77,16 +77,12 @@ td { vertical-align: top; }
 /*Variables*/
 @page-width: 1000px;
 
-/*Fonts*/
-@press-font : 'Press Start 2P', cursive;
-@droid-sans : 'Droid Sans', sans-serif;
-
 /*Colors*/
 @gray-font: #777777;
 @purple-shadow: #3B0B2E;
 @purple: #DF01A5;
 @red: #FF0000;
-@pink: #ffc0cb;
+@black: #000000;
 @gray-background: #F5F5F5;
 
 /*Functions*/
@@ -102,7 +98,7 @@ td { vertical-align: top; }
 }
 
 body {
-    font-family: @droid-sans;
+    font-family: "Helvetica Neue", Helvetica, SANS-SERIF;
 }
 
 body.pinstripe {
@@ -143,15 +139,16 @@ body.pinstripe {
     width: @page-width + 20px;
     position: relative;
     text-align: center;
-    background: @pink;
+    background: @black;
     z-index: 10000;
     #logo {
         height: 90px;
         line-height: 90px;
         text-align: center;
         a:visited, a {
-            color: @gray-font;
-            font: 32px @press-font;
+            color: white;
+            font-size: 64px ;
+            line-height: 73px;
         }
     }
     li {
@@ -166,11 +163,11 @@ body.pinstripe {
     width: @page-width + 20px;
     display: block;
     position: relative;
-    background: @purple;
+    background: @black;
     height: 33px;
     margin-left: -11px;
     margin-bottom: -2px;
-    border: 1px solid @purple;
+    border: 1px solid @red;
     li a {
         display: block;
         text-align: center;
@@ -178,6 +175,7 @@ body.pinstripe {
         padding: 0 10px;
         line-height: 33px;
         font-weight: bold;
+        color: white;
     }
     li:first-child {
         padding-left: 0;
@@ -187,11 +185,11 @@ body.pinstripe {
 #wraparound {
     position: relative;
     margin: 0 -11px;
-    border: 1px solid @purple;
+    border: 1px solid @black;
     box-shadow: 0 4px 4px rgba(0,0,0,0.3);
     &:before , &:after {
         content: " ";
-        border-top: 10px solid @purple-shadow;
+        border-top: 10px solid @red;
         position: absolute;
         bottom: -11px;
     }
@@ -213,7 +211,7 @@ footer {
     background: @gray-background;
     color: @gray-font;
     font-size: 12px;
-    position: fixed;
+
     bottom: 0;
     nav {
         width: auto;
@@ -268,7 +266,7 @@ footer {
         margin-right: auto;
         top: 150px;
         box-shadow: 0 0 10px 10px rgba(0,0,0,0.3);
-        border: 2px solid @pink;
+        border: 2px solid @black;
         text-align: right;
         .Border-radius(5px);
         label{
@@ -279,10 +277,10 @@ footer {
             width: 100%;
             margin: 20px 0;
             text-align: center;
-            font: 0.8em bold @press-font;
+            font: 1.5em bold;
             padding: 10px 0;
-            border-bottom: 5px solid @pink;
-            background: @purple;
+            border-bottom: 5px solid @red;
+            background: @black;
             color: white;
         }
         input {
@@ -291,11 +289,11 @@ footer {
         }
 
         button {
-            border: 2px solid @pink;
+            border: 2px solid black;
             padding: 5px 20px;
             float: right;
             margin: 25px 5px 5px 0;
-            background-color: @purple;
+            background-color: @black;
             color: white;
             .Border-radius;
             font-weight: bold;
@@ -305,41 +303,86 @@ footer {
 
 }
 
+
+/* ===== Board Game CSS ========================================================
+   Author: Team n&n
+   ========================================================================== */
 #game{
     width: 100%;
     min-height: 768px;
     background: url("/assets/images/batalla-naval-game.jpg");
     background-repeat: no-repeat;
-    #battleshipBoard{
-        float: left;
-        color: white;
-        padding-left: 2em;
-        padding-top: 2em;
-            .boardBody{
-                background-image: url("/assets/images/Arena.png");
-            }
-            .boardHeader{
-                background-image: none;
-                font-size: 20px;
-                border: none;
-                padding: 5px
+    font-size: 16px;
+}
 
-            }
-        }
+#myBoard {
+    float: left;
+    margin-left: 50px;
+}
 
-    .battleshipChat{
-      color: white;
-      float: right;
-      margin-right: 10px;
-      width: 400px;
+
+#opponentBoard {
+    float: right;
+}
+
+.board {
+    margin-top: 20px;
+    width: 40%;
+    div {
+        display: inline-block;
     }
-    .shipsBoard{
+    h2 {
+        text-align: center;
         color: white;
-        float: right;
-        padding: 7em;
     }
 }
 
+
+.boardHeader {
+    color: white;
+        margin: 9px;
+        display: inline;
+}
+
+.sideHeader {
+    width: 20px;
+    padding: 0;
+    color: white;
+}
+
+/* TODO Battleship chat style*/
+.battleshipChat {
+    margin-top: 40px;
+    margin-left: 10px;
+    border: 1px solid white;
+    color: white;
+    float: left;
+
+    width: 600px;
+
+    #messages {
+    overflow: auto;
+    height: 300px;
+    }
+    #talk {
+
+    }
+}
+
+/*TODO add drag & drop, add style*/
+.shipsBoard {
+    color: white;
+    float: right;
+    padding: 40px;
+}
+
+
+.boardBody {
+    background: url("/assets/images/Arena.png");
+    border: 1px solid black;
+    width: 25px;
+    height: 25px;
+}
 /* =============================================================================
    Media Queries
    ========================================================================== */

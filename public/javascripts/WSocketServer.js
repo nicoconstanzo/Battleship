@@ -5,7 +5,7 @@ var chatSocket = new WS(WSPath);
 
 chatSocket.onmessage = receiveEvent;
 $("#talk").keypress(handleReturnKey);
-$("#board").click(handleClick);
+$("#myBoard .boardBody").click(handleClick);
 
 function sendMessage(kind, messageText) {
     chatSocket.send(JSON.stringify(
@@ -58,8 +58,12 @@ function handleReturnKey(e) {
 }
 function handleClick(e){
         var position = event.target.id;
+
+        var element = document.getElementById(position);
+        element.style.background = "url('/assets/images/AGUA.jpg')";
         sendMessage("play", position);
         alert('hiciste click en la posición '+ position);
+
 }
 
 

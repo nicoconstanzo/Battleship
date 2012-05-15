@@ -5,13 +5,6 @@ import org.codehaus.jackson.node.ObjectNode;
 import play.libs.Json;
 import play.mvc.WebSocket;
 
-/**
- * Created by IntelliJ IDEA.
- * User: NoePodesta
- * Date: 11/05/12
- * Time: 18:46
- * To change this template use File | Settings | File Templates.
- */
 public class Message {
 
     public static void sendMessage(Player player, String kind, String message) {
