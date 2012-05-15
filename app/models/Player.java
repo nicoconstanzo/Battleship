@@ -1,11 +1,16 @@
 package models;
 
+import models.Ship.Ship;
 import org.codehaus.jackson.JsonNode;
 import play.mvc.WebSocket;
+
+import java.util.List;
+
 public class Player {
     private String username;
     private WebSocket.Out<JsonNode> channel;
     private String gameId;
+    private List<Ship> ships;
 
     private boolean turn;
 
@@ -34,6 +39,14 @@ public class Player {
 
     public boolean isTurn() {
         return turn;
+    }
+
+    public List<Ship> getShips() {
+        return ships;
+    }
+
+    public void setShips(List<Ship> ships) {
+        this.ships = ships;
     }
 
     @Override

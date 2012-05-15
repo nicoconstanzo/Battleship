@@ -1,5 +1,9 @@
 package models;
 
+import models.Ship.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -11,22 +15,23 @@ public class Game {
 
     private Player playerOne;
     private Player playerTwo;
-    private Player currentPlayer;
-    private TurnState currentState;
-    private int playerNumber;
-    private int leavers;
+    private int nPlayer;
 
     public Game() {
         gameId = UUID.randomUUID().toString();
     }
 
     void startGame() {
-        leavers = 0;
-        playerNumber = 2;
+        nPlayer = 2;
         setTurn();
         notifyOponent();
-        //generateStrategy();
+        //setStrategy();
         notifyTurn();
+    }
+
+    private void setStrategy() {
+        playerOne.setShips(getDefaultStrategyA());
+        playerTwo.setShips(getDefaultStrategyB());
     }
 
     public String getGameId() {
@@ -79,9 +84,9 @@ public class Game {
 
     public void play(Player player, String messageText){
         if (getCurrentPlayer() == player) {
-            //Todo ver lo que toco
             sendMessage(getCurrentPlayer(),"play","You have fire to " + messageText);
             sendMessage(getOpponent(getCurrentPlayer()),"play", getCurrentPlayer().getUsername() + "have fire to " + messageText);
+            //checkFire(player, messageText);
             changeTurn();
             notifyTurn();
         } else {
@@ -112,7 +117,7 @@ public class Game {
     }
 
     public void leave(){
-        playerNumber--;
+        nPlayer--;
     }
 
     public boolean isStart() {
@@ -120,21 +125,146 @@ public class Game {
     }
 
     public boolean isFinish() {
-        return playerNumber == 0;
+        return nPlayer == 0;
+    }
+
+    private Player getCurrentPlayer(){
+        return playerOne.isTurn() ? playerOne : playerTwo;
     }
     
-    private Player getCurrentPlayer(){
-        return currentPlayer = playerOne.isTurn() ? playerOne : playerTwo;
+    private void checkFire(Player player, String shot){
+    
+        //TODO falta verificar si ya le dio a esa position
+        
+        List<Ship> ships = player.getShips();
+        for(Ship ship: ships){
+            for(int i = 0; i<ship.getPosition().length; i++){
+                if(shot.equals(ship.getPosition()[i])){
+                    //TODO verificar si le dio o si lo hundio
+                }
+                //TODO Si estan todos los barcos hundidos --> GANO
+                //TODO devolver agua!
+            }
+
+        }
+
+        
     }
+
+    private List<Ship> getDefaultStrategyA(){
+
+        List<Ship> strategy = new ArrayList<Ship>();
+
+        AircraftCarrier aircraftCarrier = new AircraftCarrier();
+        Battleship battleship = new Battleship();
+        Submarine submarine = new Submarine();
+        Cruiser cruiser = new Cruiser();
+        Destroyer destroyer = new Destroyer();
+
+        String[] aircraftPosition = new String[5];
+        aircraftPosition[0] = "4.C";
+        aircraftPosition[1] = "4.D";
+        aircraftPosition[2] = "4.E";
+        aircraftPosition[3] = "4.F";
+        aircraftPosition[4] = "4.G";
+        aircraftCarrier.setPosition(aircraftPosition);
+
+        String[] battleshipPosition = new String[4];
+        battleshipPosition[0] = "6.G";
+        battleshipPosition[1] = "7.G";
+        battleshipPosition[2] = "8.G";
+        battleshipPosition[3] = "9.G";
+        battleship.setPosition(battleshipPosition);
+
+        String[] submarinePosition = new String[3];
+        submarinePosition[0] = "1.I";
+        submarinePosition[1] = "2.I";
+        submarinePosition[2] = "3.I";
+        submarine.setPosition(submarinePosition);
+
+        String[] cruiserPosition = new String[2];
+        cruiserPosition[0] = "1.B";
+        cruiserPosition[1] = "1.C";
+        cruiser.setPosition(cruiserPosition);
+
+        String[] destroyerPosition = new String[2];
+        battleshipPosition[0] = "8.B";
+        battleshipPosition[1] = "8.C";
+        destroyer.setPosition(destroyerPosition);
+
+        strategy.add(aircraftCarrier);
+        strategy.add(battleship);
+        strategy.add(submarine);
+        strategy.add(cruiser);
+        strategy.add(destroyer);
+
+        return strategy;
+
+    }
+
+    private List<Ship> getDefaultStrategyB(){
+
+        List<Ship> strategy = new ArrayList<Ship>();
+
+        AircraftCarrier aircraftCarrier = new AircraftCarrier();
+        Battleship battleship = new Battleship();
+        Submarine submarine = new Submarine();
+        Cruiser cruiser = new Cruiser();
+        Destroyer destroyer = new Destroyer();
+
+        String[] aircraftPosition = new String[5];
+        aircraftPosition[0] = "2.B";
+        aircraftPosition[1] = "2.C";
+        aircraftPosition[2] = "2.D";
+        aircraftPosition[3] = "2.E";
+        aircraftPosition[4] = "2.F";
+        aircraftCarrier.setPosition(aircraftPosition);
+
+        String[] battleshipPosition = new String[4];
+        battleshipPosition[0] = "10.F";
+        battleshipPosition[1] = "10.G";
+        battleshipPosition[2] = "10.H";
+        battleshipPosition[3] = "10.I";
+        battleship.setPosition(battleshipPosition);
+
+        String[] submarinePosition = new String[3];
+        submarinePosition[0] = "5.D";
+        submarinePosition[1] = "5.E";
+        submarinePosition[2] = "5.F";
+        submarine.setPosition(submarinePosition);
+
+        String[] cruiserPosition = new String[2];
+        cruiserPosition[0] = "6.J";
+        cruiserPosition[1] = "7.J";
+        cruiser.setPosition(cruiserPosition);
+
+        String[] destroyerPosition = new String[2];
+        battleshipPosition[0] = "9.B";
+        battleshipPosition[1] = "9.C";
+        destroyer.setPosition(destroyerPosition);
+
+        strategy.add(aircraftCarrier);
+        strategy.add(battleship);
+        strategy.add(submarine);
+        strategy.add(cruiser);
+        strategy.add(destroyer);
+
+        return strategy;
+
+    }
+
 
     @Override
     public String toString() {
         return "Game{" +
                 "playerOne=" + playerOne +
                 ", playerTwo=" + playerTwo +
-                ", playerNumber=" + playerNumber +
+                ", nPlayer=" + nPlayer +
                 '}';
     }
 
     private enum TurnState {ASKING, ANSWERING}
+
+
+
 }
