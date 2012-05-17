@@ -65,7 +65,12 @@ function receiveEvent(event) {
         console.log("Shot at: " + position)
         var board = data.message.opponent ? $("#myBoard") : $("#opponentBoard")
         var element = $("."+position, board);
+
+        //Change the background depending on WATER/HIT, etc..
         element.css("background", "url('/assets/images/"+ data.message.subtype +".jpg')");
+        //Play audio effect
+        var audio = new Audio("/assets/sounds/" +data.message.subtype + ".mp3");
+        audio.play();
     }
 
 
