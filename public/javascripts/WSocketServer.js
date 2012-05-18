@@ -73,6 +73,11 @@ function receiveEvent(event) {
         audio.play();
     }
 
+    if(data.kind =='leave'){
+        var element = $(message);
+        element.css("display","block");
+    }
+
 
     $("span", chatLine).text(data.kind);
     $("p", chatLine).text(data.messageText);

@@ -87,8 +87,6 @@ public class Game {
 
     public void play(Player player, String position){
         if (getCurrentPlayer() == player) {
-//            sendMessage(getOpponent(getCurrentPlayer()),"game", getCurrentPlayer().getUsername() + " have fire to " + position);
-//            sendMessage(getCurrentPlayer(),"hit",position);
             checkFire(player, position);
             changeTurn();
             notifyTurn();
@@ -171,6 +169,10 @@ public class Game {
                 if(shot.equals(ship.getPosition()[i])){
                     ship.setHit(ship.getHit()+1);
                     if(ship.isSunk()){
+                        if(ships.get(0).isSunk() && ships.get(1).isSunk() && ships.get(2).isSunk() && ships.get(3).isSunk() && ships.get(4).isSunk()){
+                            return FireResult.WIN;
+                        }
+
                         return FireResult.SINK;
                     }
                     return FireResult.HIT;
@@ -179,9 +181,7 @@ public class Game {
             }
         }
         //TODO Nunca llega hasta aca
-        if(ships.get(1).isSunk() && ships.get(2).isSunk() && ships.get(3).isSunk() && ships.get(4).isSunk() && ships.get(5).isSunk()){
-            return FireResult.WIN;
-        }
+
         return FireResult.WATER;
     }
 
@@ -222,8 +222,8 @@ public class Game {
         cruiser.setPosition(cruiserPosition);
 
         String[] destroyerPosition = new String[2];
-        battleshipPosition[0] = "8B";
-        battleshipPosition[1] = "8C";
+        destroyerPosition[0] = "8B";
+        destroyerPosition[1] = "8C";
         destroyer.setPosition(destroyerPosition);
 
         strategy.add(aircraftCarrier);
@@ -273,8 +273,8 @@ public class Game {
         cruiser.setPosition(cruiserPosition);
 
         String[] destroyerPosition = new String[2];
-        battleshipPosition[0] = "9B";
-        battleshipPosition[1] = "9C";
+        destroyerPosition[0] = "9B";
+        destroyerPosition[1] = "9C";
         destroyer.setPosition(destroyerPosition);
 
         strategy.add(aircraftCarrier);

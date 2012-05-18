@@ -48,7 +48,7 @@ public class GameManager {
                 String messageText = jsonNode.get("messageText").asText();
                 if (!game.isStart()){
                     if (messageType.equals("chat")) {
-                        //TODO Habilitamos el chat, pero no pueden tocar el tablero! --> Falta
+
                         sendMessage(player, "chat", "Still waitting for opponent.\n" + messageText);
                     }
                 }else{
