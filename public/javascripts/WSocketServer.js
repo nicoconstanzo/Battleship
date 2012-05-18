@@ -74,6 +74,8 @@ function receiveEvent(event) {
     }
 
     if(data.kind =='leave'){
+        var popup = $(popup);
+        popup.css("display","block");
         var element = $(message);
         element.css("display","block");
     }
