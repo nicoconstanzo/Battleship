@@ -49,7 +49,7 @@ public class GameManager {
                 if (!game.isStart()){
                     if (messageType.equals("chat")) {
 
-                        sendMessage(player, "chat", "Still waitting for opponent.\n" + messageText);
+                        sendMessage(player, "chat", "Still waiting for opponent.\n" + messageText);
                     }
                 }else{
                     if (messageType.equals("chat")) {

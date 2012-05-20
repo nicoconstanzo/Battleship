@@ -21,6 +21,7 @@ function sendMessage(kind, messageText) {
 function receiveEvent(event) {
     var data = JSON.parse(event.data);
 
+    console.log(data);
     // Handle errors
     if (data.error) {
         chatSocket.close();
@@ -32,10 +33,15 @@ function receiveEvent(event) {
     }
 
     // Create the message element
-    var chatLine = $('<div class="message"><span></span><span id="user"></span><p></p></div>');
+    var chatLine = $('<div class="message"><div id="user"></div><p></p></div>');
+
     if (data.kind == 'chat') {
         $(chatLine).addClass('chat');
-        $("#user", chatLine).text(data.userFrom + ": ");
+        if (data.userFrom == null) {
+            $("#user", chatLine).text("chat");
+        }
+        $("#user", chatLine).text(data.userFrom);
+        $("p", chatLine).text(data.messageText);
         $('#messages').append(chatLine)
     }
 
@@ -56,7 +62,8 @@ function receiveEvent(event) {
         console.log(data)
 
         // Seteamos el mensaje de texto, lo que aparece en el chat
-        $("span", chatLine).text(data.kind);
+        $(chatLine).addClass('game');
+        $("#user", chatLine).text(data.kind);
         $("p", chatLine).text(data.message.message);
         $('#messages').append(chatLine)
 
@@ -65,6 +72,9 @@ function receiveEvent(event) {
         console.log("Shot at: " + position)
         var board = data.message.opponent ? $("#myBoard") : $("#opponentBoard")
         var element = $("."+position, board);
+
+
+
 
         //Change the background depending on WATER/HIT, etc..
         element.css("background", "url('/assets/images/"+ data.message.subtype +".jpg')");
@@ -80,10 +90,12 @@ function receiveEvent(event) {
         element.css("display","block");
     }
 
-
-    $("span", chatLine).text(data.kind);
-    $("p", chatLine).text(data.messageText);
-    $('#messages').append(chatLine)
+    if (data.kind == 'wait' || data.kind == 'start') {
+        $(chatLine).addClass('info');
+        $("#user", chatLine).text(data.kind);
+        $("p", chatLine).text(data.messageText);
+        $('#messages').append(chatLine)
+    }
 }
 
 function handleReturnKey(e) {
@@ -97,7 +109,6 @@ function handleClick(e){
         var position = event.target.className.substring(0,event.target.className.indexOf(" "));
         sendMessage("hit", position);
         console.log('Hiciste click en la posición '+ position);
-
 }
 
 

@@ -36,7 +36,7 @@ public class Message {
         jsonNode.put("messageText", message);
         playerFrom.getChannel().write(jsonNode);
         playerTo.getChannel().write(jsonNode);
-        
+
 
     }
 }

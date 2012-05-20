@@ -93,7 +93,6 @@ public class Game {
         } else {
             sendMessage(getOpponent(getCurrentPlayer()), "wait", "Wait, is not your turn!");
         }
-
     }
 
     private void changeTurn(){
@@ -108,30 +107,7 @@ public class Game {
 
     }
 
-    public Player getOpponent(Player player){
-        Player opponent = isPlayerOne(player) ? getPlayerTwo() : getPlayerOne();
-        return opponent;
-    }
 
-    private boolean isPlayerOne(Player player) {
-        return player == getPlayerOne();
-    }
-
-    public void leave(){
-        nPlayer--;
-    }
-
-    public boolean isStart() {
-       return isPlayerOneDefined() && isPlayerTwoDefined();
-    }
-
-    public boolean isFinish() {
-        return nPlayer == 0;
-    }
-
-    private Player getCurrentPlayer(){
-        return playerOne.isTurn() ? playerOne : playerTwo;
-    }
     
     private void checkFire(Player player, String shot){
         FireResult fireResult = getFireResult(player, shot);
@@ -295,6 +271,31 @@ public class Game {
                 ", playerTwo=" + playerTwo +
                 ", nPlayer=" + nPlayer +
                 '}';
+    }
+
+    public Player getOpponent(Player player){
+        Player opponent = isPlayerOne(player) ? getPlayerTwo() : getPlayerOne();
+        return opponent;
+    }
+
+    private boolean isPlayerOne(Player player) {
+        return player == getPlayerOne();
+    }
+
+    public void leave(){
+        nPlayer--;
+    }
+
+    public boolean isStart() {
+       return isPlayerOneDefined() && isPlayerTwoDefined();
+    }
+
+    public boolean isFinish() {
+        return nPlayer == 0;
+    }
+
+    private Player getCurrentPlayer(){
+        return playerOne.isTurn() ? playerOne : playerTwo;
     }
 
 
