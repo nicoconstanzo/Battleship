@@ -66,7 +66,7 @@ public class GameManager {
             public void invoke() throws Throwable {
                 Game game = getGameById(player.getGameId());
                 Player opponent = game.getOpponent(player);
-                sendMessage(opponent,"leave", opponent.getUsername() + " has left the game");
+                sendMessage(opponent,"leave", opponent.getUsername() + " has left the game!! You are the WINNER!");
                 game.leave();
                 if (game.isFinish()) {
                     games.remove(games.indexOf(game));

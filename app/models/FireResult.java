@@ -7,7 +7,8 @@ public enum FireResult {
     SINK("You sunk it!", "Ohhh noo, your ship was sunk!"),
     HIT("You hit it", "Ohh noo, your ship was hit!"),
     ACTIVE("You already shot here","They already shot here!"),
-    WIN("Good, you win the game!", "HA HA, you are a looser!");
+    WIN("Good, you win the game!", ""),
+    LOSER("","HA HA, you are a looser!");
 
     private String currentPlayerMessage;
     private String opponentMessage;

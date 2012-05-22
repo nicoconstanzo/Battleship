@@ -6,6 +6,23 @@ var chatSocket = new WS(WSPath);
 chatSocket.onmessage = receiveEvent;
 $("#talk").keypress(handleReturnKey);
 $("#opponentBoard .boardBody").click(handleClick);
+$( "#draggable0" ).draggable();
+$( "#draggable1" ).draggable();
+$( "#draggable2" ).draggable();
+$( "#draggable3" ).draggable();
+$( "#draggable4" ).draggable();
+$( "#draggable5" ).draggable();
+$( "#draggable6" ).draggable();
+$( "#draggable7" ).draggable();
+$( "#draggable8" ).draggable();
+$( "#draggable9" ).draggable();
+$( "#draggable10" ).draggable();
+$( "#draggable11" ).draggable();
+$( "#draggable12" ).draggable();
+$( "#draggable13" ).draggable();
+$( "#draggable14" ).draggable();
+$( "#draggable15" ).draggable();
+
 
 function sendMessage(kind, messageText) {
     chatSocket.send(JSON.stringify(
@@ -73,13 +90,34 @@ function receiveEvent(event) {
     }
 
     if(data.kind =='leave'){
+
         var element = $(message);
         element.css("display","block");
         var blanket = $(popUpBlanket);
         blanket.css("display", "block");
+        var p = document.createElement("p");
+        p.innerHTML = data.messageText;
+        message.appendChild(p);
+        var audio = new Audio("/assets/sounds/leave.wav");
+        audio.play();
     }
 
-    if (data.kind == 'wait' || data.kind == 'start') {
+
+    if(data.kind =='finish'){
+        var audio = new Audio("/assets/sounds/" +data.message.subtype + ".mp3");
+        audio.play();
+        var popup = $(popup);
+        popup.css("display","block");
+        var element = $(message);
+        element.css("display","block");
+        var p = document.createElement("p");
+        p.innerHTML = data.message.message;
+        message.appendChild(p);
+
+
+    }
+
+    if (data.kind == 'wait' || data.kind == 'start' || data.kind == 'fire') {
         $(chatLine).addClass('info');
         $("#user", chatLine).text(data.kind);
         $("p", chatLine).text(data.messageText);
@@ -87,49 +125,49 @@ function receiveEvent(event) {
     }
 
     if(data.kind == 'ship2') {
-        $("#myBoard .8B").css("background","url('/assets/images/ships/b20.png')");
-        $("#myBoard .8C").css("background","url('/assets/images/ships/b21.png')");
+        $("#myBoard .8B").css("background","url('/assets/images/ships/b2.0.png')");
+        $("#myBoard .8C").css("background","url('/assets/images/ships/b2.1.png')");
 
-        $("#myBoard .1B").css("background","url('/assets/images/ships/b20.png')");
-        $("#myBoard .1C").css("background","url('/assets/images/ships/b21.png')");
+        $("#myBoard .1B").css("background","url('/assets/images/ships/b2.0.png')");
+        $("#myBoard .1C").css("background","url('/assets/images/ships/b2.1.png')");
 
-        $("#myBoard .3I").css("background","url('/assets/images/ships/b30.png')");
-        $("#myBoard .2I").css("background","url('/assets/images/ships/b31.png')");
-        $("#myBoard .1I").css("background","url('/assets/images/ships/b32.png')");
+        $("#myBoard .3I").css("background","url('/assets/images/ships/b3.0.png')");
+        $("#myBoard .2I").css("background","url('/assets/images/ships/b3.1.png')");
+        $("#myBoard .1I").css("background","url('/assets/images/ships/b3.2.png')");
 
-        $("#myBoard .6G").css("background","url('/assets/images/ships/b40.png')");
-        $("#myBoard .7G").css("background","url('/assets/images/ships/b41.png')");
-        $("#myBoard .8G").css("background","url('/assets/images/ships/b42.png')");
-        $("#myBoard .9G").css("background","url('/assets/images/ships/b43.png')");
+        $("#myBoard .6G").css("background","url('/assets/images/ships/b4.0.png')");
+        $("#myBoard .7G").css("background","url('/assets/images/ships/b4.1.png')");
+        $("#myBoard .8G").css("background","url('/assets/images/ships/b4.2.png')");
+        $("#myBoard .9G").css("background","url('/assets/images/ships/b4.3.png')");
 
-        $("#myBoard .4C").css("background","url('/assets/images/ships/b50.png')");
-        $("#myBoard .4D").css("background","url('/assets/images/ships/b51.png')");
-        $("#myBoard .4E").css("background","url('/assets/images/ships/b52.png')");
-        $("#myBoard .4F").css("background","url('/assets/images/ships/b53.png')");
-        $("#myBoard .4G").css("background","url('/assets/images/ships/b54.png')");
+        $("#myBoard .4C").css("background","url('/assets/images/ships/b5.0.png')");
+        $("#myBoard .4D").css("background","url('/assets/images/ships/b5.1.png')");
+        $("#myBoard .4E").css("background","url('/assets/images/ships/b5.2.png')");
+        $("#myBoard .4F").css("background","url('/assets/images/ships/b5.3.png')");
+        $("#myBoard .4G").css("background","url('/assets/images/ships/b5.4.png')");
     }
 
     if(data.kind == 'ship1') {
-        $("#myBoard .9B").css("background","url('/assets/images/ships/b20.png')");
-        $("#myBoard .9C").css("background","url('/assets/images/ships/b21.png')");
+        $("#myBoard .9B").css("background","url('/assets/images/ships/b2.0.png')");
+        $("#myBoard .9C").css("background","url('/assets/images/ships/b2.1.png')");
 
-        $("#myBoard .6J").css("background","url('/assets/images/ships/b20.png')");
-        $("#myBoard .7J").css("background","url('/assets/images/ships/b21.png')");
+        $("#myBoard .6J").css("background","url('/assets/images/ships/b2.0.png')");
+        $("#myBoard .7J").css("background","url('/assets/images/ships/b2.1.png')");
 
-        $("#myBoard .5D").css("background","url('/assets/images/ships/b30.png')");
-        $("#myBoard .5E").css("background","url('/assets/images/ships/b31.png')");
-        $("#myBoard .5F").css("background","url('/assets/images/ships/b32.png')");
+        $("#myBoard .5D").css("background","url('/assets/images/ships/b3.0.png')");
+        $("#myBoard .5E").css("background","url('/assets/images/ships/b3.1.png')");
+        $("#myBoard .5F").css("background","url('/assets/images/ships/b3.2.png')");
 
-        $("#myBoard .10F").css("background","url('/assets/images/ships/b40.png')");
-        $("#myBoard .10G").css("background","url('/assets/images/ships/b41.png')");
-        $("#myBoard .10H").css("background","url('/assets/images/ships/b42.png')");
-        $("#myBoard .10I").css("background","url('/assets/images/ships/b43.png')");
+        $("#myBoard .10F").css("background","url('/assets/images/ships/b4.0.png')");
+        $("#myBoard .10G").css("background","url('/assets/images/ships/b4.1.png')");
+        $("#myBoard .10H").css("background","url('/assets/images/ships/b4.2.png')");
+        $("#myBoard .10I").css("background","url('/assets/images/ships/b4.3.png')");
 
-        $("#myBoard .2B").css("background","url('/assets/images/ships/b50.png')");
-        $("#myBoard .2C").css("background","url('/assets/images/ships/b51.png')");
-        $("#myBoard .2D").css("background","url('/assets/images/ships/b52.png')");
-        $("#myBoard .2E").css("background","url('/assets/images/ships/b53.png')");
-        $("#myBoard .2F").css("background","url('/assets/images/ships/b54.png')");
+        $("#myBoard .2B").css("background","url('/assets/images/ships/b5.0.png')");
+        $("#myBoard .2C").css("background","url('/assets/images/ships/b5.1.png')");
+        $("#myBoard .2D").css("background","url('/assets/images/ships/b5.2.png')");
+        $("#myBoard .2E").css("background","url('/assets/images/ships/b5.3.png')");
+        $("#myBoard .2F").css("background","url('/assets/images/ships/b5.4.png')");
     }
 }
 
@@ -144,6 +182,12 @@ function handleClick(e){
         var position = event.target.className.substring(0,event.target.className.indexOf(" "));
         sendMessage("hit", position);
         console.log('Hiciste click en la posición '+ position);
+}
+
+function resetMessage(){
+    var message =  $(message);
+    message.removeChild(message.getElementsByTagName("p")[0]);
+
 }
 
 

@@ -4,6 +4,7 @@ import models.Ship.Ship;
 import org.codehaus.jackson.JsonNode;
 import play.mvc.WebSocket;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -47,6 +48,14 @@ public class Player {
 
     public void setShips(List<Ship> ships) {
         this.ships = ships;
+    }
+    
+    public boolean isDefeated(){
+        List<Ship> ships = getShips();
+        if(ships.get(0).isSunk()&&ships.get(1).isSunk()&&ships.get(2).isSunk()&&ships.get(3).isSunk()&&ships.get(4).isSunk()){
+            return true;
+        }
+       return false;
     }
 
     @Override

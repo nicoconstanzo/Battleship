@@ -38,78 +38,77 @@ public class Game {
         sendMessage(getPlayerTwo(), "start", "Let's play Boom Boom Splash, you are playing against " + getPlayerOne().getUsername());
     }
 
-    public void play(Player player, String position) {
+    public void play(Player player, String shot){
         if (getCurrentPlayer() == player) {
-            checkFire(player, position);
+            checkFire(player, shot);
+            if(!player.isDefeated()){
             changeTurn();
             notifyTurn();
+            }
+            else{
+                notifyWinner(player, shot);
+            }
         } else {
             sendMessage(getOpponent(getCurrentPlayer()), "wait", "Wait, is not your turn!");
         }
     }
 
-    private void changeTurn() {
+    private void notifyWinner(Player player, String shot) {
+        FireResult win = FireResult.WIN;
+        sendMessage(player,"finish", createShotMessage(false, win.name(), shot, win.getCurrentPlayerMessage()));
+        FireResult loser = FireResult.LOSER;
+        sendMessage(getOpponent(player),"finish", createShotMessage(true, loser.name(), shot, loser.getOpponentMessage()));
+    }
+
+    private void changeTurn(){
         Player previousCurrentPlayer = getCurrentPlayer();
         getCurrentPlayer().setTurn(false);
         (getOpponent(previousCurrentPlayer)).setTurn(true);
     }
 
     private void notifyTurn() {
-        sendMessage(getCurrentPlayer(), "game", "It's your turn, Fire.");
-        sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() + " turn!");
+           sendMessage(getCurrentPlayer(), "fire", "It's your turn, Fire.");
+           sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() +  " turn!");
+
     }
 
-    private void checkFire(Player player, String shot) {
+    private ObjectNode createShotMessage(Boolean opponent,String fireResultName, String shot, String message)
+    {
+        ObjectNode result = Json.newObject();
+        result.put("opponent", opponent);
+        result.put("subtype", fireResultName);
+        result.put("shot", shot);
+        result.put("message", message);
+        return result;
+    }
+
+    
+    private void checkFire(Player player, String shot){
         FireResult fireResult = getFireResult(player, shot);
-        sendMessage(player, "game", createCurrentShotMessage(fireResult, shot));
-        sendMessage(getOpponent(player), "game", createOpponentShotMessage(fireResult, shot));
-    }
-
-    private ObjectNode createOpponentShotMessage(FireResult fireResult, String shot) {
-        ObjectNode result = Json.newObject();
-        result.put("opponent", true);
-        result.put("subtype", fireResult.name());
-        result.put("shot", shot);
-        result.put("message", fireResult.getOpponentMessage());
-        return result;
-    }
-
-    private ObjectNode createCurrentShotMessage(FireResult fireResult, String shot) {
-        ObjectNode result = Json.newObject();
-        result.put("opponent", false);
-        result.put("subtype", fireResult.name());
-        result.put("shot", shot);
-        result.put("message", fireResult.getCurrentPlayerMessage());
-        return result;
+        sendMessage(player,"game", createShotMessage(false,fireResult.name(), shot,fireResult.getCurrentPlayerMessage()));
+        sendMessage(getOpponent(player),"game", createShotMessage(true,fireResult.name(), shot,fireResult.getOpponentMessage()));
     }
 
 
-    private FireResult getFireResult(Player player, String shot) {
-
+    private FireResult getFireResult (Player player, String shot){
+    
         //TODO falta verificar si ya le dio a esa position
-
+        
         List<Ship> ships = player.getShips();
-        for (Ship ship : ships) {
-            for (int i = 0; i < ship.getPosition().length; i++) {
-                if (shot.equals(ship.getPosition()[i])) {
-                    ship.setHit(ship.getHit() + 1);
-                    if (ship.isSunk()) {
-                        if (ships.get(0).isSunk() && ships.get(1).isSunk() && ships.get(2).isSunk() && ships.get(3).isSunk() && ships.get(4).isSunk()) {
-                            return FireResult.WIN;
-                        }
-
+        for(Ship ship: ships){
+            for(int i = 0; i<ship.getPosition().length; i++){
+                if(shot.equals(ship.getPosition()[i])){
+                    ship.setHit(ship.getHit()+1);
+                    if(ship.isSunk()){
                         return FireResult.SINK;
                     }
                     return FireResult.HIT;
                 }
-                //TODO Si estan todos los barcos hundidos --> GANO
             }
         }
-        //TODO Nunca llega hasta aca
 
         return FireResult.WATER;
     }
-
 
     private void drawShips () {
         Player player1 = getPlayerOne();
@@ -131,7 +130,8 @@ public class Game {
         sendMessage(player2, "ship2", ships2);
     }
 
-    private List<Ship> getDefaultStrategyA() {
+
+    private List<Ship> getDefaultStrategyA(){
 
         List<Ship> strategy = new ArrayList<Ship>();
 
@@ -182,7 +182,7 @@ public class Game {
 
     }
 
-    private List<Ship> getDefaultStrategyB() {
+    private List<Ship> getDefaultStrategyB(){
 
         List<Ship> strategy = new ArrayList<Ship>();
 
@@ -243,7 +243,7 @@ public class Game {
                 '}';
     }
 
-    public Player getOpponent(Player player) {
+    public Player getOpponent(Player player){
         Player opponent = isPlayerOne(player) ? getPlayerTwo() : getPlayerOne();
         return opponent;
     }
@@ -252,19 +252,19 @@ public class Game {
         return player == getPlayerOne();
     }
 
-    public void leave() {
+    public void leave(){
         nPlayer--;
     }
 
     public boolean isStart() {
-        return isPlayerOneDefined() && isPlayerTwoDefined();
+       return isPlayerOneDefined() && isPlayerTwoDefined();
     }
 
     public boolean isFinish() {
         return nPlayer == 0;
     }
 
-    private Player getCurrentPlayer() {
+    private Player getCurrentPlayer(){
         return playerOne.isTurn() ? playerOne : playerTwo;
     }
 
@@ -303,15 +303,19 @@ public class Game {
         return playerTwo != null;
     }
 
-
     private void setTurn() {
         playerOne.setTurn(turn());
         playerOne.setTurn(!playerTwo.isTurn());
     }
 
-    public boolean turn() {
+    public boolean turn(){
         Random random = new Random();
         boolean turn = random.nextBoolean();
         return turn;
     }
+
+
+
+
+
 }

@@ -320,6 +320,33 @@
 
 
     <div class="shipsBoard"> ACA VAN LOS BARCOS
+       <!-- <div class="Ship"> <p>Destroyer: </p>
+            <div id="draggable0"><img src="/assets/images/ships/b2.0.png" width="35" height="35"/></div>
+            <div id="draggable1"><img src="/assets/images/ships/b2.1.png" width="35" height="35"/></div>
+        </div>
+        <div class="Ship"> <p>Cruicer: </p>
+            <div id="draggable2"><img src="/assets/images/ships/b2.0.png" width="35" height="35"/></div>
+            <div id="draggable3"><img src="/assets/images/ships/b2.1.png" width="35" height="35"/></div>
+        </div>
+        <div class="Ship"> <p>Aircraft Carrier: </p>
+            <div id="draggable4"><img src="/assets/images/ships/b5.0.png" width="35" height="35"/></div>
+            <div id="draggable5"><img src="/assets/images/ships/b5.1.png" width="35" height="35"/></div>
+            <div id="draggable6"><img src="/assets/images/ships/b5.2.png" width="35" height="35"/></div>
+            <div id="draggable7"><img src="/assets/images/ships/b5.3.png" width="35" height="35"/></div>
+            <div id="draggable8"><img src="/assets/images/ships/b5.4.png" width="35" height="35"/></div>
+        </div>
+        <div class="Ship"> <p>Battleship: </p>
+            <div id="draggable9"><img src="/assets/images/ships/b4.0.png" width="35" height="35"/></div>
+            <div id="draggable10"><img src="/assets/images/ships/b4.1.png" width="35" height="35"/></div>
+            <div id="draggable11"><img src="/assets/images/ships/b4.2.png" width="35" height="35"/></div>
+            <div id="draggable12"><img src="/assets/images/ships/b4.3.png" width="35" height="35"/></div>
+        </div>
+        <div class="Ship"> <p>Submarine: </p>
+            <div id="draggable13"><img src="/assets/images/ships/b3.0.png" width="35" height="35"/></div>
+            <div id="draggable14"><img src="/assets/images/ships/b3.1.png" width="35" height="35"/></div>
+            <div id="draggable15"><img src="/assets/images/ships/b3.2.png" width="35" height="35"/></div>
+        </div>
+-->
     </div>
 
     <div class="battleshipChat">
@@ -335,11 +362,10 @@
 
     <div id="message">
         <div class='close'>
-            <a href="@routes.Application.index()">
+            <a href="@routes.Application.index()" onclick="resetMessage()">
                 <img src="/assets/images/close.png"/>
             </a>
         </div>
-        <p>Your opponent has abandoned the battle. You are the Winner! Congratulations!!</p>
     </div>
 
     <div id="popUpBlanket" class="popUpBlanket">
@@ -348,6 +374,7 @@
 </section>
 
 
-<script src="@routes.Assets.at("javascripts/jquery-1.7.2.min.js")"></script>
-<script src="@routes.Assets.at("javascripts/WSocketServer.js")"></script>
+<script src='@routes.Assets.at("javascripts/jquery-1.7.2.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/jquery-ui-1.8.20.custom.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/WSocketServer.js")'></script>
 }
