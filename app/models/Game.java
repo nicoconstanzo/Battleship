@@ -29,63 +29,16 @@ public class Game {
         setTurn();
         notifyOponent();
         setStrategy();
+        drawShips();
         notifyTurn();
     }
-
-    private void setStrategy() {
-        playerOne.setShips(getDefaultStrategyA());
-        playerTwo.setShips(getDefaultStrategyB());
-    }
-
-    public String getGameId() {
-        return gameId;
-    }
-
-    public Player getPlayerOne() {
-        return playerOne;
-    }
-
-    public Player getPlayerTwo() {
-        return playerTwo;
-    }
-
-
-    public void setPlayerOne(Player playerOne) {
-        this.playerOne = playerOne;
-    }
-
-    public void setPlayerTwo(Player playerTwo) {
-        this.playerTwo = playerTwo;
-    }
-
-    public boolean isPlayerOneDefined() {
-        return playerOne != null;
-    }
-
-
-    public boolean isPlayerTwoDefined() {
-        return playerTwo != null;
-    }
-
-
-    private void setTurn() {
-        playerOne.setTurn(turn());
-        playerOne.setTurn(!playerTwo.isTurn());
-    }
-
-    public boolean turn(){
-        Random random = new Random();
-        boolean turn = random.nextBoolean();
-        return turn;
-    }
-
 
     private void notifyOponent() {
         sendMessage(getPlayerOne(), "start", "Let's play Boom Boom Splash, you are playing against " + getPlayerTwo().getUsername());
         sendMessage(getPlayerTwo(), "start", "Let's play Boom Boom Splash, you are playing against " + getPlayerOne().getUsername());
     }
 
-    public void play(Player player, String position){
+    public void play(Player player, String position) {
         if (getCurrentPlayer() == player) {
             checkFire(player, position);
             changeTurn();
@@ -95,28 +48,24 @@ public class Game {
         }
     }
 
-    private void changeTurn(){
+    private void changeTurn() {
         Player previousCurrentPlayer = getCurrentPlayer();
         getCurrentPlayer().setTurn(false);
         (getOpponent(previousCurrentPlayer)).setTurn(true);
     }
 
     private void notifyTurn() {
-           sendMessage(getCurrentPlayer(), "game", "It's your turn, Fire.");
-           sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() +  " turn!");
-
+        sendMessage(getCurrentPlayer(), "game", "It's your turn, Fire.");
+        sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() + " turn!");
     }
 
-
-    
-    private void checkFire(Player player, String shot){
+    private void checkFire(Player player, String shot) {
         FireResult fireResult = getFireResult(player, shot);
-        sendMessage(player,"game", createCurrentShotMessage(fireResult, shot));
-        sendMessage(getOpponent(player),"game", createOpponentShotMessage(fireResult, shot));
+        sendMessage(player, "game", createCurrentShotMessage(fireResult, shot));
+        sendMessage(getOpponent(player), "game", createOpponentShotMessage(fireResult, shot));
     }
 
-    private ObjectNode createOpponentShotMessage(FireResult fireResult, String shot)
-    {
+    private ObjectNode createOpponentShotMessage(FireResult fireResult, String shot) {
         ObjectNode result = Json.newObject();
         result.put("opponent", true);
         result.put("subtype", fireResult.name());
@@ -135,17 +84,17 @@ public class Game {
     }
 
 
-    private FireResult getFireResult (Player player, String shot){
-    
+    private FireResult getFireResult(Player player, String shot) {
+
         //TODO falta verificar si ya le dio a esa position
-        
+
         List<Ship> ships = player.getShips();
-        for(Ship ship: ships){
-            for(int i = 0; i<ship.getPosition().length; i++){
-                if(shot.equals(ship.getPosition()[i])){
-                    ship.setHit(ship.getHit()+1);
-                    if(ship.isSunk()){
-                        if(ships.get(0).isSunk() && ships.get(1).isSunk() && ships.get(2).isSunk() && ships.get(3).isSunk() && ships.get(4).isSunk()){
+        for (Ship ship : ships) {
+            for (int i = 0; i < ship.getPosition().length; i++) {
+                if (shot.equals(ship.getPosition()[i])) {
+                    ship.setHit(ship.getHit() + 1);
+                    if (ship.isSunk()) {
+                        if (ships.get(0).isSunk() && ships.get(1).isSunk() && ships.get(2).isSunk() && ships.get(3).isSunk() && ships.get(4).isSunk()) {
                             return FireResult.WIN;
                         }
 
@@ -161,7 +110,28 @@ public class Game {
         return FireResult.WATER;
     }
 
-    private List<Ship> getDefaultStrategyA(){
+
+    private void drawShips () {
+        Player player1 = getPlayerOne();
+        ObjectNode ships1 = Json.newObject();
+        ships1.put("aircraft", "4C, 4D, 4E, 4F, 4G");
+        ships1.put("battleship", "6G,7G,8G,9G");
+        ships1.put("submarine", "1I, 2I, 3I");
+        ships1.put("cruiser", "1B, 1C");
+        ships1.put("destroyer", "8B, 8C");
+        sendMessage(player1, "ship1", ships1);
+
+        Player player2 = getPlayerTwo();
+        ObjectNode ships2 = Json.newObject();
+        ships2.put("aircraft", "2B, 2C, 2D, 2E, 2F");
+        ships2.put("battleship", "10F, 10G, 10H, 10I");
+        ships2.put("submarine", "5D, 5E,5F");
+        ships2.put("cruiser", "6J,7J");
+        ships2.put("destroyer", "9B,9C");
+        sendMessage(player2, "ship2", ships2);
+    }
+
+    private List<Ship> getDefaultStrategyA() {
 
         List<Ship> strategy = new ArrayList<Ship>();
 
@@ -212,7 +182,7 @@ public class Game {
 
     }
 
-    private List<Ship> getDefaultStrategyB(){
+    private List<Ship> getDefaultStrategyB() {
 
         List<Ship> strategy = new ArrayList<Ship>();
 
@@ -273,7 +243,7 @@ public class Game {
                 '}';
     }
 
-    public Player getOpponent(Player player){
+    public Player getOpponent(Player player) {
         Player opponent = isPlayerOne(player) ? getPlayerTwo() : getPlayerOne();
         return opponent;
     }
@@ -282,21 +252,66 @@ public class Game {
         return player == getPlayerOne();
     }
 
-    public void leave(){
+    public void leave() {
         nPlayer--;
     }
 
     public boolean isStart() {
-       return isPlayerOneDefined() && isPlayerTwoDefined();
+        return isPlayerOneDefined() && isPlayerTwoDefined();
     }
 
     public boolean isFinish() {
         return nPlayer == 0;
     }
 
-    private Player getCurrentPlayer(){
+    private Player getCurrentPlayer() {
         return playerOne.isTurn() ? playerOne : playerTwo;
     }
 
+    private void setStrategy() {
+        playerOne.setShips(getDefaultStrategyA());
+        playerTwo.setShips(getDefaultStrategyB());
+    }
 
+    public String getGameId() {
+        return gameId;
+    }
+
+    public Player getPlayerOne() {
+        return playerOne;
+    }
+
+    public Player getPlayerTwo() {
+        return playerTwo;
+    }
+
+
+    public void setPlayerOne(Player playerOne) {
+        this.playerOne = playerOne;
+    }
+
+    public void setPlayerTwo(Player playerTwo) {
+        this.playerTwo = playerTwo;
+    }
+
+    public boolean isPlayerOneDefined() {
+        return playerOne != null;
+    }
+
+
+    public boolean isPlayerTwoDefined() {
+        return playerTwo != null;
+    }
+
+
+    private void setTurn() {
+        playerOne.setTurn(turn());
+        playerOne.setTurn(!playerTwo.isTurn());
+    }
+
+    public boolean turn() {
+        Random random = new Random();
+        boolean turn = random.nextBoolean();
+        return turn;
+    }
 }

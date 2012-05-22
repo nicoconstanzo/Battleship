@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import static models.Message.sendChat;
 import static models.Message.sendMessage;
-import static models.Message.usernameAlreadyChoosen;
+import static models.Message.usernameAlreadyChosen;
 
 public class GameManager {
     private static ArrayList<Game> games = new ArrayList<Game>();
@@ -25,7 +25,7 @@ public class GameManager {
         } else if (!game.isPlayerTwoDefined()) {
             //TODO verify username playerTwo is not = playerOne
             if(game.getPlayerOne().getUsername().equals(username)){
-                usernameAlreadyChoosen(out);
+                usernameAlreadyChosen(out);
                 //TODO we have to redirect to the index;
             }
             Player playerTwo = new Player(username, out, game.getGameId());

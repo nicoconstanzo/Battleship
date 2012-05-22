@@ -22,7 +22,7 @@ public class Message {
     }
 
 
-    public static void usernameAlreadyChoosen(WebSocket.Out<JsonNode> out){
+    public static void usernameAlreadyChosen(WebSocket.Out<JsonNode> out){
         ObjectNode jsonNode = Json.newObject();
         jsonNode.put("kind","exception");
         jsonNode.put("messageText", "This username is already used");

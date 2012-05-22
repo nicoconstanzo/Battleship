@@ -140,7 +140,7 @@ body.pinstripe {
     position: relative;
     text-align: center;
     background: @black;
-    z-index: 10000;
+    z-index: 1000;
     #logo {
         height: 90px;
         line-height: 90px;
@@ -394,6 +394,11 @@ footer {
     }
 }
 
+#talk {
+    width: 450px;
+    margin: 5px;
+}
+
 /*TODO add drag & drop, add style*/
 .shipsBoard {
     color: white;
@@ -415,11 +420,12 @@ footer {
     ========================================================================== */
 
 #message{
+    z-index: 1003;
     background-color: silver;
     border: medium solid grey;
-    border-radius: 0.5em 0.5em 0.5em 0.5em;
+    .Border-radius;
     display: none;
-    left: 41.5%;
+    left: 38.5%;
     padding: 1em;
     position: fixed;
     text-align: center;
@@ -432,15 +438,19 @@ footer {
         }
 }
 
-#popup{
-   position: fixed;
-   display: none;
-   width: 100%;
-   height: 100%;
-   left: 0;
-   top: 0;
-   background-color: black;
-   opacity: 0.7;
+#popUpBlanket {
+	display: none;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+    min-height: 943px;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index:1001;
+	-moz-opacity: 0.8;
+	opacity:.80;
+	filter: alpha(opacity=80);
 }
 
 

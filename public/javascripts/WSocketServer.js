@@ -45,20 +45,9 @@ function receiveEvent(event) {
         $('#messages').append(chatLine)
     }
 
-//    if(data.kind == 'hit'){
-//        console.log("HIT: " + data)
-//        var position = data.messageText;
-//        var element = document.getElementById(position);
-//        element.style.background = "url('/assets/images/WATER.jpg')";
-//         $("span", chatLine).text(data.kind);
-//         $("p", chatLine).text("You hit: " + data.messageText);
-//         $('#messages').append(chatLine)
-//
-//    }
-
     if(data.kind == 'game'){
 
-        console.log("Data Arriving")
+        console.log("Game Data Arriving")
         console.log(data)
 
         // Seteamos el mensaje de texto, lo que aparece en el chat
@@ -84,10 +73,10 @@ function receiveEvent(event) {
     }
 
     if(data.kind =='leave'){
-        var popup = $(popup);
-        popup.css("display","block");
         var element = $(message);
         element.css("display","block");
+        var blanket = $(popUpBlanket);
+        blanket.css("display", "block");
     }
 
     if (data.kind == 'wait' || data.kind == 'start') {
@@ -95,6 +84,52 @@ function receiveEvent(event) {
         $("#user", chatLine).text(data.kind);
         $("p", chatLine).text(data.messageText);
         $('#messages').append(chatLine)
+    }
+
+    if(data.kind == 'ship2') {
+        $("#myBoard .8B").css("background","url('/assets/images/ships/b20.png')");
+        $("#myBoard .8C").css("background","url('/assets/images/ships/b21.png')");
+
+        $("#myBoard .1B").css("background","url('/assets/images/ships/b20.png')");
+        $("#myBoard .1C").css("background","url('/assets/images/ships/b21.png')");
+
+        $("#myBoard .3I").css("background","url('/assets/images/ships/b30.png')");
+        $("#myBoard .2I").css("background","url('/assets/images/ships/b31.png')");
+        $("#myBoard .1I").css("background","url('/assets/images/ships/b32.png')");
+
+        $("#myBoard .6G").css("background","url('/assets/images/ships/b40.png')");
+        $("#myBoard .7G").css("background","url('/assets/images/ships/b41.png')");
+        $("#myBoard .8G").css("background","url('/assets/images/ships/b42.png')");
+        $("#myBoard .9G").css("background","url('/assets/images/ships/b43.png')");
+
+        $("#myBoard .4C").css("background","url('/assets/images/ships/b50.png')");
+        $("#myBoard .4D").css("background","url('/assets/images/ships/b51.png')");
+        $("#myBoard .4E").css("background","url('/assets/images/ships/b52.png')");
+        $("#myBoard .4F").css("background","url('/assets/images/ships/b53.png')");
+        $("#myBoard .4G").css("background","url('/assets/images/ships/b54.png')");
+    }
+
+    if(data.kind == 'ship1') {
+        $("#myBoard .9B").css("background","url('/assets/images/ships/b20.png')");
+        $("#myBoard .9C").css("background","url('/assets/images/ships/b21.png')");
+
+        $("#myBoard .6J").css("background","url('/assets/images/ships/b20.png')");
+        $("#myBoard .7J").css("background","url('/assets/images/ships/b21.png')");
+
+        $("#myBoard .5D").css("background","url('/assets/images/ships/b30.png')");
+        $("#myBoard .5E").css("background","url('/assets/images/ships/b31.png')");
+        $("#myBoard .5F").css("background","url('/assets/images/ships/b32.png')");
+
+        $("#myBoard .10F").css("background","url('/assets/images/ships/b40.png')");
+        $("#myBoard .10G").css("background","url('/assets/images/ships/b41.png')");
+        $("#myBoard .10H").css("background","url('/assets/images/ships/b42.png')");
+        $("#myBoard .10I").css("background","url('/assets/images/ships/b43.png')");
+
+        $("#myBoard .2B").css("background","url('/assets/images/ships/b50.png')");
+        $("#myBoard .2C").css("background","url('/assets/images/ships/b51.png')");
+        $("#myBoard .2D").css("background","url('/assets/images/ships/b52.png')");
+        $("#myBoard .2E").css("background","url('/assets/images/ships/b53.png')");
+        $("#myBoard .2F").css("background","url('/assets/images/ships/b54.png')");
     }
 }
 
