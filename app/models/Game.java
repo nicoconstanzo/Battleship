@@ -82,6 +82,81 @@ public class Game {
         return result;
     }
 
+    private ObjectNode drawAircraftCarrier(Player player)
+    {
+        System.out.println(player.getUsername());
+        ObjectNode result = Json.newObject();
+        AircraftCarrier aircraftCarrier = (AircraftCarrier) player.getShips().get(0);
+        result.put("shipType", aircraftCarrier.getName());
+        String[] position = aircraftCarrier.getPosition();
+        for(int i=0; i< position.length; i++){
+                result.put("position"+i, position[i]);
+        }
+
+
+
+
+//        List<Ship> ships = player.getShips();
+//        for(Ship ship: ships){
+//            result.put("shipType", ship.getName());
+//            for(int i=0; i<ships.get(0).getPosition().length; i++){
+//                result.put("position"+i, ship.getPosition()[i]);
+//            }
+//        }
+        
+        return result;
+    }
+
+    private ObjectNode drawBattleship(Player player)
+    {
+        ObjectNode result = Json.newObject();
+        Battleship battleship = (Battleship) player.getShips().get(1);
+        result.put("shipType", battleship.getName());
+        String[] position = battleship.getPosition();
+        for(int i=0; i< position.length; i++){
+            result.put("position"+i, position[i]);
+        }
+
+
+        return result;
+    }
+    private ObjectNode drawSubmarine(Player player)
+    {
+        ObjectNode result = Json.newObject();
+        Submarine submarine = (Submarine) player.getShips().get(2);
+        result.put("shipType", submarine.getName());
+        String[] position = submarine.getPosition();
+        for(int i=0; i< position.length; i++){
+            result.put("position"+i, position[i]);
+        }
+
+        return result;
+    }
+    private ObjectNode drawDestoyer(Player player)
+    {
+        ObjectNode result = Json.newObject();
+        Destroyer destroyer = (Destroyer) player.getShips().get(4);
+        result.put("shipType", destroyer.getName());
+        String[] position = destroyer.getPosition();
+        for(int i=0; i< position.length; i++){
+            result.put("position"+i, position[i]);
+        }
+
+        return result;
+    }
+
+    private ObjectNode drawCruiser(Player player)
+    {
+        ObjectNode result = Json.newObject();
+        Cruiser cruiser = (Cruiser) player.getShips().get(3);
+        result.put("shipType", cruiser.getName());
+        String[] position = cruiser.getPosition();
+        for(int i=0; i< position.length; i++){
+            result.put("position"+i, position[i]);
+        }
+        return result;
+    }
+
     
     private void checkFire(Player player, String shot){
         FireResult fireResult = getFireResult(player, shot);
@@ -111,23 +186,37 @@ public class Game {
     }
 
     private void drawShips () {
-        Player player1 = getPlayerOne();
-        ObjectNode ships1 = Json.newObject();
-        ships1.put("aircraft", "4C, 4D, 4E, 4F, 4G");
-        ships1.put("battleship", "6G,7G,8G,9G");
-        ships1.put("submarine", "1I, 2I, 3I");
-        ships1.put("cruiser", "1B, 1C");
-        ships1.put("destroyer", "8B, 8C");
-        sendMessage(player1, "ship1", ships1);
 
-        Player player2 = getPlayerTwo();
-        ObjectNode ships2 = Json.newObject();
-        ships2.put("aircraft", "2B, 2C, 2D, 2E, 2F");
-        ships2.put("battleship", "10F, 10G, 10H, 10I");
-        ships2.put("submarine", "5D, 5E,5F");
-        ships2.put("cruiser", "6J,7J");
-        ships2.put("destroyer", "9B,9C");
-        sendMessage(player2, "ship2", ships2);
+        Player playerOne = getPlayerOne();
+        Player playerTwo = getPlayerTwo();
+
+        sendMessage(playerTwo,"ship",drawAircraftCarrier(playerOne));
+        sendMessage(playerTwo,"ship",drawBattleship(playerOne));
+        sendMessage(playerTwo,"ship",drawSubmarine(playerOne));
+        sendMessage(playerTwo,"ship",drawCruiser(playerOne));
+        sendMessage(playerTwo,"ship",drawDestoyer(playerOne));
+        sendMessage(playerOne,"ship",drawAircraftCarrier(playerTwo));
+        sendMessage(playerOne,"ship",drawBattleship(playerTwo));
+        sendMessage(playerOne,"ship",drawSubmarine(playerTwo));
+        sendMessage(playerOne,"ship",drawCruiser(playerTwo));
+        sendMessage(playerOne,"ship",drawDestoyer(playerTwo));
+//        Player player1 = getPlayerOne();
+//        ObjectNode ships1 = Json.newObject();
+//        ships1.put("aircraft", "4C, 4D, 4E, 4F, 4G");
+//        ships1.put("battleship", "6G,7G,8G,9G");
+//        ships1.put("submarine", "1I, 2I, 3I");
+//        ships1.put("cruiser", "1B, 1C");
+//        ships1.put("destroyer", "8B, 8C");
+//        sendMessage(player1, "ship1", ships1);
+//
+//        Player player2 = getPlayerTwo();
+//        ObjectNode ships2 = Json.newObject();
+//        ships2.put("aircraft", "2B, 2C, 2D, 2E, 2F");
+//        ships2.put("battleship", "10F, 10G, 10H, 10I");
+//        ships2.put("submarine", "5D, 5E,5F");
+//        ships2.put("cruiser", "6J,7J");
+//        ships2.put("destroyer", "9B,9C");
+//        sendMessage(player2, "ship2", ships2);
     }
 
 
@@ -260,8 +349,12 @@ public class Game {
        return isPlayerOneDefined() && isPlayerTwoDefined();
     }
 
-    public boolean isFinish() {
+    public boolean playerLeaves() {
         return nPlayer == 0;
+    }
+
+    public boolean isFinish(){
+        return playerOne.isDefeated() || playerTwo.isDefeated();
     }
 
     private Player getCurrentPlayer(){

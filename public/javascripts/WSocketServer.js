@@ -106,8 +106,8 @@ function receiveEvent(event) {
     if(data.kind =='finish'){
         var audio = new Audio("/assets/sounds/" +data.message.subtype + ".mp3");
         audio.play();
-        var popup = $(popup);
-        popup.css("display","block");
+        var blanket = $(popUpBlanket);
+        blanket.css("display", "block");
         var element = $(message);
         element.css("display","block");
         var p = document.createElement("p");
@@ -169,6 +169,37 @@ function receiveEvent(event) {
         $("#myBoard .2E").css("background","url('/assets/images/ships/b5.3.png')");
         $("#myBoard .2F").css("background","url('/assets/images/ships/b5.4.png')");
     }
+
+     if(data.kind == 'ship') {
+        if(data.message.shipType=="Aircraft Carrier"){
+            $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b5.0.png')");
+            $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b5.1.png')");
+            $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/b5.2.png')");
+            $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/b5.3.png')");
+            $("#myBoard "+"."+ data.message.position4).css("background","url('/assets/images/ships/b5.4.png')");
+        }
+        if(data.message.shipType=="Battleship"){
+            $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b4.0.png')");
+            $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b4.1.png')");
+            $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/b4.2.png')");
+            $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/b4.3.png')");
+        }
+        if(data.message.shipType=="Submarine"){
+            $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b3.0.png')");
+            $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b3.1.png')");
+            $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/b3.2.png')");
+        }
+        if(data.message.shipType=="Destroyer"){
+            $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b2.0.png')");
+            $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b2.1.png')");
+        }
+        if(data.message.shipType=="Cruiser"){
+            $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b2.0.png')");
+            $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b2.1.png')");
+        }
+     }
+
+
 }
 
 function handleReturnKey(e) {
