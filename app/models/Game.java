@@ -1,7 +1,6 @@
 package models;
 
 import models.Ship.*;
-import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import play.libs.Json;
 
@@ -148,7 +147,7 @@ public class Game {
     private ObjectNode drawCruiser(Player player)
     {
         ObjectNode result = Json.newObject();
-        Cruiser cruiser = (Cruiser) player.getShips().get(3);
+        PatrolShip cruiser = (PatrolShip) player.getShips().get(3);
         result.put("shipType", cruiser.getName());
         String[] position = cruiser.getPosition();
         for(int i=0; i< position.length; i++){
@@ -190,16 +189,19 @@ public class Game {
         Player playerOne = getPlayerOne();
         Player playerTwo = getPlayerTwo();
 
-        sendMessage(playerTwo,"ship",drawAircraftCarrier(playerOne));
-        sendMessage(playerTwo,"ship",drawBattleship(playerOne));
-        sendMessage(playerTwo,"ship",drawSubmarine(playerOne));
-        sendMessage(playerTwo,"ship",drawCruiser(playerOne));
-        sendMessage(playerTwo,"ship",drawDestoyer(playerOne));
-        sendMessage(playerOne,"ship",drawAircraftCarrier(playerTwo));
-        sendMessage(playerOne,"ship",drawBattleship(playerTwo));
-        sendMessage(playerOne,"ship",drawSubmarine(playerTwo));
-        sendMessage(playerOne,"ship",drawCruiser(playerTwo));
-        sendMessage(playerOne,"ship",drawDestoyer(playerTwo));
+        drawShipss(playerOne);
+        drawShipss(playerTwo);
+
+//        sendMessage(playerTwo,"ship",drawAircraftCarrier(playerOne));
+//        sendMessage(playerTwo,"ship",drawBattleship(playerOne));
+//        sendMessage(playerTwo,"ship",drawSubmarine(playerOne));
+//        sendMessage(playerTwo,"ship",drawCruiser(playerOne));
+//        sendMessage(playerTwo,"ship",drawDestoyer(playerOne));
+//        sendMessage(playerOne,"ship",drawAircraftCarrier(playerTwo));
+//        sendMessage(playerOne,"ship",drawBattleship(playerTwo));
+//        sendMessage(playerOne,"ship",drawSubmarine(playerTwo));
+//        sendMessage(playerOne,"ship",drawCruiser(playerTwo));
+//        sendMessage(playerOne,"ship",drawDestoyer(playerTwo));
 //        Player player1 = getPlayerOne();
 //        ObjectNode ships1 = Json.newObject();
 //        ships1.put("aircraft", "4C, 4D, 4E, 4F, 4G");
@@ -219,6 +221,19 @@ public class Game {
 //        sendMessage(player2, "ship2", ships2);
     }
 
+    private void drawShipss(Player player) {
+        List<Ship> ships = player.getShips();
+
+        for(Ship ship: ships){
+            ObjectNode result = Json.newObject();
+            result.put("shipType", ship.getName());
+            for(int i=0; i<ship.getPosition().length; i++){
+                result.put("position"+i, ship.getPosition()[i]);
+            }
+            sendMessage(player,"ship",result);
+        }
+    }
+
 
     private List<Ship> getDefaultStrategyA(){
 
@@ -227,7 +242,7 @@ public class Game {
         AircraftCarrier aircraftCarrier = new AircraftCarrier();
         Battleship battleship = new Battleship();
         Submarine submarine = new Submarine();
-        Cruiser cruiser = new Cruiser();
+        PatrolShip patrolShip = new PatrolShip();
         Destroyer destroyer = new Destroyer();
 
         String[] aircraftPosition = new String[5];
@@ -251,10 +266,10 @@ public class Game {
         submarinePosition[2] = "3I";
         submarine.setPosition(submarinePosition);
 
-        String[] cruiserPosition = new String[2];
-        cruiserPosition[0] = "1B";
-        cruiserPosition[1] = "1C";
-        cruiser.setPosition(cruiserPosition);
+        String[] patrolShipPosition = new String[2];
+        patrolShipPosition[0] = "1B";
+        patrolShipPosition[1] = "1C";
+        patrolShip.setPosition(patrolShipPosition);
 
         String[] destroyerPosition = new String[2];
         destroyerPosition[0] = "8B";
@@ -264,7 +279,7 @@ public class Game {
         strategy.add(aircraftCarrier);
         strategy.add(battleship);
         strategy.add(submarine);
-        strategy.add(cruiser);
+        strategy.add(patrolShip);
         strategy.add(destroyer);
 
         return strategy;
@@ -278,7 +293,7 @@ public class Game {
         AircraftCarrier aircraftCarrier = new AircraftCarrier();
         Battleship battleship = new Battleship();
         Submarine submarine = new Submarine();
-        Cruiser cruiser = new Cruiser();
+        PatrolShip patrolShip = new PatrolShip();
         Destroyer destroyer = new Destroyer();
 
         String[] aircraftPosition = new String[5];
@@ -302,10 +317,10 @@ public class Game {
         submarinePosition[2] = "5F";
         submarine.setPosition(submarinePosition);
 
-        String[] cruiserPosition = new String[2];
-        cruiserPosition[0] = "6J";
-        cruiserPosition[1] = "7J";
-        cruiser.setPosition(cruiserPosition);
+        String[] patrolShipPosition = new String[2];
+        patrolShipPosition[0] = "6J";
+        patrolShipPosition[1] = "7J";
+        patrolShip.setPosition(patrolShipPosition);
 
         String[] destroyerPosition = new String[2];
         destroyerPosition[0] = "9B";
@@ -315,7 +330,7 @@ public class Game {
         strategy.add(aircraftCarrier);
         strategy.add(battleship);
         strategy.add(submarine);
-        strategy.add(cruiser);
+        strategy.add(patrolShip);
         strategy.add(destroyer);
 
         return strategy;

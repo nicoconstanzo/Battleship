@@ -7,10 +7,10 @@ package models.Ship;
  * Time: 01:10
  * To change this template use File | Settings | File Templates.
  */
-public class Cruiser extends Ship{
+public class PatrolShip extends Ship{
 
-    public Cruiser(){
-        setName("Cruiser");
+    public PatrolShip(){
+        setName("Patrol Ship");
         setSize(2);
         setHit(0);
 

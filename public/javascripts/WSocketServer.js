@@ -2,26 +2,67 @@
 var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
 var WSPath = $("#WSocketPath").val();
 var chatSocket = new WS(WSPath);
+var value = 0;
 
 chatSocket.onmessage = receiveEvent;
 $("#talk").keypress(handleReturnKey);
 $("#opponentBoard .boardBody").click(handleClick);
-$( "#draggable0" ).draggable();
-$( "#draggable1" ).draggable();
-$( "#draggable2" ).draggable();
-$( "#draggable3" ).draggable();
-$( "#draggable4" ).draggable();
-$( "#draggable5" ).draggable();
-$( "#draggable6" ).draggable();
-$( "#draggable7" ).draggable();
-$( "#draggable8" ).draggable();
-$( "#draggable9" ).draggable();
-$( "#draggable10" ).draggable();
-$( "#draggable11" ).draggable();
-$( "#draggable12" ).draggable();
-$( "#draggable13" ).draggable();
-$( "#draggable14" ).draggable();
-$( "#draggable15" ).draggable();
+$( "#aircraftCarrier" ).draggable();
+$( "#battleship" ).draggable();
+$( "#destroyer" ).draggable();
+$( "#patrolShip" ).draggable();
+$( "#submarine" ).draggable();
+
+$("#aircraftCarrier").rotate({
+   bind:
+     {
+           click: function(){
+               value +=90;
+               $(this).rotate({ animateTo:value})
+           }
+        }
+
+});
+$("#submarine").rotate({
+   bind:
+    {
+          click: function(){
+              value +=90;
+              $(this).rotate({ animateTo:value})
+          }
+       }
+
+});
+$("#patrolShip").rotate({
+   bind:
+     {
+        click: function(){
+            value +=90;
+            $(this).rotate({ animateTo:value})
+        }
+     }
+
+});
+$("#destroyer").rotate({
+   bind:
+     {
+           click: function(){
+               value +=90;
+               $(this).rotate({ animateTo:value})
+           }
+        }
+
+});
+$("#battleship").rotate({
+   bind:
+       {
+             click: function(){
+                 value +=90;
+                 $(this).rotate({ animateTo:value})
+             }
+          }
+
+});
 
 
 function sendMessage(kind, messageText) {
@@ -124,59 +165,13 @@ function receiveEvent(event) {
         $('#messages').append(chatLine)
     }
 
-    if(data.kind == 'ship2') {
-        $("#myBoard .8B").css("background","url('/assets/images/ships/b2.0.png')");
-        $("#myBoard .8C").css("background","url('/assets/images/ships/b2.1.png')");
-
-        $("#myBoard .1B").css("background","url('/assets/images/ships/b2.0.png')");
-        $("#myBoard .1C").css("background","url('/assets/images/ships/b2.1.png')");
-
-        $("#myBoard .3I").css("background","url('/assets/images/ships/b3.0.png')");
-        $("#myBoard .2I").css("background","url('/assets/images/ships/b3.1.png')");
-        $("#myBoard .1I").css("background","url('/assets/images/ships/b3.2.png')");
-
-        $("#myBoard .6G").css("background","url('/assets/images/ships/b4.0.png')");
-        $("#myBoard .7G").css("background","url('/assets/images/ships/b4.1.png')");
-        $("#myBoard .8G").css("background","url('/assets/images/ships/b4.2.png')");
-        $("#myBoard .9G").css("background","url('/assets/images/ships/b4.3.png')");
-
-        $("#myBoard .4C").css("background","url('/assets/images/ships/b5.0.png')");
-        $("#myBoard .4D").css("background","url('/assets/images/ships/b5.1.png')");
-        $("#myBoard .4E").css("background","url('/assets/images/ships/b5.2.png')");
-        $("#myBoard .4F").css("background","url('/assets/images/ships/b5.3.png')");
-        $("#myBoard .4G").css("background","url('/assets/images/ships/b5.4.png')");
-    }
-
-    if(data.kind == 'ship1') {
-        $("#myBoard .9B").css("background","url('/assets/images/ships/b2.0.png')");
-        $("#myBoard .9C").css("background","url('/assets/images/ships/b2.1.png')");
-
-        $("#myBoard .6J").css("background","url('/assets/images/ships/b2.0.png')");
-        $("#myBoard .7J").css("background","url('/assets/images/ships/b2.1.png')");
-
-        $("#myBoard .5D").css("background","url('/assets/images/ships/b3.0.png')");
-        $("#myBoard .5E").css("background","url('/assets/images/ships/b3.1.png')");
-        $("#myBoard .5F").css("background","url('/assets/images/ships/b3.2.png')");
-
-        $("#myBoard .10F").css("background","url('/assets/images/ships/b4.0.png')");
-        $("#myBoard .10G").css("background","url('/assets/images/ships/b4.1.png')");
-        $("#myBoard .10H").css("background","url('/assets/images/ships/b4.2.png')");
-        $("#myBoard .10I").css("background","url('/assets/images/ships/b4.3.png')");
-
-        $("#myBoard .2B").css("background","url('/assets/images/ships/b5.0.png')");
-        $("#myBoard .2C").css("background","url('/assets/images/ships/b5.1.png')");
-        $("#myBoard .2D").css("background","url('/assets/images/ships/b5.2.png')");
-        $("#myBoard .2E").css("background","url('/assets/images/ships/b5.3.png')");
-        $("#myBoard .2F").css("background","url('/assets/images/ships/b5.4.png')");
-    }
-
      if(data.kind == 'ship') {
         if(data.message.shipType=="Aircraft Carrier"){
-            $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b5.0.png')");
-            $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b5.1.png')");
-            $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/b5.2.png')");
-            $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/b5.3.png')");
-            $("#myBoard "+"."+ data.message.position4).css("background","url('/assets/images/ships/b5.4.png')");
+            $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b5.0.png')", "width","35px");
+            $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b5.1.png')", "width","35px");
+            $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/b5.2.png')", "width","35px");
+            $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/b5.3.png')", "width","35px");
+            $("#myBoard "+"."+ data.message.position4).css("background","url('/assets/images/ships/b5.4.png')", "width","35px");
         }
         if(data.message.shipType=="Battleship"){
             $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b4.0.png')");
@@ -193,7 +188,7 @@ function receiveEvent(event) {
             $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b2.0.png')");
             $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b2.1.png')");
         }
-        if(data.message.shipType=="Cruiser"){
+        if(data.message.shipType=="Patrol Ship"){
             $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b2.0.png')");
             $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b2.1.png')");
         }
