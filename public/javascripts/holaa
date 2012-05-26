@@ -2,10 +2,37 @@
 var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
 var WSPath = $("#WSocketPath").val();
 var chatSocket = new WS(WSPath);
+var value = 0;
 
 chatSocket.onmessage = receiveEvent;
 $("#talk").keypress(handleReturnKey);
 $("#opponentBoard .boardBody").click(handleClick);
+$( "#aircraftCarrier, #battleship, #destroyer, #patrolShip, #submarine" ).draggable({ revert: "invalid"});
+$("#aircraftCarrier, #submarine, #patrolShip, #destroyer, #battleship").rotate({
+   bind:
+     {
+           click: function(){
+               value +=90;
+               $(this).rotate({ animateTo:value})
+
+           }
+        }
+
+});
+
+
+$( ".boardBody" ).droppable({
+
+   drop: function(event, ui) {
+    var position=event.target.className;
+    alert(position);
+    },
+    hoverClass: "hoverClass"
+
+});
+
+
+
 
 function sendMessage(kind, messageText) {
     chatSocket.send(JSON.stringify(
@@ -151,6 +178,14 @@ function handleClick(e){
         sendMessage("hit", position);
         console.log('Hiciste click en la posición '+ position);
 }
+
+function resetMessage(){
+    var message =  $(message);
+    message.removeChild(message.getElementsByTagName("p")[0]);
+
+}
+
+
 
 
 
