@@ -1,14 +1,17 @@
 var value = 0;
 $( "#aircraftCarrier, #battleship, #destroyer, #patrolShip, #submarine" ).draggable({
     revert: "invalid",
-    snap: '#strategyBoard .boardBody'
+    snap: '.boardBody'
 });
 $("#aircraftCarrier, #submarine, #patrolShip, #destroyer, #battleship").rotate({
+
    bind:
      {
            click: function(){
                value +=90;
+
                $(this).rotate({ animateTo:value})
+
            }
         }
 
@@ -17,18 +20,20 @@ $("#aircraftCarrier, #submarine, #patrolShip, #destroyer, #battleship").rotate({
 
 $( "#strategyBoard .boardBody" ).droppable({
 
+   hoverClass: 'hoverClass',
    drop: function(event, ui) {
+    var position = event.target.className;
+    var ship = $(ui.draggable).attr("id")
+    console.log("the ship: "+ship+" was dragged to: "+ position);
 
-    var position=event.target.className;
-    console.log(position);
-    },
-     hoverClass: "hoverClass"
+    }
+
 });
 
 
-function resetMessage(){
+function resetmessage(){
     var message =  $(message);
-    message.removeChild(message.getElementsByTagName("p")[0]);
+    message.removechild(message.getelementsbytagname("p")[0]);
 
 }
 

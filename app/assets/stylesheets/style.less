@@ -303,7 +303,7 @@ footer {
 
 }
 
-/* ===== Board Game CSS ========================================================
+/* ===== Strategy Board Game CSS ========================================================
    Author: Team n&n
    ========================================================================== */
 
@@ -343,7 +343,7 @@ footer {
    ========================================================================== */
 @chatColor: #F0F8FF;
 @gameChat: #c43c35;
-@infoChat: #00FA9A;
+@infoChat: aquamarine;
 
 #game{
     width: 100%;
@@ -401,6 +401,8 @@ footer {
     #messages {
         overflow: auto;
         height: 250px;
+        background-color:
+        lightGrey;
         .message {
             p {
                 color: black;
@@ -408,10 +410,12 @@ footer {
                 display: inline;
             }
             #user {
-                background-color : gray;
+                background-color:grey;
                 display: inline-block;
-                width: 100px;
+                width: 70px;
                 padding: 10px;
+                text-transform: capitalize;
+                text-align: center;
             }
         }
         .chat {
