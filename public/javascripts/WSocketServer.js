@@ -136,7 +136,8 @@ function receiveEvent(event) {
         }
      }
 
-
+    //Allows the chat window to auto scroll down
+    $("#messages").scrollTop($("#messages")[0].scrollHeight);
 }
 
 function handleReturnKey(e) {
