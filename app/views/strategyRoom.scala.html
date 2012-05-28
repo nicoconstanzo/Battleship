@@ -2,10 +2,12 @@
 
 @main(username) {
 
-
-
 <section id="strategyRoom" class="layout">
 
+
+    <div id="readyMessage">
+        <a href="@routes.Application.waitingRoom(username)"> Ready!</a>
+    </div>
 
 <div id="strategyBoard" class="board">
         <h2>Define your Strategy</h2>
@@ -163,25 +165,35 @@
 
 
     <div class="shipsBoard"> The Boats
-      <div class="Ship"> <p>Destroyer: </p>
-            <div><img src="/assets/images/ships/destroyer.png"  id="destroyer" width="70px" height="35px"/></div>
+      <div class="ship"> <p>Destroyer: </p>
+            <div><img src="/assets/images/ships/destroyer.png"  id="destroyer" width="70px" height="35px"/>
+                <div class="myPiece">
+                <div class="piece"></div>
+                <div class="piece"></div>
+                <div class="piece"></div>
+                <div class="piece"></div>
+                </div>
+
+            </div>
         </div>
-        <div class="Ship"> <p>Patrol Ship: </p>
+        <div class="ship"> <p>Patrol Ship: </p>
             <div><img src="/assets/images/ships/patrolShip.png"  id="patrolShip" width="70px" height="35px"/></div>
         </div>
-        <div class="Ship"> <p>Aircraft Carrier: </p>
+        <div class="ship"> <p>Aircraft Carrier: </p>
             <div><img src="/assets/images/ships/aircraftCarrier.png"  id="aircraftCarrier" width="175px" height="35px"/></div>
         </div>
-        <div class="Ship"> <p>Battleship: </p>
+        <div class="ship"> <p>Battleship: </p>
             <div><img src="/assets/images/ships/battleship.png"  id="battleship" width="140px" height="35px"/></div>
         </div>
-        <div class="Ship"> <p>Submarine: </p>
-            <div><img src="/assets/images/ships/submarine.png" id="submarine" width="105px" height="35px"/></div>
+        <div class="ship"> <p>Submarine: </p>
+            <div>
+                <img src="/assets/images/ships/submarine.png" id="submarine" width="105px" height="35px"/>
+            </div>
         </div>
 
     </div>
 
-    <a href="@routes.Application.waitingRoom(username)"> Ready!</a>
+
 
     <div id="message">
         <div class='close'>
