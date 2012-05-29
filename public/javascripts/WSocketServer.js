@@ -63,10 +63,9 @@ function receiveEvent(event) {
         var element = $("."+position, board);
 
 
-
-
-        //Change the background depending on WATER/HIT, etc..
         element.css("background", "url('/assets/images/"+ data.message.subtype +".jpg')");
+
+
         //Play audio effect
         var audio = new Audio("/assets/sounds/" +data.message.subtype + ".mp3");
         audio.play();
@@ -110,23 +109,23 @@ function receiveEvent(event) {
      if(data.kind == 'ship') {
         if(data.message.shipType=="Aircraft Carrier"){
             if(data.message.position0.substring(0,1)==data.message.position1.substring(0,1)){
-                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/aircraftCarrier.png')");
-                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/aircraftCarrier.png')");
-                $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/aircraftCarrier.png')");
-                $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/aircraftCarrier.png')");
-                $("#myBoard "+"."+ data.message.position4).css("background","url('/assets/images/ships/aircraftCarrier.png')");
+                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/aircraftCarrier0.png')");
+                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/aircraftCarrier1.png')");
+                $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/aircraftCarrier2.png')");
+                $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/aircraftCarrier3.png')");
+                $("#myBoard "+"."+ data.message.position4).css("background","url('/assets/images/ships/aircraftCarrier4.png')");
 
             }
             else{
-              $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/patrolShip.png')");
+              $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/aircraftCarrier0.png')");
               $("#myBoard "+"."+ data.message.position0).css("-webkit-transform","rotate(90deg)");
-              $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b5.1.png')");
+              $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/aircraftCarrier1.png')");
               $("#myBoard "+"."+ data.message.position1).css("-webkit-transform","rotate(90deg)");
-              $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/b5.2.png')");
+              $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/aircraftCarrier2.png')");
               $("#myBoard "+"."+ data.message.position2).css("-webkit-transform","rotate(90deg)");
-              $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/b5.3.png')");
+              $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/aircraftCarrier3.png')");
               $("#myBoard "+"."+ data.message.position3).css("-webkit-transform","rotate(90deg)");
-              $("#myBoard "+"."+ data.message.position4).css("background","url('/assets/images/ships/b5.4.png')");
+              $("#myBoard "+"."+ data.message.position4).css("background","url('/assets/images/ships/aircraftCarrier4.png')");
               $("#myBoard "+"."+ data.message.position4).css("-webkit-transform","rotate(90deg)");
 
             }
@@ -134,63 +133,61 @@ function receiveEvent(event) {
         }
         if(data.message.shipType=="Battleship"){
             if(data.message.position0.substring(0,1)==data.message.position1.substring(0,1)){
-                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b4.0.png')");
-                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b4.1.png')");
-                $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/b4.2.png')");
-                $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/b4.3.png')");
+                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/battleship0.png')");
+                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/battleship1.png')");
+                $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/battleship2.png')");
+                $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/battleship3.png')");
             }
             else{
-                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b4.0.png')");
-              $("#myBoard "+"."+ data.message.position0).css("-webkit-transform","rotate(90deg)");
-                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b4.1.png')");
-              $("#myBoard "+"."+ data.message.position1).css("-webkit-transform","rotate(90deg)");
-                $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/b4.2.png')");
-              $("#myBoard "+"."+ data.message.position2).css("-webkit-transform","rotate(90deg)");
-                $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/b4.3.png')");
-              $("#myBoard "+"."+ data.message.position3).css("-webkit-transform","rotate(90deg)");
+                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/battleship0.png')");
+                $("#myBoard "+"."+ data.message.position0).css("-webkit-transform","rotate(90deg)");
+                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/battleship1.png')");
+                $("#myBoard "+"."+ data.message.position1).css("-webkit-transform","rotate(90deg)");
+                $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/battleship2.png')");
+                $("#myBoard "+"."+ data.message.position2).css("-webkit-transform","rotate(90deg)");
+                $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/battleship3.png')");
+                $("#myBoard "+"."+ data.message.position3).css("-webkit-transform","rotate(90deg)");
 
             }
         }
         if(data.message.shipType=="Submarine"){
             if(data.message.position0.substring(0,1)==data.message.position1.substring(0,1)){
-                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b3.0.png')");
-                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b3.1.png')");
-                $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/b3.2.png')");
+                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/submarine0.png')");
+                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/submarine1.png')");
+                $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/submarine2.png')");
             }
             else{
-                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b3.0.png')");
+                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/submarine0.png')");
               $("#myBoard "+"."+ data.message.position0).css("-webkit-transform","rotate(90deg)");
-                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b3.1.png')");
+                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/submarine1.png')");
               $("#myBoard "+"."+ data.message.position1).css("-webkit-transform","rotate(90deg)");
-                $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/b3.2.png')");
+                $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/submarine2.png')");
               $("#myBoard "+"."+ data.message.position2).css("-webkit-transform","rotate(90deg)");
 
             }
         }
         if(data.message.shipType=="Destroyer"){
             if(data.message.position0.substring(0,1)==data.message.position1.substring(0,1)){
-                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b2.0.png')");
-                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b2.1.png')");
+                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/destroyer0.png')");
+                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/destroyer1.png')");
                 }
             else{
-                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b2.0.png')");
+                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/destroyer0.png')");
               $("#myBoard "+"."+ data.message.position0).css("-webkit-transform","rotate(90deg)");
-                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b2.1.png')");
+                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/destroyer1.png')");
               $("#myBoard "+"."+ data.message.position1).css("-webkit-transform","rotate(90deg)");
 
             }
         }
         if(data.message.shipType=="Patrol Ship"){
             if(data.message.position0.substring(0,1)==data.message.position1.substring(0,1)){
-                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b2.0.png')");
-                $("#myBoard "+"."+ data.message.position0).css("-webkit-transform","rotate(90deg)");
-                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b2.1.png')");
-                $("#myBoard "+"."+ data.message.position1).css("-webkit-transform","rotate(90deg)");
+                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/patrolShip0.png')");
+                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/patrolShip1.png')");
             }
             else{
-                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/b2.0.png')");
+                $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/patrolShip0.png')");
                 $("#myBoard "+"."+ data.message.position0).css("-webkit-transform","rotate(90deg)");
-                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/b2.1.png')");
+                $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/patrolShip1.png')");
                 $("#myBoard "+"."+ data.message.position1).css("-webkit-transform","rotate(90deg)");
 
             }
