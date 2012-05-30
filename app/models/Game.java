@@ -83,7 +83,6 @@ public class Game {
 
     private ObjectNode drawAircraftCarrier(Player player)
     {
-        System.out.println(player.getUsername());
         ObjectNode result = Json.newObject();
         AircraftCarrier aircraftCarrier = (AircraftCarrier) player.getShips().get(0);
         result.put("shipType", aircraftCarrier.getName());

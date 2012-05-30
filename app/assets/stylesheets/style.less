@@ -303,7 +303,7 @@ footer {
 
 }
 
-/* ===== Board Game CSS ========================================================
+/* ===== Strategy Board Game CSS ========================================================
    Author: Team n&n
    ========================================================================== */
 
@@ -343,7 +343,7 @@ footer {
    ========================================================================== */
 @chatColor: #F0F8FF;
 @gameChat: #c43c35;
-@infoChat: #00FA9A;
+@infoChat: aquamarine;
 
 #game{
     width: 100%;
@@ -355,6 +355,7 @@ footer {
 
 #myBoard {
     float: right;
+    margin-right: 34px;
 
 }
 
@@ -390,8 +391,8 @@ footer {
 
 /* TODO Battleship chat style*/
 .battleshipChat {
-    margin-top: 25px;
-    margin-left: 40px;
+    margin-top: 16px;
+    margin-left: 213px;
     color: white;
     float: left;
     width: 600px;
@@ -401,6 +402,8 @@ footer {
     #messages {
         overflow: auto;
         height: 250px;
+        background-color:
+        lightGrey;
         .message {
             p {
                 color: black;
@@ -408,10 +411,12 @@ footer {
                 display: inline;
             }
             #user {
-                background-color : gray;
+                background-color:grey;
                 display: inline-block;
-                width: 100px;
+                width: 70px;
                 padding: 10px;
+                text-transform: capitalize;
+                text-align: center;
             }
         }
         .chat {
