@@ -188,8 +188,8 @@ public class Game {
         Player playerOne = getPlayerOne();
         Player playerTwo = getPlayerTwo();
 
-        drawShipss(playerOne);
-        drawShipss(playerTwo);
+        drawShips(playerOne);
+        drawShips(playerTwo);
 
 //        sendMessage(playerTwo,"ship",drawAircraftCarrier(playerOne));
 //        sendMessage(playerTwo,"ship",drawBattleship(playerOne));
@@ -220,12 +220,13 @@ public class Game {
 //        sendMessage(player2, "ship2", ships2);
     }
 
-    private void drawShipss(Player player) {
+    private void drawShips(Player player) {
         List<Ship> ships = player.getShips();
 
         for(Ship ship: ships){
             ObjectNode result = Json.newObject();
             result.put("shipType", ship.getName());
+            result.put("shipSize", ship.getSize());
             for(int i=0; i<ship.getPosition().length; i++){
                 result.put("position"+i, ship.getPosition()[i]);
             }
@@ -245,34 +246,34 @@ public class Game {
         Destroyer destroyer = new Destroyer();
 
         String[] aircraftPosition = new String[5];
-        aircraftPosition[0] = "4C";
-        aircraftPosition[1] = "4D";
-        aircraftPosition[2] = "4E";
-        aircraftPosition[3] = "4F";
-        aircraftPosition[4] = "4G";
+        aircraftPosition[0] = "32";
+        aircraftPosition[1] = "33";
+        aircraftPosition[2] = "34";
+        aircraftPosition[3] = "35";
+        aircraftPosition[4] = "36";
         aircraftCarrier.setPosition(aircraftPosition);
 
         String[] battleshipPosition = new String[4];
-        battleshipPosition[0] = "6G";
-        battleshipPosition[1] = "7G";
-        battleshipPosition[2] = "8G";
-        battleshipPosition[3] = "9G";
+        battleshipPosition[0] = "56";
+        battleshipPosition[1] = "66";
+        battleshipPosition[2] = "76";
+        battleshipPosition[3] = "86";
         battleship.setPosition(battleshipPosition);
 
         String[] submarinePosition = new String[3];
-        submarinePosition[0] = "1I";
-        submarinePosition[1] = "2I";
-        submarinePosition[2] = "3I";
+        submarinePosition[0] = "08";
+        submarinePosition[1] = "18";
+        submarinePosition[2] = "28";
         submarine.setPosition(submarinePosition);
 
         String[] patrolShipPosition = new String[2];
-        patrolShipPosition[0] = "1B";
-        patrolShipPosition[1] = "1C";
+        patrolShipPosition[0] = "01";
+        patrolShipPosition[1] = "02";
         patrolShip.setPosition(patrolShipPosition);
 
         String[] destroyerPosition = new String[2];
-        destroyerPosition[0] = "8B";
-        destroyerPosition[1] = "8C";
+        destroyerPosition[0] = "71";
+        destroyerPosition[1] = "72";
         destroyer.setPosition(destroyerPosition);
 
         strategy.add(aircraftCarrier);
@@ -296,34 +297,34 @@ public class Game {
         Destroyer destroyer = new Destroyer();
 
         String[] aircraftPosition = new String[5];
-        aircraftPosition[0] = "2B";
-        aircraftPosition[1] = "2C";
-        aircraftPosition[2] = "2D";
-        aircraftPosition[3] = "2E";
-        aircraftPosition[4] = "2F";
+        aircraftPosition[0] = "11";
+        aircraftPosition[1] = "12";
+        aircraftPosition[2] = "13";
+        aircraftPosition[3] = "14";
+        aircraftPosition[4] = "15";
         aircraftCarrier.setPosition(aircraftPosition);
 
         String[] battleshipPosition = new String[4];
-        battleshipPosition[0] = "10F";
-        battleshipPosition[1] = "10G";
-        battleshipPosition[2] = "10H";
-        battleshipPosition[3] = "10I";
+        battleshipPosition[0] = "95";
+        battleshipPosition[1] = "96";
+        battleshipPosition[2] = "97";
+        battleshipPosition[3] = "98";
         battleship.setPosition(battleshipPosition);
 
         String[] submarinePosition = new String[3];
-        submarinePosition[0] = "5D";
-        submarinePosition[1] = "5E";
-        submarinePosition[2] = "5F";
+        submarinePosition[0] = "43";
+        submarinePosition[1] = "44";
+        submarinePosition[2] = "45";
         submarine.setPosition(submarinePosition);
 
         String[] patrolShipPosition = new String[2];
-        patrolShipPosition[0] = "6J";
-        patrolShipPosition[1] = "7J";
+        patrolShipPosition[0] = "59";
+        patrolShipPosition[1] = "69";
         patrolShip.setPosition(patrolShipPosition);
 
         String[] destroyerPosition = new String[2];
-        destroyerPosition[0] = "9B";
-        destroyerPosition[1] = "9C";
+        destroyerPosition[0] = "81";
+        destroyerPosition[1] = "82";
         destroyer.setPosition(destroyerPosition);
 
         strategy.add(aircraftCarrier);

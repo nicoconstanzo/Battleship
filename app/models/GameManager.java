@@ -20,42 +20,42 @@ public class GameManager {
             Player playerOne = new Player(username, out, game.getGameId());
             sendMessage(playerOne, "wait", "Waiting for other player to join.....");
             game.setPlayerOne(playerOne);
-            openWebSocket(in,playerOne);
+            openWebSocket(in, playerOne);
 
         } else if (!game.isPlayerTwoDefined()) {
             //TODO verify username playerTwo is not = playerOne
-            if(game.getPlayerOne().getUsername().equals(username)){
+            if (game.getPlayerOne().getUsername().equals(username)) {
                 usernameAlreadyChosen(out);
                 //TODO we have to redirect to the index;
             }
             Player playerTwo = new Player(username, out, game.getGameId());
             game.setPlayerTwo(playerTwo);
-            openWebSocket(in,playerTwo);
+            openWebSocket(in, playerTwo);
             game.startGame();
 
         } else {
-           createGame();
+            createGame();
             join(username, in, out);
         }
     }
 
-       private static void openWebSocket(WebSocket.In<JsonNode> in, final Player player) {
+    private static void openWebSocket(WebSocket.In<JsonNode> in, final Player player) {
 
         in.onMessage(new F.Callback<JsonNode>() {
             public void invoke(JsonNode jsonNode) throws Throwable {
                 Game game = getGameById(player.getGameId());
                 String messageType = jsonNode.get("kind").asText();
                 String messageText = jsonNode.get("messageText").asText();
-                if (!game.isStart()){
+                if (!game.isStart()) {
                     if (messageType.equals("chat")) {
 
                         sendMessage(player, "chat", "Still waiting for opponent.\n" + messageText);
                     }
-                }else{
+                } else {
                     if (messageType.equals("chat")) {
                         sendChat(player, game.getOpponent(player), messageText);
                     }
-                    if (messageType.equals("hit")){
+                    if (messageType.equals("hit")) {
                         game.play(player, messageText);
                     }
                 }
@@ -70,11 +70,11 @@ public class GameManager {
                 if (game.playerLeaves()) {
                     games.remove(games.indexOf(game));
                 }
-                if(!game.isFinish()){
-                    sendMessage(opponent,"leave", opponent.getUsername() + " has left the game!! You are the WINNER!");
+                if (!game.isFinish()) {
+                    sendMessage(opponent, "leave", opponent.getUsername() + " has left the game!! You are the WINNER!");
                 }
-                
-                
+
+
             }
         });
     }
@@ -88,19 +88,18 @@ public class GameManager {
         return null;
     }
 
-    private static Game createGame(){
+    private static Game createGame() {
         Game game = new Game();
         games.add(game);
         return game;
     }
 
-    private static Game getGame(){
+    private static Game getGame() {
         Game game;
-        if(games.isEmpty()){
+        if (games.isEmpty()) {
             game = createGame();
-        }
-        else{
-            game = games.get(games.size()-1);
+        } else {
+            game = games.get(games.size() - 1);
 
         }
         return game;

@@ -142,14 +142,18 @@ body.pinstripe {
     background: @black;
     z-index: 1000;
     #logo {
-        height: 90px;
-        line-height: 90px;
-        text-align: center;
-        a:visited, a {
-            color: white;
-            font-size: 64px ;
-            line-height: 73px;
-        }
+        /*height: 90px;*/
+        width: @page-width + 20px;
+        margin-left: -10px;
+        /*margin-bottom: -10px;*/
+        /*line-height: 90px;*/
+        /*text-align: center;*/
+        /*a:visited, a {*/
+            /*color: white;*/
+            /*font-size: 64px ;*/
+            /*line-height: 73px;*/
+        /*}*/
+
     }
     li {
         float: left;
@@ -308,12 +312,14 @@ footer {
    ========================================================================== */
 
 #strategyRoom{
-  width: 100%;
-  min-height: 768px;
-  background: url("/assets/images/batallaNaval.jpg");
-  background-position:50% 50%;
-  background-repeat: no-repeat;
-  font-size: 16px;
+    width: 100%;
+    min-height: 768px;
+    background: url("/assets/images/batallaNaval.jpg");
+    background-position:50% 50%;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    display: block;
+
 }
 
 #strategyBoard {
@@ -351,6 +357,7 @@ footer {
     background: url("/assets/images/batalla-naval-game.jpg");
     background-repeat: no-repeat;
     font-size: 16px;
+    display: none;
 }
 
 #myBoard {
