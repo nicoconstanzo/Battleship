@@ -51,6 +51,10 @@ public class GameManager {
 
                         sendMessage(player, "chat", "Still waiting for opponent.\n" + messageText);
                     }
+                    if (messageType.equals("strategy")) {
+//                        TODO HERE GOES STRATEGY DEFINITION
+                        sendMessage(player, "chat", "WIIIIIIII");
+                    }
                 } else {
                     if (messageType.equals("chat")) {
                         sendChat(player, game.getOpponent(player), messageText);
