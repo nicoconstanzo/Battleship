@@ -5,7 +5,6 @@
 # Home page
 GET     /battleship                           controllers.Application.index()
 GET     /battleship/waitingroom                controllers.Application.waitingRoom(username: String ?=null)
-GET     /battleship/strategyRoom                controllers.Application.strategyRoom(username: String ?=null)
 GET     /battleship/waitingroom/game           controllers.Application.game(username)
 
 

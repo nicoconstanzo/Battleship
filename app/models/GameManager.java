@@ -18,7 +18,9 @@ public class GameManager {
         Game game = getGame();
         if (!game.isPlayerOneDefined()) {
             Player playerOne = new Player(username, out, game.getGameId());
-            sendMessage(playerOne, "wait", "Waiting for other player to join.....");
+            sendMessage(playerOne, "start", "Welcome to Boom Boom Splash");
+            sendMessage(playerOne, "wait", "Waiting for a player to start the game");
+            sendMessage(playerOne, "strategy", "Meanwhile why don' we define our strategy? Drag & Drop the ships into the board");
             game.setPlayerOne(playerOne);
             openWebSocket(in, playerOne);
 
@@ -31,6 +33,9 @@ public class GameManager {
             Player playerTwo = new Player(username, out, game.getGameId());
             game.setPlayerTwo(playerTwo);
             openWebSocket(in, playerTwo);
+            sendMessage(playerTwo, "start", "Welcome to Boom Boom Splash");
+            sendMessage(playerTwo, "strategy", "It's time to define our strategy? Drag & Drop the ships into the board");
+            sendMessage(game.getOpponent(playerTwo), "start", playerTwo + "has entered the room");
             game.startGame();
 
         } else {
@@ -46,16 +51,30 @@ public class GameManager {
                 Game game = getGameById(player.getGameId());
                 String messageType = jsonNode.get("kind").asText();
                 String messageText = jsonNode.get("messageText").asText();
+                if (messageType.equals("strategy")) {
+
+                    game.setStrategyy(jsonNode, player);
+                    if(game.getOpponent(player).getShips()==null){
+                        sendMessage(player,"strategy", game.getOpponent(player).getUsername() + " is still defining the strategy");
+                        sendMessage(game.getOpponent(player),"strategy", player.getUsername() + " has already define the strategy. Hurry Up!");
+
+                    }else{
+                        game.notifyTurn();
+
+                    }
+
+                game.drawShips(player);
+
+                }
                 if (!game.isStart()) {
                     if (messageType.equals("chat")) {
 
-                        sendMessage(player, "chat", "Still waiting for opponent.\n" + messageText);
+                        sendMessage(player, "chat", "Still waiting for opponent. " + messageText);
                     }
-                    if (messageType.equals("strategy")) {
-//                        TODO HERE GOES STRATEGY DEFINITION
-                        sendMessage(player, "chat", "WIIIIIIII");
-                    }
+
                 } else {
+
+
                     if (messageType.equals("chat")) {
                         sendChat(player, game.getOpponent(player), messageText);
                     }

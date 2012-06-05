@@ -1,6 +1,7 @@
 package models;
 
 import models.Ship.*;
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import play.libs.Json;
 
@@ -27,14 +28,11 @@ public class Game {
         nPlayer = 2;
         setTurn();
         notifyOponent();
-        setStrategy();
-        drawShips();
-        notifyTurn();
     }
 
     private void notifyOponent() {
-        sendMessage(getPlayerOne(), "start", "Let's play Boom Boom Splash, you are playing against " + getPlayerTwo().getUsername());
-        sendMessage(getPlayerTwo(), "start", "Let's play Boom Boom Splash, you are playing against " + getPlayerOne().getUsername());
+        sendMessage(getPlayerOne(), "start", "You are playing against " + getPlayerTwo().getUsername());
+        sendMessage(getPlayerTwo(), "start", "You are playing against " + getPlayerOne().getUsername());
     }
 
     public void play(Player player, String shot){
@@ -42,7 +40,7 @@ public class Game {
             FireResult fireResult = checkFire(player, shot);
             if(fireResult.isAlreadyShot()){
                 sendMessage(getCurrentPlayer(), "fire", "Try again!");
-                sendMessage(getCurrentPlayer(), "fire", "We will give him another chance");
+                sendMessage(getOpponent(getCurrentPlayer()), "fire", "We will give him another chance");
             }else if(!player.isDefeated()){
                 changeTurn();
                 notifyTurn();
@@ -68,7 +66,7 @@ public class Game {
         (getOpponent(previousCurrentPlayer)).setTurn(true);
     }
 
-    private void notifyTurn() {
+    public void notifyTurn() {
            sendMessage(getCurrentPlayer(), "fire", "It's your turn, Fire.");
            sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() +  " turn!");
 
@@ -119,31 +117,19 @@ public class Game {
         }
     }
 
-
-    private void drawShips () {
-
-        Player playerOne = getPlayerOne();
-        Player playerTwo = getPlayerTwo();
-
-        drawShips(playerOne);
-        drawShips(playerTwo);
-
-    }
-
-    private void drawShips(Player player) {
+    public void drawShips(Player player) {
         List<Ship> ships = player.getShips();
 
-        for(Ship ship: ships){
+        for (Ship ship : ships) {
             ObjectNode result = Json.newObject();
             result.put("shipType", ship.getName());
-            result.put("shipSize", ship.getSize());
-            for(int i=0; i<ship.getPosition().length; i++){
-                result.put("position"+i, ship.getPosition()[i]);
+            for (int i = 0; i < ship.getPosition().length; i++) {
+                result.put("position" + i, ship.getPosition()[i]);
             }
-            sendMessage(player,"ship",result);
+
+            sendMessage(player, "ship", result);
         }
     }
-
 
     private List<Ship> getDefaultStrategyA(){
 
@@ -246,6 +232,111 @@ public class Game {
         return strategy;
 
     }
+
+    public void setStrategyy(JsonNode jsonNode, Player player) {
+
+        List<Ship> strategy = new ArrayList<Ship>();
+
+        AircraftCarrier aircraftCarrier = new AircraftCarrier();
+        PatrolShip patrolShip = new PatrolShip();
+        Battleship battleship = new Battleship();
+        Submarine submarine = new Submarine();
+        Destroyer destroyer = new Destroyer();
+        String[] aircraftCarrierPosition = new String[aircraftCarrier.getSize()];
+        String[] destroyerPosition = new String[destroyer.getSize()];
+        String[] patrolShipPosition = new String[patrolShip.getSize()];
+        String[] battleshipPosition = new String[battleship.getSize()];
+        String[] submarinePosition = new String[submarine.getSize()];
+
+        for (int j = 0; j < 5; j++) {
+            JsonNode ship = jsonNode.get("messageText").get("ship" + j);
+            String shipName = jsonNode.get("messageText").get("ship" + j).get("name").asText();
+
+
+            if (shipName.equals("aircraftCarrier")) {
+                String position = ship.get("orientation").asText();
+                int x = Integer.valueOf(ship.get("position").get("x").asText());
+                int y = Integer.valueOf(ship.get("position").get("y").asText());
+                if (position.equals("horizontal")) {
+                    for (int i = 0; i < aircraftCarrierPosition.length; i++)
+                        aircraftCarrierPosition[i] = String.valueOf(x+i).concat(String.valueOf(y));
+                } else {
+                    for (int i = 0; i < aircraftCarrierPosition.length; i++)
+                        aircraftCarrierPosition[i] = String.valueOf(x).concat(String.valueOf(y+i));
+                }
+                aircraftCarrier.setPosition(aircraftCarrierPosition);
+
+
+            }
+            if (shipName.equals("battleship")) {
+                String position = ship.get("orientation").asText();
+                int x = Integer.valueOf(ship.get("position").get("x").asText());
+                int y = Integer.valueOf(ship.get("position").get("y").asText());
+                if (position.equals("horizontal")) {
+                    for (int i = 0; i < battleshipPosition.length; i++)
+                        battleshipPosition[i] = String.valueOf(x+i).concat(String.valueOf(y));
+                } else {
+                    for (int i = 0; i < battleshipPosition.length; i++)
+                        battleshipPosition[i] = String.valueOf(x).concat(String.valueOf(y+i));
+                }
+                battleship.setPosition(battleshipPosition);
+
+            }
+            if (shipName.equals("submarine")) {
+                String position = ship.get("orientation").asText();
+                int x = Integer.valueOf(ship.get("position").get("x").asText());
+                int y = Integer.valueOf(ship.get("position").get("y").asText());
+                if (position.equals("horizontal")) {
+                    for (int i = 0; i < submarinePosition.length; i++)
+                        submarinePosition[i] = String.valueOf(x+i).concat(String.valueOf(y));
+                } else {
+                    for (int i = 0; i < submarinePosition.length; i++)
+                        submarinePosition[i] = String.valueOf(x).concat(String.valueOf(y+i));
+                }
+                submarine.setPosition(submarinePosition);
+
+            }
+            if (shipName.equals("destroyer")) {
+                String position = ship.get("orientation").asText();
+                int x = Integer.valueOf(ship.get("position").get("x").asText());
+                int y = Integer.valueOf(ship.get("position").get("y").asText());
+                if (position.equals("horizontal")) {
+                    for (int i = 0; i < destroyerPosition.length; i++)
+                        destroyerPosition[i] = String.valueOf(x+i).concat(String.valueOf(y));
+                } else {
+                    for (int i = 0; i < destroyerPosition.length; i++)
+                        destroyerPosition[i] = String.valueOf(x).concat(String.valueOf(y+i));
+                }
+                destroyer.setPosition(destroyerPosition);
+
+            }
+            if (shipName.equals("patrolShip")) {
+
+                String position = ship.get("orientation").asText();
+                int x = Integer.valueOf(ship.get("position").get("x").asText());
+                int y = Integer.valueOf(ship.get("position").get("y").asText());
+                if (position.equals("horizontal")) {
+                    for (int i = 0; i < patrolShipPosition.length; i++)
+                        patrolShipPosition[i] = String.valueOf(x+i).concat(String.valueOf(y));
+                } else {
+                    for (int i = 0; i < patrolShipPosition.length; i++)
+                        patrolShipPosition[i] = String.valueOf(x).concat(String.valueOf(y+i));
+                }
+                patrolShip.setPosition(patrolShipPosition);
+
+            }
+
+
+        }
+        strategy.add(aircraftCarrier);
+        strategy.add(battleship);
+        strategy.add(submarine);
+        strategy.add(patrolShip);
+        strategy.add(destroyer);
+
+        player.setShips(strategy);
+    }
+
 
 
     @Override

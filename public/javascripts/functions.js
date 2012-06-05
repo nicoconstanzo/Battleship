@@ -1,3 +1,4 @@
+
 var value = 0;
 
 
@@ -62,9 +63,6 @@ function sendStrategy() {
     var yPosition;
     var orientation;
 
-//    xPosition = $('.' + shipType).data('x')
-//    yPosition = $('.' + shipType).data('y')
-
     var destroyer = $('.destroyer')
     var patrolShip = $('.patrolShip')
     var aircraftCarrier = $('.aircraftCarrier')
@@ -76,11 +74,12 @@ function sendStrategy() {
         yPosition = destroyer.data('y')
 
         orientation = $("#destroyer").attr('data-orientation')
-        strategy["destroyer"] = {}
-        strategy["destroyer"]["orientation"] = orientation
-        strategy["destroyer"][0] = {}
-        strategy["destroyer"][0]["x"] = xPosition;
-        strategy["destroyer"][0]["y"] = yPosition;
+        strategy["ship0"] = {}
+        strategy["ship0"]["orientation"] = orientation;
+        strategy["ship0"]["name"] = "destroyer";
+        strategy["ship0"]["position"] = {}
+        strategy["ship0"]["position"]["x"] = xPosition;
+        strategy["ship0"]["position"]["y"] = yPosition;
 //        strategy = defineStrategy("destroyer")
     }
 
@@ -88,11 +87,12 @@ function sendStrategy() {
         xPosition = patrolShip.data('x')
         yPosition = patrolShip.data('y')
         orientation = $("#patrolShip").attr('data-orientation')
-        strategy["patrolShip"] = {}
-        strategy["patrolShip"]["orientation"] = orientation
-        strategy["patrolShip"][0] = {}
-        strategy["patrolShip"][0]["x"] = xPosition;
-        strategy["patrolShip"][0]["y"] = yPosition;
+        strategy["ship1"] = {}
+        strategy["ship1"]["orientation"] = orientation;
+        strategy["ship1"]["name"] = "patrolShip";
+        strategy["ship1"]["position"] = {}
+        strategy["ship1"]["position"]["x"] = xPosition;
+        strategy["ship1"]["position"]["y"] = yPosition;
 //        defineStrategy(strategy, "patrolShip")
     }
 
@@ -100,11 +100,12 @@ function sendStrategy() {
         xPosition = aircraftCarrier.data('x')
         yPosition = aircraftCarrier.data('y')
         orientation = $("#aircraftCarrier").attr('data-orientation')
-        strategy["aircraftCarrier"] = {}
-        strategy["aircraftCarrier"]["orientation"] = orientation
-        strategy["aircraftCarrier"][0] = {}
-        strategy["aircraftCarrier"][0]["x"] = xPosition;
-        strategy["aircraftCarrier"][0]["y"] = yPosition;
+        strategy["ship2"] = {}
+        strategy["ship2"]["orientation"] = orientation;
+        strategy["ship2"]["name"] = "aircraftCarrier";
+        strategy["ship2"]["position"] = {}
+        strategy["ship2"]["position"]["x"] = xPosition;
+        strategy["ship2"]["position"]["y"] = yPosition;
 //        defineStrategy(strategy, "aircraftCarrier")
 
     }
@@ -112,12 +113,12 @@ function sendStrategy() {
         xPosition = submarine.data('x')
         yPosition = submarine.data('y')
         orientation = $("#submarine").attr('data-orientation')
-        var length = 3;
-        strategy["submarine"] = {}
-        strategy["submarine"]["orientation"] = orientation
-        strategy["submarine"][0] = {}
-        strategy["submarine"][0]["x"] = xPosition;
-        strategy["submarine"][0]["y"] = yPosition;
+        strategy["ship3"] = {}
+        strategy["ship3"]["orientation"] = orientation;
+        strategy["ship3"]["name"] = "submarine";
+        strategy["ship3"]["position"] = {}
+        strategy["ship3"]["position"]["x"] = xPosition;
+        strategy["ship3"]["position"]["y"] = yPosition;
 //        defineStrategy(strategy, "submarine")
 
 
@@ -126,15 +127,18 @@ function sendStrategy() {
         xPosition = battleship.data('x')
         yPosition = battleship.data('y')
         orientation = $("#battleship").attr('data-orientation')
-        strategy["battleship"] = {}
-        strategy["battleship"]["orientation"] = orientation
-        strategy["battleship"][0] = {}
-        strategy["battleship"][0]["x"] = xPosition;
-        strategy["battleship"][0]["y"] = yPosition;
+        strategy["ship4"] = {}
+        strategy["ship4"]["orientation"] = orientation;
+        strategy["ship4"]["name"] = "battleship";
+        strategy["ship4"]["position"] = {}
+        strategy["ship4"]["position"]["x"] = xPosition;
+        strategy["ship4"]["position"]["y"] = yPosition;
     }
 //    chatSocket.send(JSON.stringify(strategy))
     sendMessage("strategy", strategy)
-    console.log(JSON.stringify(strategy))
+    sendMessage("strategy", strategy)
+    console.log(JSON.stringify(strategy));
+    showGame();
 
 }
 

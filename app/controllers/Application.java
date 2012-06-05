@@ -27,14 +27,6 @@ public class Application extends Controller {
       return ok(waitingRoom.render(username));
   }
 
-    public static Result strategyRoom(String username) {
-        if (username == null || username.trim().equals("")) {
-            flash("error", "Invalid username.");
-            return redirect(routes.Application.index());
-        }
-        return ok(strategyRoom.render(username));
-    }
-
    /*Web Socket handling*/
    public static WebSocket<JsonNode> game(final String username) {
            return new WebSocket<JsonNode>() {
