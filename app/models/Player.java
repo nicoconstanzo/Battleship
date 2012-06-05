@@ -13,6 +13,7 @@ public class Player {
     private String gameId;
     private List<Ship> ships;
     List<String> shots;
+  private boolean autoplay;
 
     private boolean turn;
 
@@ -21,6 +22,8 @@ public class Player {
         channel = out;
         gameId = id;
         shots = new ArrayList<String>();
+        ships = new ArrayList<Ship>();
+        autoplay= false;
     }
 
     public String getUsername() {
@@ -76,5 +79,17 @@ public class Player {
 
     public void addShot(String shot) {
         shots.add(shot);
+    }
+
+    public boolean isStrategyReady(){
+        return !ships.isEmpty();
+    }
+
+    public boolean isAutoplay() {
+        return autoplay;
+    }
+
+    public void setAutoplay(boolean autoplay) {
+        this.autoplay = autoplay;
     }
 }

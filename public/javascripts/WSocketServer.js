@@ -45,14 +45,45 @@ function receiveEvent(event) {
         $('#messages').append(chatLine)
     }
 
+    if(data.kind == 'waitOpponent'){
+        var element = $(message);
+        element.css("display","block");
+        var blanket = $(popUpBlanket);
+        blanket.css("display", "block");
+        var close = $(".close");
+        close.css("display", "none");
+        var p = document.createElement("p");
+        p.innerHTML = data.messageText;
+        var img = document.createElement("img");
+        img.setAttribute("src", "/assets/images/257.gif");
+        img.setAttribute("width", "20");
+        message.appendChild(p);
+        message.appendChild(img);
+    }
+
+    if(data.kind == 'opponentArrive'){
+         var element = $(message);
+         element.css("display","none");
+         var blanket = $(popUpBlanket);
+         blanket.css("display","none");
+         var close = $(".close");
+         close.css("display", "block");
+         resetMessage();
+
+    }
+
     if(data.kind == 'game'){
+
         console.log("Game Data Arriving")
         console.log(data)
+
         // Seteamos el mensaje de texto, lo que aparece en el chat
         $(chatLine).addClass('game');
         $("#user", chatLine).text(data.kind);
         $("p", chatLine).text(data.message.message);
         $('#messages').append(chatLine)
+
+
         var position = data.message.shot;
         console.log("Shot at: " + position)
         var board = data.message.opponent ? $("#myBoard") : $("#opponentBoard")
@@ -71,6 +102,16 @@ function receiveEvent(event) {
         //Play audio effect
         var audio = new Audio("/assets/sounds/" +data.message.subtype + ".mp3");
         audio.play();
+
+
+
+        if(autoplay){
+
+            bot.update(Integer.valueOf(position.substring(0,1)),Integer.valueOf(position.substring(1,2)),data.message.subtype);
+        }
+
+
+
     }
 
     if(data.kind =='leave'){
@@ -101,7 +142,19 @@ function receiveEvent(event) {
 
     }
 
-    if (data.kind == 'wait' || data.kind == 'start' || data.kind == 'fire' || data.kind == 'strategy') {
+    if (data.kind == 'fire') {
+        $(chatLine).addClass('info');
+        $("#user", chatLine).text(data.kind);
+        $("p", chatLine).text(data.messageText);
+        $('#messages').append(chatLine)
+        if(autoplay){
+                    var point = bot.suggest();
+                    var position = point.x + point.y;
+                    sendMessage("hit", position);
+        }
+    }
+
+    if (data.kind == 'wait' || data.kind == 'start' || data.kind == 'turn' || data.kind == 'strategy') {
         $(chatLine).addClass('info');
         $("#user", chatLine).text(data.kind);
         $("p", chatLine).text(data.messageText);

@@ -32,8 +32,8 @@ public class Game {
     }
 
     private void notifyOponent() {
-        sendMessage(getPlayerOne(), "start", "You are playing against " + getPlayerTwo().getUsername());
-        sendMessage(getPlayerTwo(), "start", "You are playing against " + getPlayerOne().getUsername());
+        sendMessage(getPlayerOne(), "start", "Welcome to Boom Boom Splash, you are playing against " + getPlayerTwo().getUsername());
+        sendMessage(getPlayerTwo(), "start", "Welcome to Boom Boom Splash you are playing against " + getPlayerOne().getUsername());
     }
 
     public void play(Player player, String shot){
@@ -41,7 +41,7 @@ public class Game {
             FireResult fireResult = checkFire(player, shot);
             if(fireResult.isAlreadyShot()){
                 sendMessage(getCurrentPlayer(), "fire", "Try again!");
-                sendMessage(getOpponent(getCurrentPlayer()), "fire", "We will give him another chance");
+                sendMessage(getOpponent(getCurrentPlayer()), "turn", "We will give him another chance");
             }else if(!player.isDefeated()){
                 changeTurn();
                 notifyTurn();
@@ -105,15 +105,15 @@ public class Game {
                     if (shot.equals(ship.getPosition()[i])) {
                         ship.setHit(ship.getHit() + 1);
                         if (ship.isSunk()) {
-                            getCurrentPlayer().addShot(shot);
+                            opponentPlayer.addShot(shot);
                             return FireResult.SINK;
                         }
-                        getCurrentPlayer().addShot(shot);
+                        opponentPlayer.addShot(shot);
                         return FireResult.HIT;
                     }
                 }
             }
-            getCurrentPlayer().addShot(shot);
+            opponentPlayer.addShot(shot);
             return FireResult.WATER;
         }
     }
@@ -132,111 +132,9 @@ public class Game {
         }
     }
 
-    public void getDefaultStrategyA(Player player){
-
-        List<Ship> strategy = new ArrayList<Ship>();
-
-        AircraftCarrier aircraftCarrier = new AircraftCarrier();
-        Battleship battleship = new Battleship();
-        Submarine submarine = new Submarine();
-        PatrolShip patrolShip = new PatrolShip();
-        Destroyer destroyer = new Destroyer();
-
-        String[] aircraftPosition = new String[5];
-        aircraftPosition[0] = "32";
-        aircraftPosition[1] = "33";
-        aircraftPosition[2] = "34";
-        aircraftPosition[3] = "35";
-        aircraftPosition[4] = "36";
-        aircraftCarrier.setPosition(aircraftPosition);
-
-        String[] battleshipPosition = new String[4];
-        battleshipPosition[0] = "56";
-        battleshipPosition[1] = "66";
-        battleshipPosition[2] = "76";
-        battleshipPosition[3] = "86";
-        battleship.setPosition(battleshipPosition);
-
-        String[] submarinePosition = new String[3];
-        submarinePosition[0] = "08";
-        submarinePosition[1] = "18";
-        submarinePosition[2] = "28";
-        submarine.setPosition(submarinePosition);
-
-        String[] patrolShipPosition = new String[2];
-        patrolShipPosition[0] = "01";
-        patrolShipPosition[1] = "02";
-        patrolShip.setPosition(patrolShipPosition);
-
-        String[] destroyerPosition = new String[2];
-        destroyerPosition[0] = "71";
-        destroyerPosition[1] = "72";
-        destroyer.setPosition(destroyerPosition);
-
-        strategy.add(aircraftCarrier);
-        strategy.add(battleship);
-        strategy.add(submarine);
-        strategy.add(patrolShip);
-        strategy.add(destroyer);
-
-        player.setShips(strategy);
-
-    }
-
-    public void getDefaultStrategyB(Player player){
-
-        List<Ship> strategy = new ArrayList<Ship>();
-
-        AircraftCarrier aircraftCarrier = new AircraftCarrier();
-        Battleship battleship = new Battleship();
-        Submarine submarine = new Submarine();
-        PatrolShip patrolShip = new PatrolShip();
-        Destroyer destroyer = new Destroyer();
-
-        String[] aircraftPosition = new String[5];
-        aircraftPosition[0] = "11";
-        aircraftPosition[1] = "12";
-        aircraftPosition[2] = "13";
-        aircraftPosition[3] = "14";
-        aircraftPosition[4] = "15";
-        aircraftCarrier.setPosition(aircraftPosition);
-
-        String[] battleshipPosition = new String[4];
-        battleshipPosition[0] = "95";
-        battleshipPosition[1] = "96";
-        battleshipPosition[2] = "97";
-        battleshipPosition[3] = "98";
-        battleship.setPosition(battleshipPosition);
-
-        String[] submarinePosition = new String[3];
-        submarinePosition[0] = "43";
-        submarinePosition[1] = "44";
-        submarinePosition[2] = "45";
-        submarine.setPosition(submarinePosition);
-
-        String[] patrolShipPosition = new String[2];
-        patrolShipPosition[0] = "59";
-        patrolShipPosition[1] = "69";
-        patrolShip.setPosition(patrolShipPosition);
-
-        String[] destroyerPosition = new String[2];
-        destroyerPosition[0] = "81";
-        destroyerPosition[1] = "82";
-        destroyer.setPosition(destroyerPosition);
-
-        strategy.add(aircraftCarrier);
-        strategy.add(battleship);
-        strategy.add(submarine);
-        strategy.add(patrolShip);
-        strategy.add(destroyer);
-
-        player.setShips(strategy);
-
-    }
-
     public void setStrategyy(JsonNode jsonNode, Player player) {
 
-        List<Ship> strategy = new ArrayList<Ship>();
+        List<Ship> strategy = player.getShips();
 
         AircraftCarrier aircraftCarrier = new AircraftCarrier();
         PatrolShip patrolShip = new PatrolShip();

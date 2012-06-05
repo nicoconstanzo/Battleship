@@ -1,5 +1,7 @@
-var value = 0;
 
+var value = 0;
+var autoplay = "false";
+var bot = new BattleshipBot();
 
 $("#aircraftCarrier, #battleship, #destroyer, #patrolShip, #submarine").draggable({
     revert:"invalid",
@@ -43,12 +45,12 @@ function showGame() {
 }
 
 function resetMessage() {
-    var message = $(message);
+    var message = document.getElementById("message");
     message.removeChild(message.getElementsByTagName("p")[0]);
 }
 
 //  TODO
-function getDefaultStrategy() {
+function getRandomStrategy() {
 
     var strategy = {};
     var horizontal = "horizontal";
@@ -97,14 +99,15 @@ function getDefaultStrategy() {
     strategy["ship4"]["position"]["y"] = battleshipY;
 
 
-    sendMessage("strategy", strategy);
+
+    sendMessage("strategy",strategy);
     console.log(JSON.stringify(strategy));
     showGame();
 }
 
 function sendStrategy() {
 
-    var strategy = {};
+    var strategy= {};
     var xPosition;
     var yPosition;
     var orientation;
@@ -390,6 +393,16 @@ function shipOverlap() {
     console.log(isOverlap)
     return isOverlap;
 
+}
+
+function autoPlay(){
+        if(autoplay){
+                   autoplay= false;
+                   $("#autoPlay a").html("AutoPlay!")
+              } else {
+                   autoplay = true;
+                   $("#autoPlay a").html("Deactivate")
+        }
 }
 
 

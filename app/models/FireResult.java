@@ -3,17 +3,17 @@ package models;
 
 public enum FireResult {
 
-    WATER("Water, you missed", "Calm, it was water!"),
-    SINK("You sunk it!", "Ohhh noo, your ship was sunk!"),
-    HIT("You hit it", "Ohh noo, your ship was hit!"),
-    ALREADY_SHOT("You already shot here", "They already shot here!"),
-    WIN("Good, you win the game!", ""),
-    LOSER("", "HA HA, you are a looser!");
+    WATER("miss","Water, you missed", "Calm, it was water!"),
+    SINK("sunk","You sunk it!", "Ohhh noo, your ship was sunk!"),
+    HIT("hit","You hit it", "Ohh noo, your ship was hit!"),
+    ALREADY_SHOT("already,shot","You already shot here", "They already shot here!"),
+    WIN("win","Good, you win the game!", ""),
+    LOSER("loser", "","HA HA, you are a looser!");
 
     private String currentPlayerMessage;
     private String opponentMessage;
 
-    private FireResult(String currentPlayerMessage, String opponentMessage) {
+    private FireResult(String name, String currentPlayerMessage, String opponentMessage) {
         this.currentPlayerMessage = currentPlayerMessage;
         this.opponentMessage = opponentMessage;
     }

@@ -18,9 +18,7 @@ public class GameManager {
         Game game = getGame();
         if (!game.isPlayerOneDefined()) {
             Player playerOne = new Player(username, out, game.getGameId());
-            sendMessage(playerOne, "start", "Welcome to Boom Boom Splash");
-            sendMessage(playerOne, "wait", "Waiting for a player to start the game");
-            sendMessage(playerOne, "strategy", "Meanwhile why don' we define our strategy? Drag & Drop the ships into the board");
+            sendMessage(playerOne, "waitOpponent", "Waiting for a player to start the game");
             game.setPlayerOne(playerOne);
             openWebSocket(in, playerOne);
 
@@ -33,13 +31,11 @@ public class GameManager {
             Player playerTwo = new Player(username, out, game.getGameId());
             game.setPlayerTwo(playerTwo);
             openWebSocket(in, playerTwo);
-            sendMessage(playerTwo, "start", "Welcome to Boom Boom Splash");
-            sendMessage(playerTwo, "strategy", "It's time to define our strategy? Drag & Drop the ships into the board");
-            sendMessage(game.getOpponent(playerTwo), "start", playerTwo + "has entered the room");
+            sendMessage(game.getPlayerOne(), "opponentArrive", "Start Game");
             game.startGame();
 
         } else {
-            createGame();
+           createGame();
             join(username, in, out);
         }
     }
@@ -66,11 +62,21 @@ public class GameManager {
                 } else {
 
 
+                    Player opponent = game.getOpponent(player);
                     if (messageType.equals("chat")) {
-                        sendChat(player, game.getOpponent(player), messageText);
+                        sendChat(player, opponent, messageText);
+                    }
+                    if(messageType.equals("autoplay")){
+                        player.setAutoplay(true);
                     }
                     if (messageType.equals("hit")) {
-                        game.play(player, messageText);
+                        if(opponent.isStrategyReady()){
+                            game.play(player, messageText);
+                        }
+                        else{
+                            sendMessage(player, "wait", opponent.getUsername() +  " Is still defining strategy.");
+                        }
+
                     }
                 }
             }
