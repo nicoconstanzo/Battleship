@@ -30,6 +30,7 @@ $("#strategyBoard .boardBody").droppable({
     drop:function (event, ui) {
         var target = event.target;
         $(target).css('background', 'blue')
+        $(target).addClass('taken')
         var shipType = $(ui.draggable).attr('id')
         $(target).addClass(shipType)
     },
@@ -251,12 +252,18 @@ function sendStrategy() {
 
 
 function validatePlaces(length, xPosition, yPosition, orientation) {
-    if (orientation == "horizontal" && (xPosition > 9 - length || !xPosition)) {
+
+
+    if (orientation == "horizontal" && xPosition > 9 - length) {
         return "false";
     }
-    else if (orientation == "vertical" && (yPosition > 9 - length || !yPosition)) {
+    else if (orientation == "vertical" && yPosition > 9 - length) {
         return "false";
-    } else {
+    }
+    else if (xPosition == null || yPosition == null) {
+        return "false";
+    }
+    else {
         return "true";
     }
 }
