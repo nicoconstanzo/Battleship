@@ -106,43 +106,6 @@ function receiveEvent(event) {
         $('#messages').append(chatLine)
     }
 
-//    if (data.kind == 'ship') {
-//
-//
-//        if (shipType == "Destroyer") {
-//            $("#myBoard " + "." + data.message.position0).css("background", "url('/assets/images/ships/destroyer0.png')");
-//            $("#myBoard " + "." + data.message.position1).css("background", "url('/assets/images/ships/destroyer1.png')");
-//        }
-//
-//        if(shipType == "Aircraft Carrier") {
-//            $("#myBoard " + "." + data.message.position0).css("background", "url('/assets/images/ships/aircraftCarrier0.png')");
-//            $("#myBoard " + "." + data.message.position1).css("background", "url('/assets/images/ships/aircraftCarrier1.png')");
-//            $("#myBoard " + "." + data.message.position2).css("background", "url('/assets/images/ships/aircraftCarrier2.png')");
-//            $("#myBoard " + "." + data.message.position3).css("background", "url('/assets/images/ships/aircraftCarrier3.png')");
-//            $("#myBoard " + "." + data.message.position4).css("background", "url('/assets/images/ships/aircraftCarrier4.png')");
-//
-//        }
-//
-//        if (shipType == "Battleship") {
-//            $("#myBoard " + "." + data.message.position0).css("background", "url('/assets/images/ships/battleship0.png')");
-//            $("#myBoard " + "." + data.message.position1).css("background", "url('/assets/images/ships/battleship1.png')");
-//            $("#myBoard " + "." + data.message.position2).css("background", "url('/assets/images/ships/battleship2.png')");
-//            $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/battleship3.png')");
-//        }
-//
-//        if(shipType == "Submarine") {
-//            $("#myBoard " + "." + data.message.position0).css("background", "url('/assets/images/ships/submarine0.png')");
-//            $("#myBoard " + "." + data.message.position1).css("background", "url('/assets/images/ships/submarine1.png')");
-//            $("#myBoard " + "." + data.message.position2).css("background", "url('/assets/images/ships/submarine2.png')");
-//        }
-//
-//        if(shipType == "Patrol Ship") {
-//            $("#myBoard " + "." + data.message.position0).css("background", "url('/assets/images/ships/patrolShip0.png')");
-//            $("#myBoard " + "." + data.message.position1).css("background", "url('/assets/images/ships/patrolShip1.png')");
-//        }
-//
-//    }
-
      if(data.kind == 'ship') {
        var shipType = data.message.shipType;
      //        var shipSize = data.message.shipSize;

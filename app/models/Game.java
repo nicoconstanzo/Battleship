@@ -28,6 +28,7 @@ public class Game {
         nPlayer = 2;
         setTurn();
         notifyOponent();
+        notifyTurn();
     }
 
     private void notifyOponent() {
@@ -83,36 +84,36 @@ public class Game {
     }
     
     private FireResult checkFire(Player player, String shot){
-        FireResult fireResult = getFireResult(player, shot);
+        FireResult fireResult = getFireResult(getOpponent(player), shot);
         sendMessage(player,"game", createShotMessage(false,fireResult.name(), shot,fireResult.getCurrentPlayerMessage()));
         sendMessage(getOpponent(player),"game", createShotMessage(true,fireResult.name(), shot,fireResult.getOpponentMessage()));
         return  fireResult;
     }
 
 
-    private FireResult getFireResult (Player player, String shot){
+    private FireResult getFireResult (Player opponentPlayer, String shot){
 
-        if(player.getShots().contains(shot)){
+        if(opponentPlayer.getShots().contains(shot)){
             return FireResult.ALREADY_SHOT;
         }
 
         else{
 
-            List<Ship> ships = player.getShips();
+            List<Ship> ships = opponentPlayer.getShips();
             for (Ship ship : ships) {
                 for (int i = 0; i < ship.getPosition().length; i++) {
                     if (shot.equals(ship.getPosition()[i])) {
                         ship.setHit(ship.getHit() + 1);
                         if (ship.isSunk()) {
-                            player.addShot(shot);
+                            getCurrentPlayer().addShot(shot);
                             return FireResult.SINK;
                         }
-                        player.addShot(shot);
+                        getCurrentPlayer().addShot(shot);
                         return FireResult.HIT;
                     }
                 }
             }
-            player.addShot(shot);
+            getCurrentPlayer().addShot(shot);
             return FireResult.WATER;
         }
     }
@@ -131,7 +132,7 @@ public class Game {
         }
     }
 
-    private List<Ship> getDefaultStrategyA(){
+    public void getDefaultStrategyA(Player player){
 
         List<Ship> strategy = new ArrayList<Ship>();
 
@@ -178,11 +179,11 @@ public class Game {
         strategy.add(patrolShip);
         strategy.add(destroyer);
 
-        return strategy;
+        player.setShips(strategy);
 
     }
 
-    private List<Ship> getDefaultStrategyB(){
+    public void getDefaultStrategyB(Player player){
 
         List<Ship> strategy = new ArrayList<Ship>();
 
@@ -229,7 +230,7 @@ public class Game {
         strategy.add(patrolShip);
         strategy.add(destroyer);
 
-        return strategy;
+        player.setShips(strategy);
 
     }
 
@@ -375,11 +376,6 @@ public class Game {
 
     private Player getCurrentPlayer(){
         return playerOne.isTurn() ? playerOne : playerTwo;
-    }
-
-    private void setStrategy() {
-        playerOne.setShips(getDefaultStrategyA());
-        playerTwo.setShips(getDefaultStrategyB());
     }
 
     public String getGameId() {
