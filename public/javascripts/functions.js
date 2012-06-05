@@ -30,7 +30,6 @@ $("#strategyBoard .boardBody").droppable({
     drop:function (event, ui) {
         var target = event.target;
         $(target).css('background', 'blue')
-        $(target).addClass('taken')
         var shipType = $(ui.draggable).attr('id')
         $(target).addClass(shipType)
     },
@@ -116,6 +115,9 @@ function sendStrategy() {
     var submarine = $('.submarine')
     var battleship = $('.battleship')
     var validation = "false";
+
+    var isOverlap = shipOverlap();
+
 
     if (destroyer) {
         var length = 2;
@@ -225,13 +227,13 @@ function sendStrategy() {
         }
     }
 //    chatSocket.send(JSON.stringify(strategy))
-    if (validation == "true") {
+    if (validation == "true" && isOverlap == "false") {
         console.log(JSON.stringify(strategy));
         sendMessage("strategy", strategy)
         showGame();
     }
-    else if (validation == "false") {
-
+    else if (validation == "false" || isOverlap== "true") {
+        strategy = {}
         var element = $("#notAllowed");
         element.css("display", "block")
         var p = document.createElement("p");
@@ -267,6 +269,129 @@ function validatePlaces(length, xPosition, yPosition, orientation) {
         return "true";
     }
 }
+
+function shipOverlap() {
+
+    var isOverlap = "false"
+
+    var destroyer = $('.destroyer')
+    var patrolShip = $('.patrolShip')
+    var aircraftCarrier = $('.aircraftCarrier')
+    var submarine = $('.submarine')
+    var battleship = $('.battleship')
+
+    var desOrientation = $("#destroyer").attr('data-orientation')
+    var patOrientation = $("#patrolShip").attr('data-orientation')
+    var airOrientation = $("#aircraftCarrier").attr('data-orientation')
+    var subOrientation = $("#submarine").attr('data-orientation')
+    var batOrientation = $("#battleship").attr('data-orientation')
+
+
+    var desPos0x = $(destroyer).data('x')
+    var desPos0y = $(destroyer).data('y')
+    var desPos0 = desPos0x + "" + desPos0y
+    var desPos1;
+
+    if (desOrientation == "horizontal") {
+        desPos1 = (desPos0x + 1) + "" + (desPos0y)
+    } else {
+        desPos1 = (desPos0x) + "" + (desPos0y + 1)
+    }
+
+    var patPos0x = $(patrolShip).data('x')
+    var patPos0y = $(patrolShip).data('y')
+    var patPos0 = patPos0x + "" + patPos0y
+    var patPos1;
+    if (patOrientation == "horizontal") {
+        patPos1 = (patPos0x + 1) + "" + (patPos0y)
+    } else {
+        patPos1 = (patPos0x) + "" + (patPos0y + 1)
+    }
+
+    var subPos0x = $(submarine).data('x')
+    var subPos0y = $(submarine).data('y')
+    var subPos0 = subPos0x + "" + subPos0y;
+    var subPos1;
+    var subPos2;
+    if (subOrientation == "horizontal") {
+        subPos1 = (subPos0x + 1) + "" + (subPos0y)
+        subPos2 = (subPos0x + 2) + "" + (subPos0y)
+
+    } else {
+        subPos1 = (subPos0x) + "" + (subPos0y + 1)
+        subPos2 = (subPos0x) + "" + (subPos0y + 2)
+    }
+
+
+    var batPos0x = $(battleship).data('x')
+    var batPos0y = $(battleship).data('y')
+    var batPos0 = batPos0x + "" + batPos0y;
+    var batPos1;
+    var batPos2;
+    var batPos3;
+    if (batOrientation == "horizontal") {
+        batPos1 = (batPos0x + 1) + "" + (batPos0y)
+        batPos2 = (batPos0x + 2) + "" + (batPos0y)
+        batPos3 = (batPos0x + 3) + "" + (desPos0y)
+    } else {
+        batPos1 = (batPos0x) + "" + (batPos0y + 1)
+        batPos2 = (batPos0x) + "" + (batPos0y + 2)
+        batPos3 = (batPos0x) + "" + (batPos0y + 3)
+    }
+
+    var airPos0x = $(aircraftCarrier).data('x')
+    var airPos0y = $(aircraftCarrier).data('y')
+    var airPos0 = airPos0x + "" + airPos0y;
+    var airPos1;
+    var airPos2;
+    var airPos3;
+    var airPos4;
+    if (airOrientation == "horizontal") {
+        airPos1 = (airPos0x + 1) + "" + (airPos0y)
+        airPos2 = (airPos0x + 2) + "" + (airPos0y)
+        airPos3 = (airPos0x + 3) + "" + (airPos0y)
+        airPos4 = (airPos0x + 4) + "" + (airPos0y)
+    } else {
+        airPos1 = (airPos0x) + "" + (airPos0y + 1)
+        airPos2 = (airPos0x) + "" + (airPos0y + 2)
+        airPos3 = (airPos0x) + "" + (airPos0y + 3)
+        airPos4 = (airPos0x) + "" + (airPos0y + 4)
+    }
+
+
+    var list = []
+    list.push(desPos0, desPos1)
+
+    if (jQuery.inArray(patPos0 || patPos1, list)==-1) {
+        list.push(patPos0, patPos1)
+
+    } else {
+        isOverlap = "true"
+    }
+
+    if (jQuery.inArray(subPos0 || subPos1 || subPos2, list)==-1) {
+        list.push(subPos0, subPos1, subPos2)
+
+    } else {
+        isOverlap = "true"
+    }
+
+    if (jQuery.inArray(batPos0 || batPos1 || batPos2 || batPos3, list) ==-1) {
+        list.push(batPos0, batPos1, batPos2, batPos3)
+    } else {
+        isOverlap = "true"
+    }
+
+    if (jQuery.inArray(airPos0 || airPos1 || airPos2 || airPos3 || airPos4, list) ==-1) {
+        list.push(airPos0, airPos1, airPos2, airPos3, airPos4)
+    } else {
+        isOverlap = "true"
+    }
+    console.log(isOverlap)
+    return isOverlap;
+
+}
+
 
 //function defineStrategy(strategy, shipType) {
 //    console.log(shipType)
