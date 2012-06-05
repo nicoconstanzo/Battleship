@@ -55,6 +55,61 @@ function resetMessage() {
     message.removeChild(message.getElementsByTagName("p")[0]);
 }
 
+//TODOOO
+function getDefaultStrategy(){
+
+    var strategy= {};
+    var horizontal = "horizontal";
+    var vertical = "vertical"
+    strategy["ship0"] = {}
+
+    strategy["ship0"]["name"] = "destroyer";
+    strategy["ship0"]["position"] = {}
+    var destroyerX=Math.floor(Math.random()*8)
+    var destroyerY=Math.floor(Math.random()*8)
+    var orientation= (Math.floor(Math.random()*1)==1) ? horizontal : vertical
+    strategy["ship0"]["orientation"] = orientation;
+    strategy["ship0"]["position"]["x"] = destroyerX;
+    strategy["ship0"]["position"]["y"] = destroyerY;
+    strategy["ship1"] = {}
+    var patrolShipX=Math.floor(Math.random()*8)
+    var patrolShipY=Math.floor(Math.random()*8)
+    strategy["ship1"]["orientation"] = vertical;
+    strategy["ship1"]["name"] = "patrolShip";
+    strategy["ship1"]["position"] = {}
+    strategy["ship1"]["position"]["x"] = patrolShipX;
+    strategy["ship1"]["position"]["y"] = patrolShipY;
+    strategy["ship2"] = {}
+    var aircraftX=Math.floor(Math.random()*5)
+    var aircraftY=Math.floor(Math.random()*5)
+    strategy["ship2"]["orientation"] = horizontal;
+    strategy["ship2"]["name"] = "aircraftCarrier";
+    strategy["ship2"]["position"] = {}
+    strategy["ship2"]["position"]["x"] = aircraftX ;
+    strategy["ship2"]["position"]["y"] = aircraftY ;
+    strategy["ship3"] = {}
+    var submarineX=Math.floor(Math.random()*7)
+    var submarineY=Math.floor(Math.random()*7)
+    strategy["ship3"]["orientation"] = horizontal;
+    strategy["ship3"]["name"] = "submarine";
+    strategy["ship3"]["position"] = {}
+    strategy["ship3"]["position"]["x"] = submarineX;
+    strategy["ship3"]["position"]["y"] = submarineY;
+    strategy["ship4"] = {}
+    var battleshipX=Math.floor(Math.random()*6)
+    var battleshipY=Math.floor(Math.random()*6)
+    strategy["ship4"]["orientation"] = vertical;
+    strategy["ship4"]["name"] = "battleship";
+    strategy["ship4"]["position"] = {}
+    strategy["ship4"]["position"]["x"] = battleshipX;
+    strategy["ship4"]["position"]["y"] = battleshipY;
+
+
+
+    sendMessage("strategy",strategy);
+    console.log(JSON.stringify(strategy));
+    showGame();
+}
 
 function sendStrategy() {
 
@@ -135,7 +190,6 @@ function sendStrategy() {
         strategy["ship4"]["position"]["y"] = yPosition;
     }
 //    chatSocket.send(JSON.stringify(strategy))
-    sendMessage("strategy", strategy)
     sendMessage("strategy", strategy)
     console.log(JSON.stringify(strategy));
     showGame();

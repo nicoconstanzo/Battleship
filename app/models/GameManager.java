@@ -52,20 +52,11 @@ public class GameManager {
                 String messageType = jsonNode.get("kind").asText();
                 String messageText = jsonNode.get("messageText").asText();
                 if (messageType.equals("strategy")) {
-
                     game.setStrategyy(jsonNode, player);
-                    if(game.getOpponent(player).getShips()==null){
-                        sendMessage(player,"strategy", game.getOpponent(player).getUsername() + " is still defining the strategy");
-                        sendMessage(game.getOpponent(player),"strategy", player.getUsername() + " has already define the strategy. Hurry Up!");
-
-                    }else{
-                        game.notifyTurn();
-
-                    }
-
-                game.drawShips(player);
+                    game.drawShips(player);
 
                 }
+
                 if (!game.isStart()) {
                     if (messageType.equals("chat")) {
 
@@ -127,6 +118,7 @@ public class GameManager {
         }
         return game;
     }
+
 
 
 }
