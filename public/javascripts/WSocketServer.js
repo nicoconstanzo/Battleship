@@ -46,26 +46,28 @@ function receiveEvent(event) {
     }
 
     if(data.kind == 'game'){
-
         console.log("Game Data Arriving")
         console.log(data)
-
         // Seteamos el mensaje de texto, lo que aparece en el chat
         $(chatLine).addClass('game');
         $("#user", chatLine).text(data.kind);
         $("p", chatLine).text(data.message.message);
         $('#messages').append(chatLine)
-
-
         var position = data.message.shot;
         console.log("Shot at: " + position)
         var board = data.message.opponent ? $("#myBoard") : $("#opponentBoard")
         var element = $("."+position, board);
 
-
+        if (data.message.subtype == "HIT") {
+            element.css("opacity", "0.3");
+            element.css("filter", "alpha(opacity=30)");
+        }
+        else if (data.message.subtype == "ALREADY_SHOT" || data.message.subtype =="SINK") {
+        // Nothing needs to be done, since no image is required.
+        }
+        else{
         element.css("background", "url('/assets/images/"+ data.message.subtype +".jpg')");
-
-
+        }
         //Play audio effect
         var audio = new Audio("/assets/sounds/" +data.message.subtype + ".mp3");
         audio.play();
