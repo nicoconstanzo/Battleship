@@ -1,4 +1,3 @@
-
 var value = 0;
 
 
@@ -30,16 +29,9 @@ $("#strategyBoard .boardBody").droppable({
     addClasses:false,
     drop:function (event, ui) {
         var target = event.target;
-
         $(target).css('background', 'blue')
-
-//        var targetClass = $(target).attr('class').split(" ")
-//        var yPosition = targetClass[0]
-//        var xPosition = targetClass[1]
         var shipType = $(ui.draggable).attr('id')
-
         $(target).addClass(shipType)
-
     },
     hoverClass:"hoverClass"
 });
@@ -55,49 +47,49 @@ function resetMessage() {
     message.removeChild(message.getElementsByTagName("p")[0]);
 }
 
-//TODOOO
-function getDefaultStrategy(){
+//  TODO
+function getDefaultStrategy() {
 
-    var strategy= {};
+    var strategy = {};
     var horizontal = "horizontal";
     var vertical = "vertical"
     strategy["ship0"] = {}
 
     strategy["ship0"]["name"] = "destroyer";
     strategy["ship0"]["position"] = {}
-    var destroyerX=Math.floor(Math.random()*8)
-    var destroyerY=Math.floor(Math.random()*8)
-    var orientation= (Math.floor(Math.random()*1)==1) ? horizontal : vertical
+    var destroyerX = Math.floor(Math.random() * 8)
+    var destroyerY = Math.floor(Math.random() * 8)
+    var orientation = (Math.floor(Math.random() * 1) == 1) ? horizontal : vertical
     strategy["ship0"]["orientation"] = orientation;
     strategy["ship0"]["position"]["x"] = destroyerX;
     strategy["ship0"]["position"]["y"] = destroyerY;
     strategy["ship1"] = {}
-    var patrolShipX=Math.floor(Math.random()*8)
-    var patrolShipY=Math.floor(Math.random()*8)
+    var patrolShipX = Math.floor(Math.random() * 8)
+    var patrolShipY = Math.floor(Math.random() * 8)
     strategy["ship1"]["orientation"] = vertical;
     strategy["ship1"]["name"] = "patrolShip";
     strategy["ship1"]["position"] = {}
     strategy["ship1"]["position"]["x"] = patrolShipX;
     strategy["ship1"]["position"]["y"] = patrolShipY;
     strategy["ship2"] = {}
-    var aircraftX=Math.floor(Math.random()*5)
-    var aircraftY=Math.floor(Math.random()*5)
+    var aircraftX = Math.floor(Math.random() * 5)
+    var aircraftY = Math.floor(Math.random() * 5)
     strategy["ship2"]["orientation"] = horizontal;
     strategy["ship2"]["name"] = "aircraftCarrier";
     strategy["ship2"]["position"] = {}
-    strategy["ship2"]["position"]["x"] = aircraftX ;
-    strategy["ship2"]["position"]["y"] = aircraftY ;
+    strategy["ship2"]["position"]["x"] = aircraftX;
+    strategy["ship2"]["position"]["y"] = aircraftY;
     strategy["ship3"] = {}
-    var submarineX=Math.floor(Math.random()*7)
-    var submarineY=Math.floor(Math.random()*7)
+    var submarineX = Math.floor(Math.random() * 7)
+    var submarineY = Math.floor(Math.random() * 7)
     strategy["ship3"]["orientation"] = horizontal;
     strategy["ship3"]["name"] = "submarine";
     strategy["ship3"]["position"] = {}
     strategy["ship3"]["position"]["x"] = submarineX;
     strategy["ship3"]["position"]["y"] = submarineY;
     strategy["ship4"] = {}
-    var battleshipX=Math.floor(Math.random()*6)
-    var battleshipY=Math.floor(Math.random()*6)
+    var battleshipX = Math.floor(Math.random() * 6)
+    var battleshipY = Math.floor(Math.random() * 6)
     strategy["ship4"]["orientation"] = vertical;
     strategy["ship4"]["name"] = "battleship";
     strategy["ship4"]["position"] = {}
@@ -105,15 +97,14 @@ function getDefaultStrategy(){
     strategy["ship4"]["position"]["y"] = battleshipY;
 
 
-
-    sendMessage("strategy",strategy);
+    sendMessage("strategy", strategy);
     console.log(JSON.stringify(strategy));
     showGame();
 }
 
 function sendStrategy() {
 
-    var strategy= {};
+    var strategy = {};
     var xPosition;
     var yPosition;
     var orientation;
@@ -123,85 +114,147 @@ function sendStrategy() {
     var aircraftCarrier = $('.aircraftCarrier')
     var submarine = $('.submarine')
     var battleship = $('.battleship')
+    var validation = "false";
 
     if (destroyer) {
+        var length = 2;
         xPosition = destroyer.data('x')
         yPosition = destroyer.data('y')
 
+
         orientation = $("#destroyer").attr('data-orientation')
-        strategy["ship0"] = {}
-        strategy["ship0"]["orientation"] = orientation;
-        strategy["ship0"]["name"] = "destroyer";
-        strategy["ship0"]["position"] = {}
-        strategy["ship0"]["position"]["x"] = xPosition;
-        strategy["ship0"]["position"]["y"] = yPosition;
+
+        var validate = validatePlaces(length, xPosition, yPosition, orientation)
+        if (validate == "true") {
+            strategy["ship0"] = {}
+            strategy["ship0"]["orientation"] = orientation;
+            strategy["ship0"]["name"] = "destroyer";
+            strategy["ship0"]["position"] = {}
+            strategy["ship0"]["position"]["x"] = xPosition;
+            strategy["ship0"]["position"]["y"] = yPosition;
+            validation = "true"
+        }
+        else {
+            validation = "false"
+        }
 //        strategy = defineStrategy("destroyer")
     }
 
     if (patrolShip) {
+        var length = 2;
         xPosition = patrolShip.data('x')
         yPosition = patrolShip.data('y')
         orientation = $("#patrolShip").attr('data-orientation')
-        strategy["ship1"] = {}
-        strategy["ship1"]["orientation"] = orientation;
-        strategy["ship1"]["name"] = "patrolShip";
-        strategy["ship1"]["position"] = {}
-        strategy["ship1"]["position"]["x"] = xPosition;
-        strategy["ship1"]["position"]["y"] = yPosition;
+        var validate = validatePlaces(length, xPosition, yPosition, orientation)
+        if (validate == "true") {
+            strategy["ship1"] = {}
+            strategy["ship1"]["orientation"] = orientation;
+            strategy["ship1"]["name"] = "patrolShip";
+            strategy["ship1"]["position"] = {}
+            strategy["ship1"]["position"]["x"] = xPosition;
+            strategy["ship1"]["position"]["y"] = yPosition;
+            validation = "true"
+        }
+        else {
+            validation = "false"
+        }
+
 //        defineStrategy(strategy, "patrolShip")
     }
 
     if (aircraftCarrier) {
+        var length = 4;
         xPosition = aircraftCarrier.data('x')
         yPosition = aircraftCarrier.data('y')
         orientation = $("#aircraftCarrier").attr('data-orientation')
-        strategy["ship2"] = {}
-        strategy["ship2"]["orientation"] = orientation;
-        strategy["ship2"]["name"] = "aircraftCarrier";
-        strategy["ship2"]["position"] = {}
-        strategy["ship2"]["position"]["x"] = xPosition;
-        strategy["ship2"]["position"]["y"] = yPosition;
+        var validate = validatePlaces(length, xPosition, yPosition, orientation)
+        if (validate == "true") {
+            strategy["ship2"] = {}
+            strategy["ship2"]["orientation"] = orientation;
+            strategy["ship2"]["name"] = "aircraftCarrier";
+            strategy["ship2"]["position"] = {}
+            strategy["ship2"]["position"]["x"] = xPosition;
+            strategy["ship2"]["position"]["y"] = yPosition;
+            validation = "true"
+        }
+        else {
+            validation = "false"
+        }
 //        defineStrategy(strategy, "aircraftCarrier")
 
     }
     if (submarine) {
+        var length = 3;
         xPosition = submarine.data('x')
         yPosition = submarine.data('y')
         orientation = $("#submarine").attr('data-orientation')
-        strategy["ship3"] = {}
-        strategy["ship3"]["orientation"] = orientation;
-        strategy["ship3"]["name"] = "submarine";
-        strategy["ship3"]["position"] = {}
-        strategy["ship3"]["position"]["x"] = xPosition;
-        strategy["ship3"]["position"]["y"] = yPosition;
+        var validate = validatePlaces(length, xPosition, yPosition, orientation)
+        if (validate == "true") {
+            strategy["ship3"] = {}
+            strategy["ship3"]["orientation"] = orientation;
+            strategy["ship3"]["name"] = "submarine";
+            strategy["ship3"]["position"] = {}
+            strategy["ship3"]["position"]["x"] = xPosition;
+            strategy["ship3"]["position"]["y"] = yPosition;
+            validation = "true"
+        }
+        else {
+            validation = "false"
+        }
 //        defineStrategy(strategy, "submarine")
 
 
     }
     if (battleship) {
+        var length = 5;
         xPosition = battleship.data('x')
         yPosition = battleship.data('y')
         orientation = $("#battleship").attr('data-orientation')
-        strategy["ship4"] = {}
-        strategy["ship4"]["orientation"] = orientation;
-        strategy["ship4"]["name"] = "battleship";
-        strategy["ship4"]["position"] = {}
-        strategy["ship4"]["position"]["x"] = xPosition;
-        strategy["ship4"]["position"]["y"] = yPosition;
+        var validate = validatePlaces(length, xPosition, yPosition, orientation)
+        if (validate == "true") {
+            strategy["ship4"] = {}
+            strategy["ship4"]["orientation"] = orientation;
+            strategy["ship4"]["name"] = "battleship";
+            strategy["ship4"]["position"] = {}
+            strategy["ship4"]["position"]["x"] = xPosition;
+            strategy["ship4"]["position"]["y"] = yPosition;
+            validation = "true"
+        } else {
+            validation = "false"
+        }
     }
 //    chatSocket.send(JSON.stringify(strategy))
-    sendMessage("strategy", strategy)
-    console.log(JSON.stringify(strategy));
-    showGame();
+    if (validation == "true") {
+        console.log(JSON.stringify(strategy));
+        sendMessage("strategy", strategy)
+        showGame();
+    }
+    else if (validation == "false") {
+
+        var element = $("#notAllowed");
+        element.css("display", "block")
+        var p = document.createElement("p");
+        p.innerHTML = "You can't place your boat there";
+        element.append(p);
+        var blanket = $("#popUpBlanket");
+        blanket.css("display", "block");
+        blanket.click(function () {
+            element.css("display", "none");
+
+            blanket.css("display", "none");
+        });
+
+    }
+
 
 }
 
 
 function validatePlaces(length, xPosition, yPosition, orientation) {
-    if (orientation == "horizontal" && xPosition > 9 - length) {
+    if (orientation == "horizontal" && (xPosition > 9 - length || !xPosition)) {
         return "false";
     }
-    else if (orientation == "vertical" && yPosition > 9 - length) {
+    else if (orientation == "vertical" && (yPosition > 9 - length || !yPosition)) {
         return "false";
     } else {
         return "true";
