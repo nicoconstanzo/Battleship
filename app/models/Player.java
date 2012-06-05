@@ -12,6 +12,7 @@ public class Player {
     private WebSocket.Out<JsonNode> channel;
     private String gameId;
     private List<Ship> ships;
+    List<String> shots;
 
     private boolean turn;
 
@@ -19,6 +20,7 @@ public class Player {
         username = name;
         channel = out;
         gameId = id;
+        shots = new ArrayList<String>();
     }
 
     public String getUsername() {
@@ -58,8 +60,21 @@ public class Player {
        return false;
     }
 
+
+    public List<String> getShots() {
+        return shots;
+    }
+
+    public void setShots(List<String> shots) {
+        this.shots = shots;
+    }
+
     @Override
     public String toString() {
         return username;
+    }
+
+    public void addShot(String shot) {
+        shots.add(shot);
     }
 }
