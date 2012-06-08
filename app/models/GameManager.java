@@ -31,7 +31,7 @@ public class GameManager {
             Player playerTwo = new Player(username, out, game.getGameId());
             game.setPlayerTwo(playerTwo);
             openWebSocket(in, playerTwo);
-            sendMessage(game.getPlayerOne(), "opponentArrive", "Start Game");
+            sendMessage(game.getPlayerOne(), "opponentReady");
             game.startGame();
 
         } else {
@@ -46,15 +46,18 @@ public class GameManager {
             public void invoke(JsonNode jsonNode) throws Throwable {
                 Game game = getGameById(player.getGameId());
                 String messageType = jsonNode.get("kind").asText();
+                JsonNode jsonMessageText = jsonNode.get("messageText");
                 String messageText = jsonNode.get("messageText").asText();
                 if (messageType.equals("strategy")) {
-                    game.setStrategy(jsonNode, player);
-                    game.drawShips(player);
+                    game.setStrategy(jsonMessageText, player);
+                    drawShips(game,player);
 
                 }
                 if(messageType.equals("randomStrategy")){
                     game.randomStrategy(player);
-                    game.drawShips(player);
+                    drawShips(game,player);
+
+
                 }
 
                 if (!game.isStart()) {
@@ -74,13 +77,9 @@ public class GameManager {
                         player.setAutoplay(true);
                     }
                     if (messageType.equals("hit")) {
-                        if(opponent.isStrategyReady()){
+                        if(player.isStrategyReady() && game.getOpponent(player).isStrategyReady()){
                             game.play(player, messageText);
                         }
-                        else{
-                            sendMessage(player, "wait", opponent.getUsername() +  " Is still defining strategy.");
-                        }
-
                     }
                 }
             }
@@ -127,6 +126,15 @@ public class GameManager {
 
         }
         return game;
+    }
+    
+    private static void drawShips(Game game, Player player) {
+        game.drawShips(player);
+        if(!game.getOpponent(player).isStrategyReady()){
+            sendMessage(player, "waitOpponent", game.getOpponent(player).getUsername() + " is still defining the strategy");
+        }else{
+            sendMessage(game.getOpponent(player),"opponentReady");
+        }
     }
 
 
