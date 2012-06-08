@@ -138,7 +138,7 @@ public class Game {
 
         List<Ship> strategy = player.getShips();
         List<String> allPositions = new ArrayList<String>();
-        
+
         AircraftCarrier aircraftCarrier = (AircraftCarrier) setStrategy(new AircraftCarrier(), allPositions);
         Battleship battleship = (Battleship) setStrategy(new Battleship(), allPositions);
         Submarine submarine = (Submarine) setStrategy(new Submarine(), allPositions);
@@ -187,6 +187,7 @@ public class Game {
     }
 
     public void setStrategy(JsonNode jsonNode, Player player) {
+        player.addShips();
         for(Ship ship: player.getShips()){
             String[] position = new String[ship.getSize()];
             JsonNode shipJson = jsonNode.get(ship.getName());

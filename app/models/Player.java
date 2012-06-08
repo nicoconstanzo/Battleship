@@ -23,11 +23,10 @@ public class Player {
         gameId = id;
         shots = new ArrayList<String>();
         ships = new ArrayList<Ship>();
-        addShips(); //postions will be empty!
         autoplay= false;
     }
 
-    private void addShips() {
+    protected void addShips() {
         AircraftCarrier aircraftCarrier = new AircraftCarrier();
         Battleship battleship = new Battleship();
         Submarine submarine = new Submarine();

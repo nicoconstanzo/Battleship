@@ -240,15 +240,15 @@ function shipOverlap() {
 
 }
 
-function autoPlay(){
-        if(autoplay){
-                   autoplay= false;
-                   $("#autoPlay a").html("AutoPlay!")
-              } else {
-                   autoplay = true;
-                   $("#autoPlay a").html("Deactivate")
-        }
-}
+//function autoPlay(){
+//        if(autoplay){
+//                   autoplay= false;
+//                   $("#autoPlay a").html("AutoPlay!")
+//              } else {
+//                   autoplay = true;
+//                   $("#autoPlay a").html("Deactivate")
+//        }
+//}
 
 
 //function defineStrategy(strategy, shipType) {

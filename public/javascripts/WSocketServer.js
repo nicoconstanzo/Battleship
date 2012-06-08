@@ -66,8 +66,6 @@ function receiveEvent(event) {
          element.css("display","none");
          var blanket = $(popUpBlanket);
          blanket.css("display","none");
-         var img = element.getElementsByTagName("img")[0];
-         img.css("display,none")
          var close = $(".close");
          close.css("display", "block");
          resetMessage();
