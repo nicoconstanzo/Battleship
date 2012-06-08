@@ -161,9 +161,17 @@ public class Game {
         Random random = new Random();
         int positionY = random.nextInt(11-size); //11 because it exclude the result number
         int positionX = random.nextInt(11-size); //11 because it exclude the result number
+        boolean orientation = random.nextBoolean();
+        
         for(int i=0; i<shipPosition.length; i++){
-            String position = String.valueOf(positionX + i).concat(String.valueOf(positionY));
-            if(allPositions.contains(position)){
+            ship.setHorizontal(orientation);
+            String position;
+            if(ship.isHorizontal()){
+                position = String.valueOf(positionX + i).concat(String.valueOf(positionY));
+             }else{
+                position = String.valueOf(positionX).concat(String.valueOf(positionY+i));
+            }
+             if(allPositions.contains(position)){
                 ship = setStrategy(ship, allPositions);
                 break;
             }else{

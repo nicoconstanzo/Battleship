@@ -13,8 +13,7 @@ public class Ship {
     private int size;
     private int hit;
     private String[] position;
-
-
+    private boolean horizontal;
 
     public String getName() {
         return name;
@@ -51,5 +50,16 @@ public class Ship {
     public void setHit(int hit) {
         this.hit = hit;
     }
+
+    public boolean isHorizontal() {
+        return horizontal;
+    }
+
+    public void setHorizontal(boolean horizontal) {
+        this.horizontal = horizontal;
+    }
+
+
+
 
 }
