@@ -91,29 +91,31 @@ public class Game {
     }
 
 
-    private FireResult getFireResult (Player opponentPlayer, String shot){
+    private FireResult getFireResult (Player player, String shot){
 
-        if(opponentPlayer.getShots().contains(shot)){
+        Player opponent = getOpponent(player);
+        
+        if(player.getShots().contains(shot)){
             return FireResult.ALREADY_SHOT;
         }
 
         else{
 
-            List<Ship> ships = opponentPlayer.getShips();
+            List<Ship> ships = opponent.getShips();
             for (Ship ship : ships) {
                 for (int i = 0; i < ship.getPosition().length; i++) {
                     if (shot.equals(ship.getPosition()[i])) {
                         ship.setHit(ship.getHit() + 1);
                         if (ship.isSunk()) {
-                            opponentPlayer.addShot(shot);
+                            player.addShot(shot);
                             return FireResult.SINK;
                         }
-                        opponentPlayer.addShot(shot);
+                        player.addShot(shot);
                         return FireResult.HIT;
                     }
                 }
             }
-            opponentPlayer.addShot(shot);
+            player.addShot(shot);
             return FireResult.WATER;
         }
     }
@@ -131,8 +133,52 @@ public class Game {
             sendMessage(player, "ship", result);
         }
     }
+    
+    public void randomStrategy(Player player){
 
-    public void setStrategyy(JsonNode jsonNode, Player player) {
+        List<Ship> strategy = player.getShips();
+        List<String> allPositions = new ArrayList<String>();
+        
+        AircraftCarrier aircraftCarrier = (AircraftCarrier) setStrategy(new AircraftCarrier(), allPositions);
+        Battleship battleship = (Battleship) setStrategy(new Battleship(), allPositions);
+        Submarine submarine = (Submarine) setStrategy(new Submarine(), allPositions);
+        PatrolShip patrolShip = (PatrolShip) setStrategy(new PatrolShip(), allPositions);
+        Destroyer destroyer = (Destroyer) setStrategy(new Destroyer(), allPositions);
+
+        strategy.add(aircraftCarrier);
+        strategy.add(battleship);
+        strategy.add(submarine);
+        strategy.add(patrolShip);
+        strategy.add(destroyer);
+
+        player.setShips(strategy);
+        
+    }
+    
+    public Ship setStrategy(Ship ship,List<String> allPositions){
+        int size = ship.getSize();
+        String[] shipPosition = new String[size];
+        Random random = new Random();
+        int positionY = random.nextInt(11-size); //11 because it exclude the result number
+        int positionX = random.nextInt(11-size); //11 because it exclude the result number
+        for(int i=0; i<shipPosition.length; i++){
+            String position = String.valueOf(positionX + i).concat(String.valueOf(positionY));
+            if(allPositions.contains(position)){
+                ship = setStrategy(ship, allPositions);
+                break;
+            }else{
+                allPositions.add(position);
+                shipPosition[i]= position;
+            }
+
+        }
+        if(ship.getPosition()==null){
+            ship.setPosition(shipPosition);
+        }
+        return ship;
+    }
+
+    public void setStrategy(JsonNode jsonNode, Player player) {
 
         List<Ship> strategy = player.getShips();
 

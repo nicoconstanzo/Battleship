@@ -48,9 +48,13 @@ public class GameManager {
                 String messageType = jsonNode.get("kind").asText();
                 String messageText = jsonNode.get("messageText").asText();
                 if (messageType.equals("strategy")) {
-                    game.setStrategyy(jsonNode, player);
+                    game.setStrategy(jsonNode, player);
                     game.drawShips(player);
 
+                }
+                if(messageType.equals("randomStrategy")){
+                    game.randomStrategy(player);
+                    game.drawShips(player);
                 }
 
                 if (!game.isStart()) {
