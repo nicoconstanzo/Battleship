@@ -14,6 +14,12 @@ public class Message {
         player.getChannel().write(jsonNode);
     }
 
+    public static void sendMessage(Player player, String kind) {
+        ObjectNode jsonNode = Json.newObject();
+        jsonNode.put("kind", kind);
+        player.getChannel().write(jsonNode);
+    }
+
     public static void sendMessage(Player player, String kind, String message) {
         ObjectNode jsonNode = Json.newObject();
         jsonNode.put("kind", kind);

@@ -61,7 +61,7 @@ function receiveEvent(event) {
         message.appendChild(img);
     }
 
-    if(data.kind == 'opponentArrive'){
+    if(data.kind == 'opponentReady'){
          var element = $(message);
          element.css("display","none");
          var blanket = $(popUpBlanket);

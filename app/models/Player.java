@@ -1,6 +1,6 @@
 package models;
 
-import models.Ship.Ship;
+import models.Ship.*;
 import org.codehaus.jackson.JsonNode;
 import play.mvc.WebSocket;
 
@@ -24,6 +24,20 @@ public class Player {
         shots = new ArrayList<String>();
         ships = new ArrayList<Ship>();
         autoplay= false;
+    }
+
+    protected void addShips() {
+        AircraftCarrier aircraftCarrier = new AircraftCarrier();
+        Battleship battleship = new Battleship();
+        Submarine submarine = new Submarine();
+        PatrolShip patrolShip = new PatrolShip();
+        Destroyer destroyer = new Destroyer();
+
+        ships.add(aircraftCarrier);
+        ships.add(battleship);
+        ships.add(submarine);
+        ships.add(patrolShip);
+        ships.add(destroyer);
     }
 
     public String getUsername() {
