@@ -56,8 +56,6 @@ public class GameManager {
                 if(messageType.equals("randomStrategy")){
                     game.randomStrategy(player);
                     drawShips(game,player);
-
-
                 }
 
                 if (!game.isStart()) {

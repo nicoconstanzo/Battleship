@@ -54,27 +54,35 @@ function getRandomStrategy() {
     showGame();
 }
 
-function createStrategy(strategy, shipName, shipLength, shipOrientation, positionX, positionY){
+function createStrategy(strategy, shipName, shipLength, shipOrientation, positionX, positionY, shipId) {
 
-    strategy[shipName] = {};
-    strategy[shipName] = {};
-    strategy[shipName]["orientation"] = shipOrientation;
-    strategy[shipName]["position"] = {}
-    if(shipOrientation=="vertical"){
-        for(var i=0; i<shipLength;i=i+1){
-            strategy[shipName]["position"][i]={};
-            strategy[shipName]["position"][i]["x"] = positionX;
-            strategy[shipName]["position"][i]["y"] = parseInt(positionY)+i;
+    var valid = validatePlaces(shipLength, positionX, positionY, shipOrientation);
+    if (valid == "true") {
+        strategy[shipName] = {};
+        strategy[shipName] = {};
+        strategy[shipName]["orientation"] = shipOrientation;
+        strategy[shipName]["position"] = {}
+        if (shipOrientation == "vertical") {
+            for (var i = 0; i < shipLength; i = i + 1) {
+                strategy[shipName]["position"][i] = {};
+                strategy[shipName]["position"][i]["x"] = positionX;
+                strategy[shipName]["position"][i]["y"] = parseInt(positionY) + i;
+            }
         }
+
+        if (shipOrientation == "horizontal") {
+            for (var i = 0; i < shipLength; i = i + 1) {
+                strategy[shipName]["position"][i] = {};
+                strategy[shipName]["position"][i]["x"] = parseInt(positionX) + i;
+                strategy[shipName]["position"][i]["y"] = positionY;
+            }
+        }
+        return "true";
+
+    } else {
+        return shipId.attr('id');
     }
 
-    if(shipOrientation=="horizontal"){
-         for(var i=0; i<shipLength;i=i+1){
-           strategy[shipName]["position"][i]={};
-           strategy[shipName]["position"][i]["x"] = parseInt(positionX)+i;
-           strategy[shipName]["position"][i]["y"] = positionY;
-         }
-    }
 }
 
 
@@ -87,15 +95,36 @@ function sendStrategy() {
     var submarine = $('#submarine')
     var battleship = $('#battleship')
 
-    createStrategy(strategy,"Aircraft Carrier",5,aircraftCarrier.attr('data-orientation'), $(".aircraftCarrier").data('x'),$(".aircraftCarrier").data('y'));
-    createStrategy(strategy,"Battleship",4,battleship.attr('data-orientation'),$(".battleship").data('x'),$(".battleship").data('y'));
-    createStrategy(strategy,"Submarine",3,submarine.attr('data-orientation'),$(".submarine").data('x'),$(".submarine").data('y'));
-    createStrategy(strategy,"Patrol Ship",2,patrolShip.attr('data-orientation'),$(".patrolShip").data('x'),$(".patrolShip").data('y'));
-    createStrategy(strategy,"Destroyer",2,destroyer.attr('data-orientation'),$(".destroyer").data('x'),$(".destroyer").data('y'));
 
-    console.log(strategy);
-    sendMessage("strategy", strategy);
-    showGame();
+    var valid1 = createStrategy(strategy,"Aircraft Carrier",5,aircraftCarrier.attr('data-orientation'), $(".aircraftCarrier").data('x'),$(".aircraftCarrier").data('y'), aircraftCarrier);
+    var valid2 = createStrategy(strategy,"Battleship",4,battleship.attr('data-orientation'),$(".battleship").data('x'),$(".battleship").data('y'), battleship);
+    var valid3 = createStrategy(strategy,"Submarine",3,submarine.attr('data-orientation'),$(".submarine").data('x'),$(".submarine").data('y'), submarine);
+    var valid4 = createStrategy(strategy,"Patrol Ship",2,patrolShip.attr('data-orientation'),$(".patrolShip").data('x'),$(".patrolShip").data('y'), patrolShip);
+    var valid5 = createStrategy(strategy,"Destroyer",2,destroyer.attr('data-orientation'),$(".destroyer").data('x'),$(".destroyer").data('y'), destroyer);
+
+
+    if (valid1, valid2, valid3, valid4, valid5 == "true") {
+        console.log(strategy);
+        sendMessage("strategy", strategy);
+        showGame();
+    } else if (valid1 != "true") {
+        $("#"+valid1).effect("pulsate", {times: 2}, 500);
+        strategy = {}
+    } else if (valid2 != "true") {
+        $("#"+valid2).effect("pulsate", {times: 2}, 500);
+        strategy = {}
+    } else if (valid3 != "true") {
+        $("#"+valid3).effect("pulsate", {times: 2}, 500);
+        strategy = {}
+    } else if (valid4 != "true") {
+        $("#"+valid4).effect("pulsate", {times: 2}, 500);
+        strategy = {}
+    } else if (valid5 != "true") {
+        $("#"+valid5).effect("pulsate", {times: 2}, 500);
+        strategy = {}
+    } else {
+        alert ("I shouldn't get here")
+    }
 }
 
 
@@ -103,10 +132,10 @@ function sendStrategy() {
 function validatePlaces(length, xPosition, yPosition, orientation) {
 
 
-    if (orientation == "horizontal" && xPosition > 9 - length) {
+    if (orientation == "horizontal" && xPosition > 10 - length) {
         return "false";
     }
-    else if (orientation == "vertical" && yPosition > 9 - length) {
+    else if (orientation == "vertical" && yPosition > 10 - length) {
         return "false";
     }
     else if (xPosition == null || yPosition == null) {

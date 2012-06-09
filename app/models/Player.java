@@ -13,7 +13,7 @@ public class Player {
     private String gameId;
     private List<Ship> ships;
     List<String> shots;
-  private boolean autoplay;
+    private boolean autoplay;
 
     private boolean turn;
 
@@ -23,7 +23,7 @@ public class Player {
         gameId = id;
         shots = new ArrayList<String>();
         ships = new ArrayList<Ship>();
-        autoplay= false;
+        autoplay = false;
     }
 
     protected void addShips() {
@@ -52,8 +52,8 @@ public class Player {
         return gameId;
     }
 
-    public void setTurn(boolean turn){
-        this.turn =turn;
+    public void setTurn(boolean turn) {
+        this.turn = turn;
 
     }
 
@@ -68,13 +68,13 @@ public class Player {
     public void setShips(List<Ship> ships) {
         this.ships = ships;
     }
-    
-    public boolean isDefeated(){
+
+    public boolean isDefeated() {
         List<Ship> ships = getShips();
-        if(ships.get(0).isSunk()&&ships.get(1).isSunk()&&ships.get(2).isSunk()&&ships.get(3).isSunk()&&ships.get(4).isSunk()){
+        if (ships.get(0).isSunk() && ships.get(1).isSunk() && ships.get(2).isSunk() && ships.get(3).isSunk() && ships.get(4).isSunk()) {
             return true;
         }
-       return false;
+        return false;
     }
 
 
@@ -95,7 +95,7 @@ public class Player {
         shots.add(shot);
     }
 
-    public boolean isStrategyReady(){
+    public boolean isStrategyReady() {
         return !ships.isEmpty();
     }
 

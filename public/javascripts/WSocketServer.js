@@ -69,7 +69,6 @@ function receiveEvent(event) {
          var close = $(".close");
          close.css("display", "block");
          resetMessage();
-
     }
 
     if(data.kind == 'game'){
@@ -249,7 +248,6 @@ function receiveEvent(event) {
                 $("#myBoard "+"."+ data.message.position0).css("-webkit-transform","rotate(90deg)");
                 $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/patrolShip1.png')");
                 $("#myBoard "+"."+ data.message.position1).css("-webkit-transform","rotate(90deg)");
-
             }
         }
      }
