@@ -1,7 +1,7 @@
 
 var value = 0;
-var autoplay = "false";
-var bot = new BattleshipBot();
+//var autoplay = "false";
+//var bot = new BattleshipBot();
 
 $("#aircraftCarrier, #battleship, #destroyer, #patrolShip, #submarine").draggable({
     revert:"invalid",
@@ -31,7 +31,6 @@ $("#strategyBoard .boardBody").droppable({
     addClasses:false,
     drop:function (event, ui) {
         var target = event.target;
-        $(target).css('background', 'blue')
         var shipType = $(ui.draggable).attr('id')
         $(target).addClass(shipType)
     },
@@ -395,15 +394,15 @@ function shipOverlap() {
 
 }
 
-function autoPlay(){
-        if(autoplay){
-                   autoplay= false;
-                   $("#autoPlay a").html("AutoPlay!")
-              } else {
-                   autoplay = true;
-                   $("#autoPlay a").html("Deactivate")
-        }
-}
+//function autoPlay(){
+//        if(autoplay){
+//                   autoplay= false;
+//                   $("#autoPlay a").html("AutoPlay!")
+//              } else {
+//                   autoplay = true;
+//                   $("#autoPlay a").html("Deactivate")
+//        }
+//}
 
 
 //function defineStrategy(strategy, shipType) {

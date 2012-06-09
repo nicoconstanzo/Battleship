@@ -69,8 +69,7 @@ public class Game {
 
     public void notifyTurn() {
            sendMessage(getCurrentPlayer(), "fire", "It's your turn, Fire.");
-           sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() +  " turn!");
-
+//           sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() +  " turn!");
     }
 
     private ObjectNode createShotMessage(Boolean opponent,String fireResultName, String shot, String message)

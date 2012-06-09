@@ -78,10 +78,10 @@ function receiveEvent(event) {
         console.log(data)
 
         // Seteamos el mensaje de texto, lo que aparece en el chat
-        $(chatLine).addClass('game');
-        $("#user", chatLine).text(data.kind);
-        $("p", chatLine).text(data.message.message);
-        $('#messages').append(chatLine)
+//        $(chatLine).addClass('game');
+//        $("#user", chatLine).text(data.kind);
+//        $("p", chatLine).text(data.message.message);
+//        $('#messages').append(chatLine)
 
 
         var position = data.message.shot;
@@ -89,11 +89,11 @@ function receiveEvent(event) {
         var board = data.message.opponent ? $("#myBoard") : $("#opponentBoard")
         var element = $("."+position, board);
 
-        if (data.message.subtype == "HIT") {
+        if (data.message.subtype == "HIT" || data.message.subtype =="SINK") {
             element.css("opacity", "0.3");
             element.css("filter", "alpha(opacity=30)");
         }
-        else if (data.message.subtype == "ALREADY_SHOT" || data.message.subtype =="SINK") {
+        else if (data.message.subtype == "ALREADY_SHOT") {
         // Nothing needs to be done, since no image is required.
         }
         else{
@@ -103,10 +103,7 @@ function receiveEvent(event) {
         var audio = new Audio("/assets/sounds/" +data.message.subtype + ".mp3");
         audio.play();
 
-
-
         if(autoplay){
-
             bot.update(Integer.valueOf(position.substring(0,1)),Integer.valueOf(position.substring(1,2)),data.message.subtype);
         }
 
@@ -154,7 +151,13 @@ function receiveEvent(event) {
         }
     }
 
-    if (data.kind == 'wait' || data.kind == 'start' || data.kind == 'turn' || data.kind == 'strategy') {
+
+    if (data.kind == 'wait') {
+        $("#opponentBoard h2").effect("pulsate", {times: 2}, 500);
+//        $("#opponentBoard .boardBody").css({background: animateTo: "#FFFFFF"}, 1500);
+    }
+
+    if (data.kind == 'start' || data.kind == 'strategy') {
         $(chatLine).addClass('info');
         $("#user", chatLine).text(data.kind);
         $("p", chatLine).text(data.messageText);
@@ -265,7 +268,6 @@ function handleReturnKey(e) {
 
 
 function handleClick(e){
-//        var position = event.target.className.substring(0,event.target.className.indexOf(" "));
     var target = event.target
     var xPosition = $(target).data('x')
     var yPosition = $(target).data('y')
