@@ -175,8 +175,22 @@ function receiveEvent(event) {
         $("#opponentBoard h2").effect("pulsate", {times: 2}, 500);
 //        $("#opponentBoard .boardBody").css({background: animateTo: "#FFFFFF"}, 1500);
     }
-
+    if (data.kind == 'start') {
+        $("#counter").countdown({
+            image:'/assets/images/digits.png',
+            startTime:'01:00',
+            timerEnd:function () {
+                if ($('#strategyRoom').css('display', 'none')) {
+                // Do nothing
+                } else {
+                    getRandomStrategy()
+                }
+            },
+            format:'mm:ss'
+        });
+    }
     if (data.kind == 'start' || data.kind == 'strategy') {
+
         $(chatLine).addClass('info');
         $("#user", chatLine).text(data.kind);
         $("p", chatLine).text(data.messageText);

@@ -3,6 +3,8 @@ var value = 0;
 //var autoplay = "false";
 //var bot = new BattleshipBot();
 
+
+
 $("#aircraftCarrier, #battleship, #destroyer, #patrolShip, #submarine").draggable({
     revert:"invalid",
     snap:'#strategyBoard .boardBody'
@@ -164,6 +166,8 @@ function validatePlaces(length, xPosition, yPosition, orientation) {
         return "true";
     }
 }
+
+
 
 
 //function autoPlay(){
