@@ -88,12 +88,29 @@ function receiveEvent(event) {
         var board = data.message.opponent ? $("#myBoard") : $("#opponentBoard")
         var element = $("."+position, board);
 
-        if (data.message.subtype == "HIT" || data.message.subtype =="SINK") {
-            element.css("opacity", "0.3");
-            element.css("filter", "alpha(opacity=30)");
+
+
+        if (data.message.subtype == "HIT") {
+            if(board.selector == "#myBoard"){
+                element.css("opacity", "0.3");
+                element.css("filter", "alpha(opacity=30)");
+            }
+            else{
+                element.css("background", "url('/assets/images/"+ data.message.subtype +".jpg')");
+            }
+
         }
-        else if (data.message.subtype == "ALREADY_SHOT") {
-        // Nothing needs to be done, since no image is required.
+        else if (data.message.subtype == "ALREADY_SHOT"){
+            // Nothing needs to be done, since no image is required.
+        }
+        else if (data.message.subtype =="SINK") {
+           if(board.selector == "#myBoard"){
+                element.css("opacity", "0.3");
+                element.css("filter", "alpha(opacity=30)");
+           }else{
+                element.css("background", "url('/assets/images/"+ "HIT" +".jpg')");
+           }
+
         }
         else{
         element.css("background", "url('/assets/images/"+ data.message.subtype +".jpg')");
@@ -102,10 +119,13 @@ function receiveEvent(event) {
         var audio = new Audio("/assets/sounds/" +data.message.subtype + ".mp3");
         audio.play();
 
-        if(autoplay){
-            bot.update(Integer.valueOf(position.substring(0,1)),Integer.valueOf(position.substring(1,2)),data.message.subtype);
-        }
 
+//
+//
+//        if(autoplay){
+//
+//            bot.update(Integer.valueOf(position.substring(0,1)),Integer.valueOf(position.substring(1,2)),data.message.subtype);
+//        }
 
 
     }
@@ -143,11 +163,11 @@ function receiveEvent(event) {
         $("#user", chatLine).text(data.kind);
         $("p", chatLine).text(data.messageText);
         $('#messages').append(chatLine)
-        if(autoplay){
-                    var point = bot.suggest();
-                    var position = point.x + point.y;
-                    sendMessage("hit", position);
-        }
+//        if(autoplay){
+//                    var point = bot.suggest();
+//                    var position = point.x + point.y;
+//                    sendMessage("hit", position);
+//        }
     }
 
 
@@ -165,7 +185,6 @@ function receiveEvent(event) {
 
      if(data.kind == 'ship') {
        var shipType = data.message.shipType;
-     //        var shipSize = data.message.shipSize;
         if(shipType=="Aircraft Carrier"){
             if(data.message.position0.substring(0,1)!=data.message.position1.substring(0,1)){
                 $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/aircraftCarrier0.png')");

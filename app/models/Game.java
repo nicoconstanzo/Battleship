@@ -207,17 +207,6 @@ public class Game {
          }
     }
 
-
-
-    @Override
-    public String toString() {
-        return "Game{" +
-                "playerOne=" + playerOne +
-                ", playerTwo=" + playerTwo +
-                ", nPlayer=" + nPlayer +
-                '}';
-    }
-
     public Player getOpponent(Player player){
         Player opponent = isPlayerOne(player) ? getPlayerTwo() : getPlayerOne();
         return opponent;
