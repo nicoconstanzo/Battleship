@@ -204,23 +204,17 @@ function receiveEvent(event) {
      if(data.kind == 'ship') {
         var shipType = data.message.shipType;
         var horizontal = data.message.horizontal;
+        var positions = data.message.positions;
 
-        $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/"+shipType+0+".png')");
-        $("#myBoard "+"."+ data.message.position1).css("background","url('/assets/images/ships/"+shipType+1+".png')");
-        $("#myBoard "+"."+ data.message.position2).css("background","url('/assets/images/ships/"+shipType+2+".png')");
-        $("#myBoard "+"."+ data.message.position3).css("background","url('/assets/images/ships/"+shipType+3+".png')");
-        $("#myBoard "+"."+ data.message.position4).css("background","url('/assets/images/ships/"+shipType+4+".png')");
-        if(horizontal == false){
-            $("#myBoard "+"."+ data.message.position0).css("-webkit-transform","rotate(90deg)");
-            $("#myBoard "+"."+ data.message.position1).css("-webkit-transform","rotate(90deg)");
-            $("#myBoard "+"."+ data.message.position2).css("-webkit-transform","rotate(90deg)");
-            $("#myBoard "+"."+ data.message.position3).css("-webkit-transform","rotate(90deg)");
-            $("#myBoard "+"."+ data.message.position4).css("-webkit-transform","rotate(90deg)");
+        for(var i=0; i<data.message.positions.length; i=i+1){
+             $("#myBoard "+"."+ data.message.positions[i]).css("background","url('/assets/images/ships/"+shipType+i+".png')");
+             if(horizontal == false){
+                    $("#myBoard "+"."+ data.message.positions[i]).css("-webkit-transform","rotate(90deg)");
+             }
         }
      }
 
-    //Allows the chat window to auto scroll down
-    $("#messages").scrollTop($("#messages")[0].scrollHeight);
+    //Allows the chat window to auto scroll down                          $("#messages").scrollTop($("#messages")[0].scrollHeight);
 }
 
 function handleReturnKey(e) {

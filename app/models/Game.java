@@ -148,8 +148,8 @@ public class Game {
             ArrayNode positions = result.putArray("positions");
             for (int i = 0; i < ship.getPosition().length; i++) {
 //                TODO
-                positions.add();
-                result.put("position" + i, ship.getPosition()[i]);
+                positions.add(ship.getPosition()[i]);
+//                result.put("position" + i, ship.getPosition()[i]);
             }
 
             sendMessage(player, "ship", result);
