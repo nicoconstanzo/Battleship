@@ -203,7 +203,6 @@ function receiveEvent(event) {
 
      if(data.kind == 'ship') {
         var shipType = data.message.shipType;
-        var shipSize = data.message.shipSize;
         var horizontal = data.message.horizontal;
 
         $("#myBoard "+"."+ data.message.position0).css("background","url('/assets/images/ships/"+shipType+0+".png')");
@@ -241,5 +240,4 @@ function handleClick(e){
     var position = xPosition +""+ yPosition;
 
     sendMessage("hit", position);
-    console.log('Hiciste click en la posición ' + position);
 }

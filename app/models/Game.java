@@ -2,6 +2,7 @@ package models;
 
 import models.Ship.*;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 import play.libs.Json;
 
@@ -97,7 +98,6 @@ public class Game {
 
     private FireResult getFireResult (Player player, String shot){
 
-        Object[] result = new String[4];
         Player opponent = getOpponent(player);
         FireResult fireResult;
 //        if(player.getShots().contains(shot)){
@@ -144,8 +144,11 @@ public class Game {
             result.put("shipType", ship.getName());
             result.put("shipSize", ship.getSize());
             result.put("horizontal", ship.isHorizontal());
+
+            ArrayNode positions = result.putArray("positions");
             for (int i = 0; i < ship.getPosition().length; i++) {
-                result.put("position"+i, ship.getPosition()[i]);
+                positions.add();
+                result.put("position" + i, ship.getPosition()[i]);
             }
 
             sendMessage(player, "ship", result);
