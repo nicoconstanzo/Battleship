@@ -9,9 +9,15 @@ package models.Ship;
  */
 public class Submarine extends Ship{
 
+    private String name = "submarine";
     public Submarine(){
-        setName("Submarine");
+        setName(name);
         setSize(3);
         setHit(0);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

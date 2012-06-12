@@ -20,6 +20,7 @@ public class Game {
     private Player playerTwo;
     private int nPlayer;
 
+
     public Game() {
         gameId = UUID.randomUUID().toString();
     }
@@ -38,10 +39,10 @@ public class Game {
 
     public void play(Player player, String shot){
         if (getCurrentPlayer() == player) {
-            FireResult fireResult = checkFire(player, shot);
+            FireResult fireResult = getFireResult(player, shot);
             if(fireResult.isAlreadyShot()){
-                sendMessage(getCurrentPlayer(), "fire", "Try again!");
-                sendMessage(getOpponent(getCurrentPlayer()), "turn", "We will give him another chance");
+                sendMessage(getCurrentPlayer(), "fire", "You already shot here, try again!");
+                sendMessage(getOpponent(getCurrentPlayer()), "turn", "They already shot here, we will give him another chance");
             }else if(!player.isDefeated()){
                 changeTurn();
                 notifyTurn();
@@ -56,9 +57,9 @@ public class Game {
 
     private void notifyWinner(Player player, String shot) {
         FireResult win = FireResult.WIN;
-        sendMessage(player,"finish", createShotMessage(false, win.name(), shot, win.getCurrentPlayerMessage()));
+        sendMessage(player,"finish", createShotMessage(false, win.name(), win.getActionAutoPlay(), shot, null, null,false, win.getCurrentPlayerMessage()));
         FireResult loser = FireResult.LOSER;
-        sendMessage(getOpponent(player),"finish", createShotMessage(true, loser.name(), shot, loser.getOpponentMessage()));
+        sendMessage(getOpponent(player),"finish", createShotMessage(true, loser.name(), win.getActionAutoPlay(), shot,null, null,false, loser.getOpponentMessage()));
     }
 
     private void changeTurn(){
@@ -72,33 +73,39 @@ public class Game {
            sendMessage(getOpponent(getCurrentPlayer()), "wait", "It is " + getCurrentPlayer().getUsername() +  " turn!");
     }
 
-    private ObjectNode createShotMessage(Boolean opponent,String fireResultName, String shot, String message)
+    private ObjectNode createShotMessage(Boolean opponent,String fireResultName, String actionAutoPlay, String shot, String shipNameHit,String shipPositionHit, boolean horizontal, String message)
     {
         ObjectNode result = Json.newObject();
         result.put("opponent", opponent);
         result.put("subtype", fireResultName);
+        result.put("autoplay", actionAutoPlay);
         result.put("shot", shot);
+        result.put("ship", createShipMessage(shipNameHit,shipPositionHit,horizontal));
         result.put("message", message);
         return result;
     }
     
-    private FireResult checkFire(Player player, String shot){
-        FireResult fireResult = getFireResult(player, shot);
-        sendMessage(player,"game", createShotMessage(false,fireResult.name(), shot,fireResult.getCurrentPlayerMessage()));
-        sendMessage(getOpponent(player),"game", createShotMessage(true,fireResult.name(), shot,fireResult.getOpponentMessage()));
-        return  fireResult;
+    private ObjectNode createShipMessage(String shipNameHit, String shipPositionHit, boolean horizontal){
+
+        ObjectNode result = Json.newObject();
+        result.put("shipNameHit", shipNameHit);
+        result.put("shipPositionHit", shipPositionHit);
+        result.put("horizontal", horizontal);
+        return result;
     }
 
 
     private FireResult getFireResult (Player player, String shot){
 
+        Object[] result = new String[4];
         Player opponent = getOpponent(player);
-        
-        if(player.getShots().contains(shot)){
-            return FireResult.ALREADY_SHOT;
-        }
+        FireResult fireResult;
+//        if(player.getShots().contains(shot)){
+//            result[2]=FireResult.ALREADY_SHOT.name();
+//            return result;
+//        }
 
-        else{
+//        else{
 
             List<Ship> ships = opponent.getShips();
             for (Ship ship : ships) {
@@ -107,16 +114,26 @@ public class Game {
                         ship.setHit(ship.getHit() + 1);
                         if (ship.isSunk()) {
                             player.addShot(shot);
-                            return FireResult.SINK;
+                            opponent.addShipsSunk(ship);
+                            fireResult = FireResult.SINK;
+                            sendMessage(player,"game", createShotMessage(false,fireResult.name(),fireResult.getActionAutoPlay(), shot, ship.getName(), String.valueOf(i),ship.isHorizontal(), fireResult.getCurrentPlayerMessage()));
+                            sendMessage(getOpponent(player),"game", createShotMessage(true,fireResult.name(),fireResult.getActionAutoPlay(), shot, ship.getName(), String.valueOf(i),ship.isHorizontal(), fireResult.getOpponentMessage()));
+                            return fireResult;
                         }
                         player.addShot(shot);
-                        return FireResult.HIT;
+                        fireResult = FireResult.HIT;
+                        sendMessage(player,"game", createShotMessage(false,fireResult.name(),fireResult.getActionAutoPlay(), shot, ship.getName(), String.valueOf(i),ship.isHorizontal(), fireResult.getCurrentPlayerMessage()));
+                        sendMessage(getOpponent(player),"game", createShotMessage(true,fireResult.name(),fireResult.getActionAutoPlay(), shot, ship.getName(), String.valueOf(i),ship.isHorizontal(), fireResult.getOpponentMessage()));
+                        return fireResult;
+
                     }
                 }
             }
-            player.addShot(shot);
-            return FireResult.WATER;
-        }
+        fireResult = FireResult.WATER;
+        sendMessage(player,"game", createShotMessage(false,fireResult.name(),fireResult.getActionAutoPlay(), shot, null, null,false, fireResult.getCurrentPlayerMessage()));
+        sendMessage(getOpponent(player),"game", createShotMessage(true,fireResult.name(),fireResult.getActionAutoPlay(), shot, null, null,false, fireResult.getOpponentMessage()));
+        return fireResult;
+//        }
     }
 
     public void drawShips(Player player) {
@@ -125,8 +142,10 @@ public class Game {
         for (Ship ship : ships) {
             ObjectNode result = Json.newObject();
             result.put("shipType", ship.getName());
+            result.put("shipSize", ship.getSize());
+            result.put("horizontal", ship.isHorizontal());
             for (int i = 0; i < ship.getPosition().length; i++) {
-                result.put("position" + i, ship.getPosition()[i]);
+                result.put("position"+i, ship.getPosition()[i]);
             }
 
             sendMessage(player, "ship", result);

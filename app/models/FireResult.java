@@ -13,9 +13,12 @@ public enum FireResult {
     private String currentPlayerMessage;
     private String opponentMessage;
 
-    private FireResult(String name, String currentPlayerMessage, String opponentMessage) {
+    private String actionAutoPlay;
+
+    private FireResult(String actionAutoPlay, String currentPlayerMessage, String opponentMessage) {
         this.currentPlayerMessage = currentPlayerMessage;
         this.opponentMessage = opponentMessage;
+        this.actionAutoPlay = actionAutoPlay;
     }
 
     public String getCurrentPlayerMessage() {
@@ -28,5 +31,9 @@ public enum FireResult {
 
     public boolean isAlreadyShot() {
         return equals(ALREADY_SHOT);
+    }
+
+    public String getActionAutoPlay() {
+        return actionAutoPlay;
     }
 }

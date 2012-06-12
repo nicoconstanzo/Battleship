@@ -71,9 +71,6 @@ public class GameManager {
                     if (messageType.equals("chat")) {
                         sendChat(player, opponent, messageText);
                     }
-                    if(messageType.equals("autoplay")){
-                        player.setAutoplay(true);
-                    }
                     if (messageType.equals("hit")) {
                         if(player.isStrategyReady() && game.getOpponent(player).isStrategyReady()){
                             game.play(player, messageText);

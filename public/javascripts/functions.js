@@ -1,7 +1,7 @@
 
 var value = 0;
-//var autoplay = "false";
-//var bot = new BattleshipBot();
+var buttonAutoPlay = false;
+var bot = new BattleshipBot();
 
 
 
@@ -117,11 +117,11 @@ function sendStrategy() {
     var submarine = $('#submarine')
     var battleship = $('#battleship')
 
-    var valid1 = createStrategy(strategy,allPositions,"Aircraft Carrier",5,aircraftCarrier.attr('data-orientation'), $(".aircraftCarrier").data('x'),$(".aircraftCarrier").data('y'), aircraftCarrier);
-    var valid2 = createStrategy(strategy,allPositions,"Battleship",4,battleship.attr('data-orientation'),$(".battleship").data('x'),$(".battleship").data('y'), battleship);
-    var valid3 = createStrategy(strategy,allPositions,"Submarine",3,submarine.attr('data-orientation'),$(".submarine").data('x'),$(".submarine").data('y'), submarine);
-    var valid4 = createStrategy(strategy,allPositions,"Patrol Ship",2,patrolShip.attr('data-orientation'),$(".patrolShip").data('x'),$(".patrolShip").data('y'), patrolShip);
-    var valid5 = createStrategy(strategy,allPositions,"Destroyer",2,destroyer.attr('data-orientation'),$(".destroyer").data('x'),$(".destroyer").data('y'), destroyer);
+    var valid1 = createStrategy(strategy,allPositions,"carrier",5,aircraftCarrier.attr('data-orientation'), $(".aircraftCarrier").data('x'),$(".aircraftCarrier").data('y'), aircraftCarrier);
+    var valid2 = createStrategy(strategy,allPositions,"battleship",4,battleship.attr('data-orientation'),$(".battleship").data('x'),$(".battleship").data('y'), battleship);
+    var valid3 = createStrategy(strategy,allPositions,"submarine",3,submarine.attr('data-orientation'),$(".submarine").data('x'),$(".submarine").data('y'), submarine);
+    var valid4 = createStrategy(strategy,allPositions,"patrol",2,patrolShip.attr('data-orientation'),$(".patrolShip").data('x'),$(".patrolShip").data('y'), patrolShip);
+    var valid5 = createStrategy(strategy,allPositions,"destroyer",2,destroyer.attr('data-orientation'),$(".destroyer").data('x'),$(".destroyer").data('y'), destroyer);
 
 
     if (valid1, valid2, valid3, valid4, valid5 == "true") {
@@ -167,17 +167,15 @@ function validatePlaces(length, xPosition, yPosition, orientation) {
     }
 }
 
+function autoPlay(){
+        if(buttonAutoPlay){
+           buttonAutoPlay= false;
+           $("#autoPlay a").html("AutoPlay!")
+        } else {
+           buttonAutoPlay = true;
+           $("#autoPlay a").html("Deactivate")
+        }
+}
 
-
-
-//function autoPlay(){
-//        if(autoplay){
-//                   autoplay= false;
-//                   $("#autoPlay a").html("AutoPlay!")
-//              } else {
-//                   autoplay = true;
-//                   $("#autoPlay a").html("Deactivate")
-//        }
-//}
 
 

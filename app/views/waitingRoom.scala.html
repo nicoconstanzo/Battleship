@@ -220,7 +220,7 @@
 <section id="game" class="layout">
 
     <div id="autoPlay">
-        <a> AutoPlay!</a>
+        <a onclick="autoPlay()"> AutoPlay!</a>
     </div>
 
 
@@ -552,16 +552,23 @@
 </section>
 
 <div id="message">
+    <img src="/assets/images/257.gif" width="20" height="20"/>
+</div>
+
+<div id="newGame">
     <div class='close'>
-        <a href="@routes.Application.index()" onclick="resetMessage()">
+        <a href="@routes.Application.index()">
             <img src="/assets/images/close.png"/>
         </a>
     </div>
+    <a href="@routes.Application.waitingRoom()">
+        New Game!
+    </a>
 </div>
 
-<div id="notAllowed">
 
-</div>
+
+<div id="notAllowed"></div>
 
 <div id="popUpBlanket" class="popUpBlanket">
 </div>

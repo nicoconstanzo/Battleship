@@ -6,6 +6,7 @@ import play.mvc.WebSocket;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Player {
     private String username;
@@ -13,7 +14,7 @@ public class Player {
     private String gameId;
     private List<Ship> ships;
     List<String> shots;
-    private boolean autoplay;
+    private Stack shipsSunk;
 
     private boolean turn;
 
@@ -23,7 +24,7 @@ public class Player {
         gameId = id;
         shots = new ArrayList<String>();
         ships = new ArrayList<Ship>();
-        autoplay = false;
+        shipsSunk = new Stack();
     }
 
     protected void addShips() {
@@ -70,8 +71,7 @@ public class Player {
     }
 
     public boolean isDefeated() {
-        List<Ship> ships = getShips();
-        if (ships.get(0).isSunk() && ships.get(1).isSunk() && ships.get(2).isSunk() && ships.get(3).isSunk() && ships.get(4).isSunk()) {
+        if (shipsSunk.size()==5) {
             return true;
         }
         return false;
@@ -82,15 +82,6 @@ public class Player {
         return shots;
     }
 
-    public void setShots(List<String> shots) {
-        this.shots = shots;
-    }
-
-    @Override
-    public String toString() {
-        return username;
-    }
-
     public void addShot(String shot) {
         shots.add(shot);
     }
@@ -99,11 +90,13 @@ public class Player {
         return !ships.isEmpty();
     }
 
-    public boolean isAutoplay() {
-        return autoplay;
+
+    public Stack getShipsSunk() {
+        return shipsSunk;
     }
 
-    public void setAutoplay(boolean autoplay) {
-        this.autoplay = autoplay;
+    public void addShipsSunk(Ship shipSunk) {
+        shipsSunk.push(shipSunk);
     }
+
 }

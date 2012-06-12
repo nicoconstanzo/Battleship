@@ -9,10 +9,18 @@ package models.Ship;
  */
 public class Destroyer extends Ship{
 
+    private String name = "destroyer";
+    
     public Destroyer(){
-        setName("Destroyer");
+        setName(name);
         setSize(2);
         setHit(0);
 
+    }
+
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
