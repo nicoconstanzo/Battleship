@@ -329,14 +329,41 @@ footer {
 }
 
 /*TODO add drag & drop, add style*/
-#shipsBoard {
+#holder {
     color: white;
     float: right;
     padding: 40px;
     background: url("/assets/images/dark_bg.jpg");
-    .Border-radius(10px);
-    margin: 50px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin: 25px;
     width: 175px;
+    -moz-box-shadow: 0 0 10px #222 inset;
+    box-shadow: 0 0 10px
+    #222 inset;
+    text-align: left;
+    text-transform: none;
+}
+
+#shipsBoard{
+    position: relative;
+    margin: 10px auto;
+    width: 290px;
+    background: url("/assets/images/main_bg.jpg") repeat-x #AEADAD;
+    border: 1px solid #CCC;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+    color: #666;
+    float: right;
+    margin-right: 61px;
+    padding-top: 10px;
+    padding-left: 17px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .hoverClass{
