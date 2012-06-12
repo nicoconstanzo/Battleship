@@ -116,7 +116,7 @@ public class Game {
                             player.addShot(shot);
                             opponent.addShipsSunk(ship);
                             fireResult = FireResult.SINK;
-                            sendMessage(player,"game", createShotMessage(false,fireResult.name(),fireResult.getActionAutoPlay(), shot, ship.getName(), String.valueOf(i),ship.isHorizontal(), fireResult.getCurrentPlayerMessage()));
+                            sendMessage(player,"game", createShotMessage(false,fireResult.name(),ship.getName(), shot, ship.getName(), String.valueOf(i),ship.isHorizontal(), fireResult.getCurrentPlayerMessage()));
                             sendMessage(getOpponent(player),"game", createShotMessage(true,fireResult.name(),fireResult.getActionAutoPlay(), shot, ship.getName(), String.valueOf(i),ship.isHorizontal(), fireResult.getOpponentMessage()));
                             return fireResult;
                         }

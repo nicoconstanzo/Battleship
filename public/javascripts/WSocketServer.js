@@ -51,7 +51,7 @@ function receiveEvent(event) {
         var blanket = $(popUpBlanket);
         blanket.css("display", "block");
         var p = document.createElement("p");
-        p.innerHTML = data.messageText;
+        p.innerText = data.messageText;
         message.appendChild(p);
     }
 
@@ -124,7 +124,7 @@ function receiveEvent(event) {
         audio.play();
 
 
-        if(buttonAutoPlay){
+        if(buttonAutoPlay == true && data.message.opponent == false){
             bot.update(parseInt(position.substring(0,1)),parseInt(position.substring(1,2)),data.message.autoplay);
             console.log(data.message.autoplay);
         }
@@ -138,8 +138,8 @@ function receiveEvent(event) {
         element.css("display","block");
         var blanket = $(popUpBlanket);
         blanket.css("display", "block");
-        var p = document.createElement("p");
-        p.innerHTML = data.messageText;
+        var p = element.createElement("p");
+        p.innerText = data.messageText;
         message.appendChild(p);
         var audio = new Audio("/assets/sounds/leave.wav");
         audio.play();
@@ -152,9 +152,9 @@ function receiveEvent(event) {
         var blanket = $(popUpBlanket);
         blanket.css("display", "block");
         var element = $(newGame);
+        var p = element.createElement("p");
+        p.innerText = data.message.message;
         element.css("display","block");
-        var p = document.createElement("p");
-        p.innerHTML = data.message.message;
         message.appendChild(p);
 
 
@@ -165,12 +165,15 @@ function receiveEvent(event) {
         $("#user", chatLine).text(data.kind);
         $("p", chatLine).text(data.messageText);
         $('#messages').append(chatLine)
-        if(buttonAutoPlay){
+        if(buttonAutoPlay) {
                     var point = bot.suggest();
-                    var position = point.x + point.y;
-                    sendMessage("hit", position);
+                    var position = (point.x).toString()+ (point.y).toString();
+                    setTimeout(function() {sendMessage("hit", position);},1500);
         }
+
+
     }
+
 
 
     if (data.kind == 'wait') {
