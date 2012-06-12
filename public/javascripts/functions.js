@@ -31,8 +31,19 @@ $("#aircraftCarrier, #submarine, #patrolShip, #destroyer, #battleship").rotate({
 
 $("#strategyBoard .boardBody").droppable({
     addClasses:false,
+//    activate:function(event,ui) {
+//        if(event.target.hasClass('aircraftCarrier')) {
+//            event.target.removeClass("aircraftCarrier")
+//        }
+//    },
     drop:function (event, ui) {
         var target = event.target;
+//        var xPos = $(target).attr('data-x')
+//        var yPos = $(target).attr('data-y')
+//
+//        $(ui.draggable).attr('data-x', xPos)
+//        $(ui.draggable).attr('data-y', yPos)
+
         var shipType = $(ui.draggable).attr('id')
         $(target).addClass(shipType)
     },
@@ -41,8 +52,8 @@ $("#strategyBoard .boardBody").droppable({
 
 
 function showGame() {
-    $('#strategyRoom').css("display", "none");
     $('#game').css("display", "block");
+    $('#strategyRoom').css("display", "none");
 }
 
 function resetMessage() {
@@ -57,7 +68,6 @@ function getRandomStrategy() {
 }
 
 function createStrategy(strategy, allPositions, shipName, shipLength, shipOrientation, positionX, positionY, shipId) {
-
     var valid = validatePlaces(shipLength, positionX, positionY, shipOrientation);
     if (valid == "true") {
         strategy[shipName] = {};
@@ -68,8 +78,7 @@ function createStrategy(strategy, allPositions, shipName, shipLength, shipOrient
             for(var i=0; i<shipLength;i=i+1){
                 posY=(parseInt(positionX)+i);
                 position = positionX + posY.toString();
-                console.log(position);
-                if(jQuery.inArray(position.toString(), allPositions)==1){
+                if(jQuery.inArray(position.toString(), allPositions)>-1){
                     allPositions = {}
                     return shipId.attr('id');
                 }else{
@@ -86,8 +95,7 @@ function createStrategy(strategy, allPositions, shipName, shipLength, shipOrient
             for (var i = 0; i < shipLength; i = i + 1) {
                 posX=(parseInt(positionX)+i);
                 position = posX.toString() + positionY;
-                console.log(position);
-                if(jQuery.inArray(position.toString(), allPositions)==1){
+                if(jQuery.inArray(position.toString(), allPositions)>-1){
                     allPositions = {}
                     return shipId.attr('id');
                 }else{
@@ -109,6 +117,8 @@ function createStrategy(strategy, allPositions, shipName, shipLength, shipOrient
 
 function sendStrategy() {
 
+
+
     var strategy = {}
     var allPositions = []
     var destroyer = $('#destroyer')
@@ -122,9 +132,23 @@ function sendStrategy() {
     var valid3 = createStrategy(strategy,allPositions,"submarine",3,submarine.attr('data-orientation'),$(".submarine").data('x'),$(".submarine").data('y'), submarine);
     var valid4 = createStrategy(strategy,allPositions,"patrol",2,patrolShip.attr('data-orientation'),$(".patrolShip").data('x'),$(".patrolShip").data('y'), patrolShip);
     var valid5 = createStrategy(strategy,allPositions,"destroyer",2,destroyer.attr('data-orientation'),$(".destroyer").data('x'),$(".destroyer").data('y'), destroyer);
+//    var valid1 = createStrategy(strategy,allPositions,"carrier",5,aircraftCarrier.attr('data-orientation'), $(aircraftCarrier).data('x'),$(aircraftCarrier).data('y'), aircraftCarrier);
+//    var valid2 = createStrategy(strategy,allPositions,"battleship",4,battleship.attr('data-orientation'),$(battleship).data('x'),$(battleship).data('y'), battleship);
+//    var valid3 = createStrategy(strategy,allPositions,"submarine",3,submarine.attr('data-orientation'),$(submarine).data('x'),$(submarine).data('y'), submarine);
+//    var valid4 = createStrategy(strategy,allPositions,"patrol",2,patrolShip.attr('data-orientation'),$(patrolShip).data('x'),$(patrolShip).data('y'), patrolShip);
+//    var valid5 = createStrategy(strategy,allPositions,"destroyer",2,destroyer.attr('data-orientation'),$(destroyer).data('x'),$(destroyer).data('y'), destroyer);
 
 
-    if (valid1, valid2, valid3, valid4, valid5 == "true") {
+//    var overlap = "false";
+//    var sorted = allPositions.sort()
+//    for (var i = 0; i < allPositions.length - 1; i++) {
+//        if (sorted[i + 1] == sorted[i]) {
+//            overlap = "true";
+//        }
+//    }
+
+
+    if (valid1 == "true" && valid2 == "true" && valid3 == "true" && valid4=="true" && valid5 == "true") {
         console.log(strategy);
         sendMessage("strategy", strategy);
         showGame();
@@ -144,15 +168,13 @@ function sendStrategy() {
         $("#"+valid5).effect("pulsate", {times: 2}, 500);
         strategy = {}
     } else {
-        alert ("I shouldn't get here")
+//        alert ("I shouldn't get here")
     }
 }
 
 
 
 function validatePlaces(length, xPosition, yPosition, orientation) {
-
-
     if (orientation == "horizontal" && xPosition > 10 - length) {
         return "false";
     }

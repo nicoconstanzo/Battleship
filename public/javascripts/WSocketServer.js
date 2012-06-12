@@ -182,7 +182,7 @@ function receiveEvent(event) {
             image:'/assets/images/digits.png',
             startTime:'01:00',
             timerEnd:function () {
-                if ($('#strategyRoom').css('display', 'none')) {
+                if ($('#game').is(":visible")) {
                 // Do nothing
                 } else {
                     getRandomStrategy()
