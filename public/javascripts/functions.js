@@ -31,21 +31,16 @@ $("#aircraftCarrier, #submarine, #patrolShip, #destroyer, #battleship").rotate({
 
 $("#strategyBoard .boardBody").droppable({
     addClasses:false,
-//    activate:function(event,ui) {
-//        if(event.target.hasClass('aircraftCarrier')) {
-//            event.target.removeClass("aircraftCarrier")
-//        }
-//    },
     drop:function (event, ui) {
         var target = event.target;
-//        var xPos = $(target).attr('data-x')
-//        var yPos = $(target).attr('data-y')
-//
-//        $(ui.draggable).attr('data-x', xPos)
-//        $(ui.draggable).attr('data-y', yPos)
+        var xPos = $(target).attr('data-x')
+        var yPos = $(target).attr('data-y')
 
-        var shipType = $(ui.draggable).attr('id')
-        $(target).addClass(shipType)
+        $(ui.draggable).attr('data-x', xPos)
+        $(ui.draggable).attr('data-y', yPos)
+
+//        var shipType = $(ui.draggable).attr('id')
+//        $(target).addClass(shipType)
     },
     hoverClass:"hoverClass"
 });
@@ -126,17 +121,17 @@ function sendStrategy() {
     var aircraftCarrier = $('#aircraftCarrier')
     var submarine = $('#submarine')
     var battleship = $('#battleship')
-
-    var valid1 = createStrategy(strategy,allPositions,"carrier",5,aircraftCarrier.attr('data-orientation'), $(".aircraftCarrier").data('x'),$(".aircraftCarrier").data('y'), aircraftCarrier);
-    var valid2 = createStrategy(strategy,allPositions,"battleship",4,battleship.attr('data-orientation'),$(".battleship").data('x'),$(".battleship").data('y'), battleship);
-    var valid3 = createStrategy(strategy,allPositions,"submarine",3,submarine.attr('data-orientation'),$(".submarine").data('x'),$(".submarine").data('y'), submarine);
-    var valid4 = createStrategy(strategy,allPositions,"patrol",2,patrolShip.attr('data-orientation'),$(".patrolShip").data('x'),$(".patrolShip").data('y'), patrolShip);
-    var valid5 = createStrategy(strategy,allPositions,"destroyer",2,destroyer.attr('data-orientation'),$(".destroyer").data('x'),$(".destroyer").data('y'), destroyer);
-//    var valid1 = createStrategy(strategy,allPositions,"carrier",5,aircraftCarrier.attr('data-orientation'), $(aircraftCarrier).data('x'),$(aircraftCarrier).data('y'), aircraftCarrier);
-//    var valid2 = createStrategy(strategy,allPositions,"battleship",4,battleship.attr('data-orientation'),$(battleship).data('x'),$(battleship).data('y'), battleship);
-//    var valid3 = createStrategy(strategy,allPositions,"submarine",3,submarine.attr('data-orientation'),$(submarine).data('x'),$(submarine).data('y'), submarine);
-//    var valid4 = createStrategy(strategy,allPositions,"patrol",2,patrolShip.attr('data-orientation'),$(patrolShip).data('x'),$(patrolShip).data('y'), patrolShip);
-//    var valid5 = createStrategy(strategy,allPositions,"destroyer",2,destroyer.attr('data-orientation'),$(destroyer).data('x'),$(destroyer).data('y'), destroyer);
+//
+//    var valid1 = createStrategy(strategy,allPositions,"carrier",5,aircraftCarrier.attr('data-orientation'), $(".aircraftCarrier").data('x'),$(".aircraftCarrier").data('y'), aircraftCarrier);
+//    var valid2 = createStrategy(strategy,allPositions,"battleship",4,battleship.attr('data-orientation'),$(".battleship").data('x'),$(".battleship").data('y'), battleship);
+//    var valid3 = createStrategy(strategy,allPositions,"submarine",3,submarine.attr('data-orientation'),$(".submarine").data('x'),$(".submarine").data('y'), submarine);
+//    var valid4 = createStrategy(strategy,allPositions,"patrol",2,patrolShip.attr('data-orientation'),$(".patrolShip").data('x'),$(".patrolShip").data('y'), patrolShip);
+//    var valid5 = createStrategy(strategy,allPositions,"destroyer",2,destroyer.attr('data-orientation'),$(".destroyer").data('x'),$(".destroyer").data('y'), destroyer);
+    var valid1 = createStrategy(strategy,allPositions,"carrier",5,aircraftCarrier.attr('data-orientation'), $(aircraftCarrier).data('x'),$(aircraftCarrier).data('y'), aircraftCarrier);
+    var valid2 = createStrategy(strategy,allPositions,"battleship",4,battleship.attr('data-orientation'),$(battleship).data('x'),$(battleship).data('y'), battleship);
+    var valid3 = createStrategy(strategy,allPositions,"submarine",3,submarine.attr('data-orientation'),$(submarine).data('x'),$(submarine).data('y'), submarine);
+    var valid4 = createStrategy(strategy,allPositions,"patrol",2,patrolShip.attr('data-orientation'),$(patrolShip).data('x'),$(patrolShip).data('y'), patrolShip);
+    var valid5 = createStrategy(strategy,allPositions,"destroyer",2,destroyer.attr('data-orientation'),$(destroyer).data('x'),$(destroyer).data('y'), destroyer);
 
 
 //    var overlap = "false";

@@ -156,8 +156,6 @@ function receiveEvent(event) {
         p.innerText = data.message.message;
         element.css("display","block");
         $(element).append(p);
-
-
     }
 
     if (data.kind == 'fire') {
@@ -169,7 +167,7 @@ function receiveEvent(event) {
         if(buttonAutoPlay) {
                     var point = bot.suggest();
                     var position = (point.x).toString()+ (point.y).toString();
-                    setTimeout(function() {sendMessage("hit", position);},10);
+                    setTimeout(function() {sendMessage("hit", position);},1500);
         }
 
 
@@ -184,7 +182,7 @@ function receiveEvent(event) {
     if (data.kind == 'start') {
         $("#counter").countdown({
             image:'/assets/images/digits.png',
-            startTime:'01:00',
+            startTime:'10:00',
             timerEnd:function () {
                 if ($('#game').is(":visible")) {
                 // Do nothing
