@@ -134,13 +134,13 @@ function receiveEvent(event) {
 
     if(data.kind =='leave'){
 
-        var element = $(newGame);
+        var element = $('#newGame');
         element.css("display","block");
         var blanket = $(popUpBlanket);
         blanket.css("display", "block");
-        var p = element.createElement("p");
+        var p = document.createElement("p");
         p.innerText = data.messageText;
-        message.appendChild(p);
+        $(element).append(p);
         var audio = new Audio("/assets/sounds/leave.wav");
         audio.play();
     }
@@ -151,24 +151,25 @@ function receiveEvent(event) {
         audio.play();
         var blanket = $(popUpBlanket);
         blanket.css("display", "block");
-        var element = $(newGame);
-        var p = element.createElement("p");
+        var element = $('#newGame');
+        var p = document.createElement("p");
         p.innerText = data.message.message;
         element.css("display","block");
-        message.appendChild(p);
+        $(element).append(p);
 
 
     }
 
     if (data.kind == 'fire') {
-        $(chatLine).addClass('info');
-        $("#user", chatLine).text(data.kind);
-        $("p", chatLine).text(data.messageText);
-        $('#messages').append(chatLine)
+//        $(chatLine).addClass('info');
+//        $("#user", chatLine).text(data.kind);
+//        $("p", chatLine).text(data.messageText);
+//        $('#messages').append(chatLine)
+        $("#myBoard h2").effect("pulsate", {times: 2}, 500);
         if(buttonAutoPlay) {
                     var point = bot.suggest();
                     var position = (point.x).toString()+ (point.y).toString();
-                    setTimeout(function() {sendMessage("hit", position);},1500);
+                    setTimeout(function() {sendMessage("hit", position);},10);
         }
 
 
